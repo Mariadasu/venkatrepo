@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'BubbleBlitz' target in the 'BubbleBlitz' project
+//
+
+#ifdef __OBJC__
+	#import <Foundation/Foundation.h>
+	#import <UIKit/UIKit.h>
+#endif
