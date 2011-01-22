@@ -35,7 +35,7 @@ static int getFactor(int x)
 		}
 		int v = [node getVal];
 		int x = 0;
-		int o = rand() % 4;
+		int o = rand() % 5;
 		switch(o)
 		{
 			case 0:
@@ -60,6 +60,14 @@ static int getFactor(int x)
 				opString = @"/";
 				x = getFactor(v);
 				leftOperand = [[IntegerNode alloc] initNode:node startVal:x*v];
+				rightOperand = [[IntegerNode alloc] initNode:node startVal:x];		
+				break;
+			case 4:
+				opString = @"%";
+				x = rand() % 10;
+				x = (v > x)?(v+1):x;
+				int y = v/x;
+				leftOperand = [[IntegerNode alloc] initNode:node startVal:y*x+v];
 				rightOperand = [[IntegerNode alloc] initNode:node startVal:x];		
 				break;
 		}
@@ -96,7 +104,7 @@ static int getFactor(int x)
 
 - (NSString*) getTreeString
 {
-	if(op != NULL) return [op getResultString];
+	if(op != NULL) return [NSString stringWithFormat:@"%d = %@", val, [op getResultString]];
 	return [NSString stringWithFormat:@"%d", val];
 	
 }
