@@ -5,7 +5,7 @@
 #include <math.h>
 
 static bool seedInit = NO;
-static int LEVEL = 1;
+static int LEVEL = 2;
 
 //function for randomly selecting one factor of the integer x
 static int getFactor(int x)
@@ -82,7 +82,7 @@ static int getFactor(int x)
 - (NSString *) getResultString
 {
 	//pretty sure this leaks memory
-	return [NSString stringWithFormat:@"(%@ %@ %@)",[leftOperand getTreeString],opString,[rightOperand getTreeString]];
+	return [NSString stringWithFormat:@"%@ %@ %@",[leftOperand getTreeString],opString,[rightOperand getTreeString]];
 	
 }
 
@@ -105,7 +105,7 @@ static int getFactor(int x)
 
 - (NSString*) getTreeString
 {
-	int level = LEVEL; // rand() % LEVEL; // to randomize output
+	int level = rand() % LEVEL; // to randomize output
 	if(op != NULL)
 		switch (level) {
 			case(-1):
