@@ -5,7 +5,9 @@
 #include <math.h>
 
 static bool seedInit = NO;
+static bool FIXED = false;
 static int LEVEL = 2;
+static int OPLEVEL = 5;
 
 //function for randomly selecting one factor of the integer x
 static int getFactor(int x)
@@ -36,7 +38,7 @@ static int getFactor(int x)
 		}
 		int v = [node getVal];
 		int x = 0;
-		int o = rand() % 5;
+		int o = FIXED?OPLEVEL:(rand() % OPLEVEL);
 		switch(o)
 		{
 			case 0:
@@ -105,7 +107,7 @@ static int getFactor(int x)
 
 - (NSString*) getTreeString
 {
-	int level = rand() % LEVEL; // to randomize output
+	int level = FIXED?LEVEL:rand() % LEVEL; // to randomize output
 	if(op != NULL)
 		switch (level) {
 			case(-1):
