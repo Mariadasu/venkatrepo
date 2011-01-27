@@ -19,6 +19,7 @@
 #define PTM_RATIO 32
 
 @class Bubble;
+@class WavePool;
 
 // HelloWorld Layer
 @interface GameScene : CCLayer
@@ -29,6 +30,7 @@
 	GLESDebugDraw *m_debugDraw;
 	CGSize screenSize;
 	int maxBubbles;
+	WavePool* waves;
 }
 
 // returns a Scene that contains the HelloWorld as the only child

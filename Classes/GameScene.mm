@@ -10,7 +10,7 @@
 // Import the interfaces
 #import "GameScene.h"
 #import "Bubble.h"
-
+#import "WavePool.h"
 
 // enums that will be used as tags
 enum {
@@ -119,7 +119,10 @@ static GameScene *sharedScene = nil;
 		background = [CCSprite spriteWithFile:@"river-rocks.png"];
 		background.anchorPoint = ccp(0,0);
 		background.position = ccp(0,0);
+		waves = [[WavePool alloc] initWithImage:background size:ccg(30,30)];
+		
 		[self addChild:background z:kTagBackground tag:kTagBackground];
+		[background runAction:waves];
 		
 		maxBubbles = 5;
 		// enable touches
@@ -285,6 +288,8 @@ static GameScene *sharedScene = nil;
 		[self addBubble];
 	
 	[self checkMatches];
+	
+	[waves update:dt];
 	//It is recommended that a fixed time step is used with Box2D for stability
 	//of the simulation, however, we are using a variable time step here.
 	//You need to make an informed choice, the following URL is useful
@@ -306,7 +311,7 @@ static GameScene *sharedScene = nil;
 		CGPoint location = [touch locationInView: [touch view]];
 		
 		location = [[CCDirector sharedDirector] convertToGL: location];
-		
+		[waves addRippleAt:location];
 	}
 }
 

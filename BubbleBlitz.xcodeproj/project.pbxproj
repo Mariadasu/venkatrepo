@@ -139,6 +139,7 @@
 		50F4144910692EE7002A0D5E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F4144410692EE7002A0D5E /* Default.png */; };
 		50F4144A10692EE7002A0D5E /* fps_images.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F4144510692EE7002A0D5E /* fps_images.png */; };
 		50F4144B10692EE7002A0D5E /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F4144610692EE7002A0D5E /* Icon.png */; };
+		791F1FB212ED3B6E0018F651 /* WavePool.mm in Sources */ = {isa = PBXBuildFile; fileRef = 791F1FB112ED3B6E0018F651 /* WavePool.mm */; };
 		797DBA3F12CE8A8A0081E888 /* Bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 797DBA3E12CE8A8A0081E888 /* Bubble.png */; };
 		797DBA8112CE8E670081E888 /* Bubble.mm in Sources */ = {isa = PBXBuildFile; fileRef = 797DBA8012CE8E670081E888 /* Bubble.mm */; };
 		797DBB0212CE946B0081E888 /* IntegerNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 797DBB0112CE946B0081E888 /* IntegerNode.m */; };
@@ -456,6 +457,8 @@
 		50F4144510692EE7002A0D5E /* fps_images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fps_images.png; sourceTree = "<group>"; };
 		50F4144610692EE7002A0D5E /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		50F4144710692EE7002A0D5E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		791F1FB012ED3B6E0018F651 /* WavePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WavePool.h; sourceTree = "<group>"; };
+		791F1FB112ED3B6E0018F651 /* WavePool.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WavePool.mm; sourceTree = "<group>"; };
 		797DBA3E12CE8A8A0081E888 /* Bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bubble.png; sourceTree = "<group>"; };
 		797DBA7F12CE8E670081E888 /* Bubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bubble.h; sourceTree = "<group>"; };
 		797DBA8012CE8E670081E888 /* Bubble.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Bubble.mm; sourceTree = "<group>"; };
@@ -723,6 +726,8 @@
 		2D500B1D0D5A766B00DBA0E3 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				791F1FB012ED3B6E0018F651 /* WavePool.h */,
+				791F1FB112ED3B6E0018F651 /* WavePool.mm */,
 				797DBC8612CEAA9F0081E888 /* explosion.h */,
 				797DBC8712CEAA9F0081E888 /* explosion.mm */,
 				797DBB0012CE946B0081E888 /* IntegerNode.h */,
@@ -1424,6 +1429,7 @@
 				797DBA8112CE8E670081E888 /* Bubble.mm in Sources */,
 				797DBB0212CE946B0081E888 /* IntegerNode.m in Sources */,
 				797DBC8812CEAA9F0081E888 /* explosion.mm in Sources */,
+				791F1FB212ED3B6E0018F651 /* WavePool.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
