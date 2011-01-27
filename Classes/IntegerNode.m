@@ -5,9 +5,9 @@
 #include <math.h>
 
 static bool seedInit = NO;
-static bool FIXED = false;
-static int LEVEL = 2;
-static int OPLEVEL = 5;
+static bool FIXED = true;
+static int LEVEL = -1;
+static int OPLEVEL = 4;
 
 //function for randomly selecting one factor of the integer x
 static int getFactor(int x)
@@ -68,8 +68,8 @@ static int getFactor(int x)
 			case 4:
 				opString = @"%";
 				x = rand() % 10;
-				x = (v > x)?(v+1):x;
-				int y = v/x;
+				x = (v >= x)?(v+1):x;
+				int y = v/x + rand() % 2;
 				leftOperand = [[IntegerNode alloc] initNode:node startVal:y*x+v];
 				rightOperand = [[IntegerNode alloc] initNode:node startVal:x];		
 				break;
