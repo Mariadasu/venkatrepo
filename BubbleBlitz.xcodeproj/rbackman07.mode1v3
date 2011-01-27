@@ -328,7 +328,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>79557F0712F0F4A2003891FA</string>
+										<string>79DCF7DE12F0F8CA006765DB</string>
 										<key>history</key>
 										<array>
 											<string>797DBA6212CE8D400081E888</string>
@@ -366,7 +366,7 @@
 											<string>79557EED12EE477C003891FA</string>
 											<string>79557EEE12EE477C003891FA</string>
 											<string>79557EEF12EE477C003891FA</string>
-											<string>79557EF012EE477C003891FA</string>
+											<string>79557F0712F0F4A2003891FA</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -378,14 +378,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {1149, 561}}</string>
+								<string>{{0, 0}, {1149, 555}}</string>
 								<key>RubberWindowFrame</key>
 								<string>0 59 1440 819 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>561pt</string>
+							<string>555pt</string>
 						</dict>
 						<dict>
 							<key>ContentConfiguration</key>
@@ -398,14 +398,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 566}, {1149, 212}}</string>
+								<string>{{0, 560}, {1149, 218}}</string>
 								<key>RubberWindowFrame</key>
 								<string>0 59 1440 819 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
 							<key>Proportion</key>
-							<string>212pt</string>
+							<string>218pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
@@ -424,9 +424,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>79557ED212EE45FD003891FA</string>
+				<string>79DCF7DF12F0F8CA006765DB</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>79557ED312EE45FD003891FA</string>
+				<string>79DCF7E012F0F8CA006765DB</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -564,7 +564,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>797DBA4712CE8CCE0081E888</string>
 		<string>/Users/rbackman07/Desktop/Order/Iphone/bubble blitz svn/BubbleBlitz.xcodeproj</string>
@@ -591,7 +590,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>WavePool.mm</string>
+								<string></string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -608,8 +607,6 @@
 							<string>330pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -649,7 +646,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>797DBA4712CE8CCE0081E888</string>
-				<string>79557ED412EE45FD003891FA</string>
+				<string>79DCF7E112F0F8CA006765DB</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -771,13 +768,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>79557ED512EE45FD003891FA</string>
+				<string>79DCF7E212F0F8CA006765DB</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>79557ED612EE45FD003891FA</string>
-				<string>79557ED712EE45FD003891FA</string>
-				<string>79557ED812EE45FD003891FA</string>
-				<string>79557ED912EE45FD003891FA</string>
-				<string>79557EDA12EE45FD003891FA</string>
+				<string>79DCF7E312F0F8CA006765DB</string>
+				<string>79DCF7E412F0F8CA006765DB</string>
+				<string>79DCF7E512F0F8CA006765DB</string>
+				<string>79DCF7E612F0F8CA006765DB</string>
+				<string>79DCF7E712F0F8CA006765DB</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
