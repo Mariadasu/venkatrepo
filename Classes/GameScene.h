@@ -24,6 +24,7 @@
 // HelloWorld Layer
 @interface GameScene : CCLayer
 {
+	int difficulty;
 	bool first;
 	CCSprite* background;
 	b2World* world;
@@ -46,4 +47,5 @@
 -(int)getBubbleValue:(int)i;
 -(void)addRippleAt:(CGPoint)p;
 @property (nonatomic,readonly) b2World* world;
+@property (nonatomic,readwrite)int difficulty;
 @end

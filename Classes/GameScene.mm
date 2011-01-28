@@ -11,6 +11,7 @@
 #import "GameScene.h"
 #import "Bubble.h"
 #import "WavePool.h"
+#import "MenuScene.h"
 
 // enums that will be used as tags
 enum {
@@ -25,6 +26,8 @@ enum {
 @implementation GameScene
 
 @synthesize world;
+@synthesize difficulty;
+
 static GameScene *sharedScene = nil;
 
 +(id)scene
@@ -112,16 +115,33 @@ static GameScene *sharedScene = nil;
 	[bg runAction:[CCRipple3D actionWithPosition:p radius:256 waves:3 amplitude:1 grid:ccg(32,24) duration:8]];
 }
 // initialize your instance here
+-(void) pauseScene: (id) sender
+{
+	[[CCDirector sharedDirector] pushScene:[MenuScene scene]];
+}
+
 -(id) init
 {
 	if( (self=[super init])) {
-		
+		difficulty = 1;
 		background = [CCSprite spriteWithFile:@"river-rocks.png"];
 		background.anchorPoint = ccp(0,0);
 		background.position = ccp(0,0);
 		waves = [[WavePool alloc] initWithImage:background size:ccg(30,30)];
 		
 		[self addChild:background z:kTagBackground tag:kTagBackground];
+		
+	
+		CCMenuItemImage *pauseButton = [CCMenuItemImage itemFromNormalImage:@"pause.png" selectedImage:@"pause.png" target:self selector:@selector(pauseScene:)];
+		[pauseButton setScale:3];
+		CCMenu *menu = [CCMenu menuWithItems:pauseButton, nil];
+		
+		menu.position = ccp(32,32);
+		
+		[self addChild: menu z:1];
+		
+		
+		
 		[background runAction:waves];
 		
 		maxBubbles = 5;
@@ -235,6 +255,8 @@ static GameScene *sharedScene = nil;
 
 -(void)addBubble
 {
+	
+	
 	int v = [self needsVal];
 	if(v) 
 	{
@@ -242,7 +264,7 @@ static GameScene *sharedScene = nil;
 	}
 	else 
 	{
-		[self addBubbleAtPosition:ccp(CCRANDOM_0_1()*screenSize.width,CCRANDOM_0_1()*screenSize.height) value:1+CCRANDOM_0_1()*12];	
+		[self addBubbleAtPosition:ccp(CCRANDOM_0_1()*screenSize.width,CCRANDOM_0_1()*screenSize.height) value:1+CCRANDOM_0_1()*12 * difficulty];	
 	}
 
 }
