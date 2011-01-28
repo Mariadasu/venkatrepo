@@ -5,10 +5,9 @@
 #include <math.h>
 
 static bool seedInit = NO;
-static bool OUTFIXED = true;
-static int OUTLEVEL = -1;
+static int OUTMASK = 0xFF;
 static int OPLEVEL = 5;
-static int MASK = 0xFF;
+static int OPMASK = 0xFF;
 
 //function for randomly selecting one factor of the integer x
 static int getFactor(int x)
@@ -40,7 +39,7 @@ static int getFactor(int x)
 		int v = [node getVal];
 		int x = 0;
 		int shift = rand() % OPLEVEL;
-		int o = (1 << shift) & MASK;
+		int o = (1 << shift) & OPMASK;
 		switch(o)
 		{
 			case 1:
@@ -109,14 +108,14 @@ static int getFactor(int x)
 
 - (NSString*) getTreeString
 {
-	int level = OUTFIXED?OUTLEVEL:rand() % OUTLEVEL; // to randomize output
+	int level = (1 << (rand() % 3)) & OUTMASK; // to randomize output
 	if(op != NULL)
 		switch (level) {
-			case(-1):
-					return [NSString stringWithFormat:@"%d = %@", val, [op getResultString]];
-			case(0):
-					return [NSString stringWithFormat:@"%d", val];
 			case(1):
+					return [NSString stringWithFormat:@"%d = %@", val, [op getResultString]];
+			case(2):
+					return [NSString stringWithFormat:@"%d", val];
+			case(4):
 					return [NSString stringWithFormat:@"%@", [op getResultString]];
 		}
 					
