@@ -5,9 +5,10 @@
 #include <math.h>
 
 static bool seedInit = NO;
-static bool FIXED = true;
-static int LEVEL = -1;
-static int OPLEVEL = 4;
+static bool OUTFIXED = true;
+static int OUTLEVEL = -1;
+static int OPLEVEL = 5;
+static int MASK = 0xFF;
 
 //function for randomly selecting one factor of the integer x
 static int getFactor(int x)
@@ -38,34 +39,35 @@ static int getFactor(int x)
 		}
 		int v = [node getVal];
 		int x = 0;
-		int o = FIXED?OPLEVEL:(rand() % OPLEVEL);
+		int shift = rand() % OPLEVEL;
+		int o = (1 << shift) & MASK;
 		switch(o)
 		{
-			case 0:
+			case 1:
 				opString = @"+";
 				x = rand() % v;
 				leftOperand = [[IntegerNode alloc] initNode:node startVal:x];
 				rightOperand = [[IntegerNode alloc] initNode:node startVal:(v-x)];	
 				break;
-			case 1:
+			case 2:
 				opString = @"-";
 				x = v + rand() % v;
 				leftOperand = [[IntegerNode alloc] initNode:node startVal:x];
 				rightOperand = [[IntegerNode alloc] initNode:node startVal:(x-v)];					
 				break;
-			case 2:
+			case 4:
 				opString = @"x";
 				x = getFactor(v);
 				leftOperand = [[IntegerNode alloc] initNode:node startVal:x];
 				rightOperand = [[IntegerNode alloc] initNode:node startVal:(v/x)];	
 				break;
-			case 3:
+			case 8:
 				opString = @"/";
 				x = getFactor(v);
 				leftOperand = [[IntegerNode alloc] initNode:node startVal:x*v];
 				rightOperand = [[IntegerNode alloc] initNode:node startVal:x];		
 				break;
-			case 4:
+			case 16:
 				opString = @"%";
 				x = rand() % 10;
 				x = (v >= x)?(v+1):x;
@@ -107,7 +109,7 @@ static int getFactor(int x)
 
 - (NSString*) getTreeString
 {
-	int level = FIXED?LEVEL:rand() % LEVEL; // to randomize output
+	int level = OUTFIXED?OUTLEVEL:rand() % OUTLEVEL; // to randomize output
 	if(op != NULL)
 		switch (level) {
 			case(-1):
