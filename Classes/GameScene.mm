@@ -124,7 +124,7 @@ static GameScene *sharedScene = nil;
 // initialize your instance here
 -(void) pauseScene: (id) sender
 {
-	[[CCDirector sharedDirector] pushScene:[MenuScene scene]];
+	[[CCDirector sharedDirector] pushScene:[CCTransitionFlipY transitionWithDuration:2 scene:[MenuScene scene] orientation:kOrientationLeftOver]] ;
 }
 
 -(id) init

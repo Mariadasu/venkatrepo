@@ -277,12 +277,13 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
+									<integer>30</integer>
 									<integer>11</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 2}, {269, 760}}</string>
+							<string>{{0, 3}, {269, 760}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -331,7 +332,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>792A087D12F595CC007EC878</string>
+										<string>792A089512F59852007EC878</string>
 										<key>history</key>
 										<array>
 											<string>797DBA6212CE8D400081E888</string>
@@ -368,21 +369,21 @@
 											<string>792A081C12F58FD1007EC878</string>
 											<string>792A081D12F58FD1007EC878</string>
 											<string>792A081E12F58FD1007EC878</string>
-											<string>792A081F12F58FD1007EC878</string>
 											<string>792A082012F58FD1007EC878</string>
 											<string>792A082112F58FD1007EC878</string>
-											<string>792A082212F58FD1007EC878</string>
 											<string>792A082312F58FD1007EC878</string>
 											<string>792A082412F58FD1007EC878</string>
-											<string>792A082512F58FD1007EC878</string>
 											<string>792A082612F58FD1007EC878</string>
 											<string>792A083F12F591A6007EC878</string>
 											<string>792A084012F591A6007EC878</string>
-											<string>792A086D12F59578007EC878</string>
 											<string>792A086F12F59578007EC878</string>
 											<string>792A087012F59578007EC878</string>
-											<string>792A087712F595AB007EC878</string>
-											<string>792A086E12F59578007EC878</string>
+											<string>792A088B12F597F4007EC878</string>
+											<string>792A088C12F597F4007EC878</string>
+											<string>792A088D12F597F4007EC878</string>
+											<string>792A088E12F597F4007EC878</string>
+											<string>792A089312F59852007EC878</string>
+											<string>792A089412F59852007EC878</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -580,7 +581,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>792A087E12F595CC007EC878</string>
+		<string>792A089612F59852007EC878</string>
 		<string>792A06E212F2E3F8007EC878</string>
 		<string>792A06DB12F2E3E3007EC878</string>
 		<string>1CD10A99069EF8BA00B06720</string>
