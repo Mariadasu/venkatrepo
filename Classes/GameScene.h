@@ -32,6 +32,11 @@
 	CGSize screenSize;
 	int maxBubbles;
 	WavePool* waves;
+	bool addition;
+	bool subtraction;
+	bool multiplication;
+	bool remainder;
+	bool division;
 }
 
 // returns a Scene that contains the HelloWorld as the only child
@@ -48,4 +53,9 @@
 -(void)addRippleAt:(CGPoint)p;
 @property (nonatomic,readonly) b2World* world;
 @property (nonatomic,readwrite)int difficulty;
+@property (nonatomic,readwrite)bool addition;
+@property (nonatomic,readwrite)bool subtraction;
+@property (nonatomic,readwrite)bool multiplication;
+@property (nonatomic,readwrite)bool remainder;
+@property (nonatomic,readwrite)bool division;
 @end

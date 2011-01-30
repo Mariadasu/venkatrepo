@@ -8,6 +8,7 @@
 
 #import "MenuScene.h"
 #import "GameScene.h"
+#import "ToggleMenu.h"
 
 // enums that will be used as tags
 enum {
@@ -47,6 +48,27 @@ enum {
 	
 	
 }
+-(void)divToggle: (id) sender
+{
+	[[GameScene scene] setDivision:[(ToggleMenu*)sender toggleOn]];	
+}
+-(void)remToggle: (id) sender
+{
+	[[GameScene scene] setRemainder:[(ToggleMenu*)sender toggleOn]];	
+}
+-(void)subToggle: (id) sender
+{
+	[[GameScene scene] setSubtraction:[(ToggleMenu*)sender toggleOn]];	
+}
+-(void)addToggle: (id) sender
+{
+	[[GameScene scene] setAddition:[(ToggleMenu*)sender toggleOn]];	
+}
+-(void)multToggle: (id) sender
+{
+	[[GameScene scene] setMultiplication:[(ToggleMenu*)sender toggleOn]];	
+}
+
 -(void)makeEasier: (id) sender
 {
 	int diff = [[GameScene scene] difficulty];
@@ -70,6 +92,8 @@ enum {
 		[self addChild:background z:kTagMenuBackground tag:kTagMenuBackground];
 		//[background runAction:[WavePool  waveWithImage:background size:ccg(30,30)]];
 		
+		screenSize = [CCDirector sharedDirector].winSize;
+	
 		
 		
 		//this just pops the menu scene from the director
@@ -92,9 +116,21 @@ enum {
 		CCMenuItem *easier = [CCMenuItemFont itemFromString: @"Easier" target: self selector:@selector(makeEasier:)];
 		easier.position	= ccp(0,-128);
 		
-		CCMenu *menu = [CCMenu menuWithItems:resumeButton,harder,easier, nil];
+		ToggleMenu* divT = [ToggleMenu toggleMenuWithString:@"Division" selector:@selector(divToggle:)];
+		divT.position = ccp(0,-192);
+		ToggleMenu* multT = [ToggleMenu toggleMenuWithString:@"Multiplication" selector:@selector(multToggle:)];
+		multT.position = ccp(0,-256);
+		ToggleMenu* addT = [ToggleMenu toggleMenuWithString:@"Addition" selector:@selector(addToggle:)];
+		addT.position = ccp(0,-320);
+		ToggleMenu* subT = [ToggleMenu toggleMenuWithString:@"Subtraction" selector:@selector(subToggle:)];
+		subT.position = ccp(0,-384);
+		ToggleMenu* remT = [ToggleMenu toggleMenuWithString:@"Remainder" selector:@selector(remToggle:)];
+		remT.position = ccp(0,-448);
+
 		
-		menu.position = ccp(256,400);
+		CCMenu *menu = [CCMenu menuWithItems:resumeButton,harder,easier,divT,multT,addT,subT,remT, nil];
+		
+		menu.position = ccp(512,screenSize.height-32);
 		
 		[self addChild: menu z:1];
 
@@ -106,7 +142,6 @@ enum {
 		// enable accelerometer
 		self.isAccelerometerEnabled = YES;
 		
-		screenSize = [CCDirector sharedDirector].winSize;
 		
 	
 		

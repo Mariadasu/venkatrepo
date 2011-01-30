@@ -28,6 +28,13 @@ enum {
 @synthesize world;
 @synthesize difficulty;
 
+@synthesize addition;
+@synthesize subtraction;
+@synthesize multiplication;
+@synthesize remainder;
+@synthesize division;
+
+
 static GameScene *sharedScene = nil;
 
 +(id)scene
