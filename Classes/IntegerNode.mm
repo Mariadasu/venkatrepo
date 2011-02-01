@@ -1,4 +1,7 @@
 #import "IntegerNode.h"
+#import "GameScene.h"
+
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
@@ -43,22 +46,31 @@ static int getFactor(int x)
 		switch(o)
 		{
 			case 1:
-				opString = @"+";
-				x = rand() % v;
-				leftOperand = [[IntegerNode alloc] initNode:node startVal:x];
-				rightOperand = [[IntegerNode alloc] initNode:node startVal:(v-x)];	
+				if ([[GameScene scene] addition]) 
+				{
+					opString = @"+";
+					x = rand() % v;
+					leftOperand = [[IntegerNode alloc] initNode:node startVal:x];
+					rightOperand = [[IntegerNode alloc] initNode:node startVal:(v-x)];	
+				}
 				break;
 			case 2:
-				opString = @"-";
-				x = v + rand() % v;
-				leftOperand = [[IntegerNode alloc] initNode:node startVal:x];
-				rightOperand = [[IntegerNode alloc] initNode:node startVal:(x-v)];					
+				if ([[GameScene scene] subtraction]) 
+				{
+					opString = @"-";
+					x = v + rand() % v;
+					leftOperand = [[IntegerNode alloc] initNode:node startVal:x];
+					rightOperand = [[IntegerNode alloc] initNode:node startVal:(x-v)];		
+				}
 				break;
 			case 4:
-				opString = @"x";
-				x = getFactor(v);
-				leftOperand = [[IntegerNode alloc] initNode:node startVal:x];
-				rightOperand = [[IntegerNode alloc] initNode:node startVal:(v/x)];	
+				if ([[GameScene scene] multiplication]) 
+				{
+					opString = @"x";
+					x = getFactor(v);
+					leftOperand = [[IntegerNode alloc] initNode:node startVal:x];
+					rightOperand = [[IntegerNode alloc] initNode:node startVal:(v/x)];	
+				}
 				break;
 			case 8:
 				opString = @"/";

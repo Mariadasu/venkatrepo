@@ -131,6 +131,13 @@ static GameScene *sharedScene = nil;
 {
 	if( (self=[super init])) {
 		difficulty = 1;
+		
+		addition = YES;
+		multiplication = YES;
+		division = YES;
+		remainder = YES;
+		addition = YES;
+		
 		background = [CCSprite spriteWithFile:@"river-rocks.png"];
 		background.anchorPoint = ccp(0,0);
 		background.position = ccp(0,0);

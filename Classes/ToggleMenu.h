@@ -15,8 +15,8 @@
 	NSString* labelString;
 }
 
--(id)initWithString:(NSString*)string selector:(SEL)s;
-+(id)toggleMenuWithString:(NSString*)string selector:(SEL)s;
+-(id)initWithString:(NSString*)string selector:(SEL)s value:(bool)val;
++(id)toggleMenuWithString:(NSString*)string selector:(SEL)s  value:(bool)val;
 @property(nonatomic,readonly)bool toggleOn;;
 
 @end

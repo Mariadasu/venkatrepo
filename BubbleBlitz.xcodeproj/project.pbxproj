@@ -142,13 +142,13 @@
 		791F1FB212ED3B6E0018F651 /* WavePool.mm in Sources */ = {isa = PBXBuildFile; fileRef = 791F1FB112ED3B6E0018F651 /* WavePool.mm */; };
 		792A06F312F2E504007EC878 /* menuBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 792A06F212F2E504007EC878 /* menuBackground.jpg */; };
 		792A07A212F2EB7D007EC878 /* resume.png in Resources */ = {isa = PBXBuildFile; fileRef = 792A07A112F2EB7D007EC878 /* resume.png */; };
-		792A07C412F58AE0007EC878 /* ToggleMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 792A07C312F58AE0007EC878 /* ToggleMenu.m */; };
-		792A07C712F58AED007EC878 /* ValueMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 792A07C612F58AED007EC878 /* ValueMenu.m */; };
+		792A07C412F58AE0007EC878 /* ToggleMenu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 792A07C312F58AE0007EC878 /* ToggleMenu.mm */; };
+		792A07C712F58AED007EC878 /* ValueMenu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 792A07C612F58AED007EC878 /* ValueMenu.mm */; };
 		7977E4C912F2DF470069071C /* MenuScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7977E4C812F2DF470069071C /* MenuScene.mm */; };
 		7977E53612F2E2A70069071C /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 7977E53512F2E2A70069071C /* pause.png */; };
 		797DBA3F12CE8A8A0081E888 /* Bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 797DBA3E12CE8A8A0081E888 /* Bubble.png */; };
 		797DBA8112CE8E670081E888 /* Bubble.mm in Sources */ = {isa = PBXBuildFile; fileRef = 797DBA8012CE8E670081E888 /* Bubble.mm */; };
-		797DBB0212CE946B0081E888 /* IntegerNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 797DBB0112CE946B0081E888 /* IntegerNode.m */; };
+		797DBB0212CE946B0081E888 /* IntegerNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 797DBB0112CE946B0081E888 /* IntegerNode.mm */; };
 		797DBC1512CE9F060081E888 /* BubbleGlow.png in Resources */ = {isa = PBXBuildFile; fileRef = 797DBC1412CE9F060081E888 /* BubbleGlow.png */; };
 		797DBC8812CEAA9F0081E888 /* explosion.mm in Sources */ = {isa = PBXBuildFile; fileRef = 797DBC8712CEAA9F0081E888 /* explosion.mm */; };
 		797DBC9712CEAB420081E888 /* smoke.png in Resources */ = {isa = PBXBuildFile; fileRef = 797DBC9612CEAB420081E888 /* smoke.png */; };
@@ -468,9 +468,9 @@
 		792A06F212F2E504007EC878 /* menuBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = menuBackground.jpg; sourceTree = "<group>"; };
 		792A07A112F2EB7D007EC878 /* resume.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resume.png; sourceTree = "<group>"; };
 		792A07C212F58AE0007EC878 /* ToggleMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToggleMenu.h; sourceTree = "<group>"; };
-		792A07C312F58AE0007EC878 /* ToggleMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToggleMenu.m; sourceTree = "<group>"; };
+		792A07C312F58AE0007EC878 /* ToggleMenu.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ToggleMenu.mm; sourceTree = "<group>"; };
 		792A07C512F58AED007EC878 /* ValueMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValueMenu.h; sourceTree = "<group>"; };
-		792A07C612F58AED007EC878 /* ValueMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValueMenu.m; sourceTree = "<group>"; };
+		792A07C612F58AED007EC878 /* ValueMenu.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ValueMenu.mm; sourceTree = "<group>"; };
 		7977E4C712F2DF470069071C /* MenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScene.h; sourceTree = "<group>"; };
 		7977E4C812F2DF470069071C /* MenuScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MenuScene.mm; sourceTree = "<group>"; };
 		7977E53512F2E2A70069071C /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
@@ -478,7 +478,7 @@
 		797DBA7F12CE8E670081E888 /* Bubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bubble.h; sourceTree = "<group>"; };
 		797DBA8012CE8E670081E888 /* Bubble.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Bubble.mm; sourceTree = "<group>"; };
 		797DBB0012CE946B0081E888 /* IntegerNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntegerNode.h; sourceTree = "<group>"; };
-		797DBB0112CE946B0081E888 /* IntegerNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntegerNode.m; sourceTree = "<group>"; };
+		797DBB0112CE946B0081E888 /* IntegerNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IntegerNode.mm; sourceTree = "<group>"; };
 		797DBC1412CE9F060081E888 /* BubbleGlow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BubbleGlow.png; sourceTree = "<group>"; };
 		797DBC8612CEAA9F0081E888 /* explosion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = explosion.h; sourceTree = "<group>"; };
 		797DBC8712CEAA9F0081E888 /* explosion.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = explosion.mm; sourceTree = "<group>"; };
@@ -746,7 +746,7 @@
 				797DBC8612CEAA9F0081E888 /* explosion.h */,
 				797DBC8712CEAA9F0081E888 /* explosion.mm */,
 				797DBB0012CE946B0081E888 /* IntegerNode.h */,
-				797DBB0112CE946B0081E888 /* IntegerNode.m */,
+				797DBB0112CE946B0081E888 /* IntegerNode.mm */,
 				E0F81061120A17DF005866B8 /* GameConfig.h */,
 				50F4143710692D7D002A0D5E /* GLES-Render.h */,
 				50F4143810692D7D002A0D5E /* GLES-Render.mm */,
@@ -761,9 +761,9 @@
 				7977E4C712F2DF470069071C /* MenuScene.h */,
 				7977E4C812F2DF470069071C /* MenuScene.mm */,
 				792A07C212F58AE0007EC878 /* ToggleMenu.h */,
-				792A07C312F58AE0007EC878 /* ToggleMenu.m */,
+				792A07C312F58AE0007EC878 /* ToggleMenu.mm */,
 				792A07C512F58AED007EC878 /* ValueMenu.h */,
-				792A07C612F58AED007EC878 /* ValueMenu.m */,
+				792A07C612F58AED007EC878 /* ValueMenu.mm */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1454,12 +1454,12 @@
 				50F4143910692D7D002A0D5E /* GLES-Render.mm in Sources */,
 				E0F81064120A17DF005866B8 /* RootViewController.mm in Sources */,
 				797DBA8112CE8E670081E888 /* Bubble.mm in Sources */,
-				797DBB0212CE946B0081E888 /* IntegerNode.m in Sources */,
+				797DBB0212CE946B0081E888 /* IntegerNode.mm in Sources */,
 				797DBC8812CEAA9F0081E888 /* explosion.mm in Sources */,
 				791F1FB212ED3B6E0018F651 /* WavePool.mm in Sources */,
 				7977E4C912F2DF470069071C /* MenuScene.mm in Sources */,
-				792A07C412F58AE0007EC878 /* ToggleMenu.m in Sources */,
-				792A07C712F58AED007EC878 /* ValueMenu.m in Sources */,
+				792A07C412F58AE0007EC878 /* ToggleMenu.mm in Sources */,
+				792A07C712F58AED007EC878 /* ValueMenu.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

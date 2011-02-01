@@ -111,20 +111,20 @@ enum {
 		difficultyLabel.position = ccp( 100,320);
 	
 		
-		CCMenuItem *harder = [CCMenuItemFont itemFromString: @"Harder" target: self selector:@selector(makeHarder:)];
+		CCMenuItem *harder = [CCMenuItemFont itemFromString: @"Harder" target: self selector:@selector(makeHarder:) ];
 		harder.position = ccp(0,-64);
 		CCMenuItem *easier = [CCMenuItemFont itemFromString: @"Easier" target: self selector:@selector(makeEasier:)];
 		easier.position	= ccp(0,-128);
 		
-		ToggleMenu* divT = [ToggleMenu toggleMenuWithString:@"Division" selector:@selector(divToggle:)];
+		ToggleMenu* divT = [ToggleMenu toggleMenuWithString:@"Division" selector:@selector(divToggle:) value:[[GameScene scene] division]];
 		divT.position = ccp(0,-192);
-		ToggleMenu* multT = [ToggleMenu toggleMenuWithString:@"Multiplication" selector:@selector(multToggle:)];
+		ToggleMenu* multT = [ToggleMenu toggleMenuWithString:@"Multiplication" selector:@selector(multToggle:) value:[[GameScene scene] multiplication]];
 		multT.position = ccp(0,-256);
-		ToggleMenu* addT = [ToggleMenu toggleMenuWithString:@"Addition" selector:@selector(addToggle:)];
+		ToggleMenu* addT = [ToggleMenu toggleMenuWithString:@"Addition" selector:@selector(addToggle:) value:[[GameScene scene] addition]];
 		addT.position = ccp(0,-320);
-		ToggleMenu* subT = [ToggleMenu toggleMenuWithString:@"Subtraction" selector:@selector(subToggle:)];
+		ToggleMenu* subT = [ToggleMenu toggleMenuWithString:@"Subtraction" selector:@selector(subToggle:) value:[[GameScene scene] subtraction]];
 		subT.position = ccp(0,-384);
-		ToggleMenu* remT = [ToggleMenu toggleMenuWithString:@"Remainder" selector:@selector(remToggle:)];
+		ToggleMenu* remT = [ToggleMenu toggleMenuWithString:@"Remainder" selector:@selector(remToggle:) value:[[GameScene scene] remainder]];
 		remT.position = ccp(0,-448);
 
 		
