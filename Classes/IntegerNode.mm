@@ -1,7 +1,6 @@
 #import "IntegerNode.h"
 #import "GameScene.h"
 
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
@@ -10,7 +9,11 @@
 static bool seedInit = NO;
 static int OUTMASK = 0xFF;
 static int OPLEVEL = 5;
-static int OPMASK = 0xFF;
+static int OPMASK = [[GameScene scene] addition] | 
+					([[GameScene scene] subtraction] << 1) |
+					([[GameScene scene] multiplication] << 2) |
+					([[GameScene scene] division] << 3) |
+					([[GameScene scene] remainder] << 4);
 
 //function for randomly selecting one factor of the integer x
 static int getFactor(int x)
