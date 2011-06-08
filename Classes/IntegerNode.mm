@@ -9,11 +9,12 @@
 static bool seedInit = NO;
 static int OUTMASK = 0xFF;
 static int OPLEVEL = 5;
-static int OPMASK = [[GameScene scene] addition] | 
-					([[GameScene scene] subtraction] << 1) |
-					([[GameScene scene] multiplication] << 2) |
-					([[GameScene scene] division] << 3) |
-					([[GameScene scene] remainder] << 4);
+static int OPMASK = 0xFF;
+/*[[GameScene scene] addition]?1:0 | 
+					([[GameScene scene] subtraction]?1:0 << 1) |
+					([[GameScene scene] multiplication]?1:0 << 2) |
+					([[GameScene scene] division]?1:0 << 3) |
+					([[GameScene scene] remainder]?1:0 << 4); */
 
 //function for randomly selecting one factor of the integer x
 static int getFactor(int x)
