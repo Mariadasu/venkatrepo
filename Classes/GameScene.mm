@@ -21,7 +21,7 @@ enum {
 	kTagBubbleNode,
 	kTagUINode
 };
-
+//test
 
 // HelloWorld implementation
 @implementation GameScene
@@ -43,9 +43,7 @@ static GameScene *sharedScene = nil;
 	if (sharedScene == nil) 
 	{
 	
-		
 		sharedScene = [[[GameScene alloc] init] autorelease];
-		
 	
 	}
 	return sharedScene;	
