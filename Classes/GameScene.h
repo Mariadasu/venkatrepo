@@ -20,10 +20,12 @@
 
 @class Bubble;
 @class WavePool;
-
+@class SoundLayer;
 // HelloWorld Layer
 @interface GameScene : CCLayer
 {
+    SoundLayer* sound;
+    
 	int difficulty;
 	bool first;
 	CCSprite* background;

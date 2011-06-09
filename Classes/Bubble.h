@@ -12,20 +12,30 @@
 
 @interface Bubble : CCNode <CCTargetedTouchDelegate, NSCoding>
 {
-	CCSprite* mySprite;
+	    
 	CCSprite* glowSprite;
-	b2Body* b;
+	
+    NSMutableArray* bodies;
+
+    
+    bool alive;
 	IntegerNode* intNode;
 	CCLabelTTF* label;
 	bool isTouchEnabled_;
 	float glowScale;
-	
+	CGPoint centroid;
 }
+
 -(BOOL)active;
+-(void)calculateCentroid;
 -(void)activate;
 -(void)destroy;
 +(id)bubbleWithPosition:(CGPoint)p value:(int)v;
 -(id)initWithPosition:(CGPoint)p value:(int)v;
+-(void) update: (ccTime) dt;
 -(void) setIsTouchEnabled:(BOOL)enabled priority:(int)pr;
+-(void)addForce:(CGPoint)f;
 -(int)val;
+-(CGPoint)getPosition;
+@property(nonatomic,readonly)bool alive;
 @end

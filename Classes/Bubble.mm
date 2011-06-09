@@ -9,46 +9,77 @@
 #import "Bubble.h"
 #import "GameScene.h"
 #import "explosion.h"
+#import "PhysicsBody.h"
 
 @implementation Bubble
 
-
-
+@synthesize alive;
+-(void)dealloc
+{
+    	
+    [super dealloc];
+    
+}
 +(id)bubbleWithPosition:(CGPoint)p value:(int)v
 {
 	return [[[Bubble alloc]	initWithPosition:p value:(int)v] autorelease];
 }
+
 -(int)val
 {
 	return [intNode getVal];	
 }
+
+-(void)addForce:(CGPoint)f
+{
+    for (PhysicsBody* b in bodies)
+    {
+        [b addForce:f];
+      
+    }    
+}
 -(void)destroy
 {
-	[intNode release];
-	[[GameScene scene] addChild:[RingExplosion explosionAtPosition:mySprite.position]];
-	[[GameScene scene] addChild:[BlockExplosion explosionAtPosition:mySprite.position]];
+	
+    for (PhysicsBody* b in bodies) 
+    {
+        [[GameScene scene] addChild:[RingExplosion explosionAtPosition:[b getPosition]]];
+        [[GameScene scene] addChild:[BlockExplosion explosionAtPosition:[b getPosition]]];
+       
+    }
+	
+    [intNode release];
+	[bodies removeAllObjects];
+    [bodies release];
+    bodies = 0;
+    intNode = 0;
 
 	//[[GameScene scene] addRippleAt:mySprite.position];
-	mySprite=0;
-	glowSprite=0;
 	
-	
-	[[GameScene scene] world]->DestroyBody(b);
-	[self removeFromParentAndCleanup:YES];
+    glowSprite=0;
+    
+    [self removeFromParentAndCleanup:YES];
+   
 	
 }
 -(id)initWithPosition:(CGPoint)p value:(int)v
 {
-	if( (self=[super init])) {
+	if( (self=[super init]))
+    {
 		
+        alive = YES;
 	intNode = [[IntegerNode alloc] initNode:nil startVal:v];
 	[intNode expand];
-	label = [CCLabelTTF labelWithString:[[intNode getTreeString]copy] dimensions:CGSizeMake(128, 64)  alignment:CCTextAlignmentCenter fontName:@"Marker Felt" fontSize:32];
+        label = 0;
+      
+        /*
+         label = [CCLabelTTF labelWithString:[[intNode getTreeString]copy] dimensions:CGSizeMake(128, 64)  alignment:CCTextAlignmentCenter fontName:@"Marker Felt" fontSize:32];
 		label.color = ccc3(0,0,0);
+		 [self addChild:label];
+		*/
+        
 		
-		
-		
-	CCLOG(@"Add sprite %0.2f x %02.f",p.x,p.y);
+	//CCLOG(@"Add sprite %0.2f x %02.f",p.x,p.y);
 	//	CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [self getChildByTag:kTagBatchNode];
 	
 	/*	//We have a 64x64 sprite sheet with 4 different 32x32 images.  The following code is
@@ -56,38 +87,28 @@
 	 int idx = (CCRANDOM_0_1() > .5 ? 0:1);
 	 int idy = (CCRANDOM_0_1() > .5 ? 0:1);
 	 */
-	mySprite = [CCSprite spriteWithFile:@"Bubble.png"];
-	glowSprite = [CCSprite spriteWithFile:@"BubbleGlow.png"];
-		[glowSprite setVisible:NO];
 	
+    bodies = [[NSMutableArray alloc] init];
+        
+    glowSprite = [CCSprite spriteWithFile:@"BubbleGlow.png"];
+	[glowSprite setVisible:NO];
+    [glowSprite setOpacity:180];
+        
 	[self addChild:glowSprite];
-	[self addChild:mySprite ];
-	[self addChild:label];
-		
-	mySprite.position = ccp( p.x, p.y);
 	
-	// Define the dynamic body.
-	//Set up a 1m squared box in the physics world
-	b2BodyDef bodyDef;
-	bodyDef.type = b2_dynamicBody;
+        for (int i=0; i<v; i++) 
+        {
+            [bodies addObject:[PhysicsBody bodyWithPosition:CGPointMake(p.x+CCRANDOM_MINUS1_1()*32 , p.y+CCRANDOM_MINUS1_1()*32)]];
+        }
+        
+        
+        for(PhysicsBody* body in bodies)
+            [self addChild:[body sprite] ];
 	
-	bodyDef.position.Set(p.x/PTM_RATIO, p.y/PTM_RATIO);
-	bodyDef.userData = mySprite;
-	b = [[GameScene scene] world]->CreateBody(&bodyDef);
+       
 	
-	// Define another box shape for our dynamic body.
-	b2CircleShape dynamicCircle;
-	dynamicCircle.m_radius = 64/PTM_RATIO;
-	// Define the dynamic body fixture.
-	b2FixtureDef fixtureDef;
-	fixtureDef.shape = &dynamicCircle;	
-	fixtureDef.density = 1.0f;
-	fixtureDef.friction = 0.3f;
-	fixtureDef.restitution = 0.6f;
 	
-	b->CreateFixture(&fixtureDef);
-	
-	[self schedule: @selector(update:)];
+        //[self schedule: @selector(update:)];
 		
 		[self setIsTouchEnabled:YES priority:1];
 	}
@@ -104,7 +125,10 @@
 	[glowSprite setVisible:YES];
 
 }
-
+-(CGPoint)getPosition
+{
+    return centroid;
+}
 -(void) setIsTouchEnabled:(BOOL)enabled priority:(int)pr
 		{
 			if( isTouchEnabled_ != enabled ) 
@@ -117,14 +141,61 @@
 					[[CCTouchDispatcher sharedDispatcher] removeDelegate:self];
 			}
 		}
+-(void)calculateCentroid
+{
+    
+    centroid = CGPointMake(0, 0);
+    for (PhysicsBody* b in bodies) 
+    {
+        centroid = ccpAdd(centroid, [b getPosition]);
+    }
+    centroid = ccpMult(centroid, 1.0f/[bodies count]);
+    
+}
+
 -(void) update: (ccTime) dt
 {
-		mySprite.position = CGPointMake( b->GetPosition().x * PTM_RATIO, b->GetPosition().y * PTM_RATIO);
-		mySprite.rotation = -1 * CC_RADIANS_TO_DEGREES(b->GetAngle());
-		label.position = mySprite.position;
+
+    for(PhysicsBody* b1 in bodies)
+    {
+       
+        for(PhysicsBody* b2 in bodies)
+        {
+        
+            if(b1!=b2)
+            {
+                
+                CGPoint len = ccpSub([b2 getPosition], [b1 getPosition] );
+                float length = ccpLength(len);
+                
+                if(length>16)
+                {
+                    CGPoint force = ccpNormalize(len);
+                    
+                    force = ccpMult(force, 20000.0f/(length*length));
+                    
+                    // printf("the force is %g\n",ccpLength(force));
+                    [b1 addForce:force ];
+                   [b2 addForce:ccpMult(force, -1.0f)];
+                }
+                
+            }
+        }
+        
+    }
+
+    
+   for(PhysicsBody* body in bodies)
+   {
+       [body update];
+   }
+    
+    [self calculateCentroid];
+    
+        label.position = centroid;
 	//	label.rotation = mySprite.rotation;
-		glowSprite.position = mySprite.position;
-		glowSprite.rotation = mySprite.rotation;
+		glowSprite.position = centroid;
+	//	glowSprite.rotation = centroid;
 		if ([self active]) 
 		{
 			glowScale *= 0.9f;
@@ -145,13 +216,16 @@
 	bool hit = NO;
 	
 	
-	
-	if(ccpDistance(mySprite.position , p ) < 80 ) 
-	{ 
-		hit = YES;
-		[self activate];
-	}
+	for (PhysicsBody* b in bodies) 
+    {
+        if(ccpDistance([b getPosition] , p ) < 80 ) 
+        { 
+            hit = YES;
+            [self activate];
+        }
 
+    }
+	
 	return hit;
 }
 
@@ -186,8 +260,9 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder 
 {
 
-	[aCoder encodeFloat:mySprite.position.x  forKey:@"position_x"];
-	[aCoder encodeFloat:mySprite.position.y  forKey:@"position_y"];
+	
+    [aCoder encodeFloat:centroid.x  forKey:@"position_x"];
+	[aCoder encodeFloat:centroid.y  forKey:@"position_y"];
 	
 	
 }

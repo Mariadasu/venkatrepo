@@ -12,6 +12,7 @@
 #import "Bubble.h"
 #import "WavePool.h"
 #import "MenuScene.h"
+#import "SoundLayer.h"
 
 // enums that will be used as tags
 enum {
@@ -84,6 +85,7 @@ static GameScene *sharedScene = nil;
 			for(Bubble* b in selected)
 			{
 				[b destroy];
+                [sound playSound:POP_SOUND];
 			}
 		}
 
@@ -136,9 +138,14 @@ static GameScene *sharedScene = nil;
 		multiplication = YES;
 		division = YES;
 		remainder = YES;
-		addition = YES;
+		subtraction = YES;
 		
-		background = [CCSprite spriteWithFile:@"river-rocks.png"];
+        
+        sound = [[[SoundLayer alloc] init] autorelease];
+        //[self addChild:sound];
+        [sound loadLayer];
+		
+		background = [CCSprite spriteWithFile:@"gridBackground.png"];
 		background.anchorPoint = ccp(0,0);
 		background.position = ccp(0,0);
 		waves = [[WavePool alloc] initWithImage:background size:ccg(30,30)];
@@ -171,7 +178,7 @@ static GameScene *sharedScene = nil;
 		
 		// Define the gravity vector.
 		b2Vec2 gravity;
-		gravity.Set(0.0f,-10.0f);
+		gravity.Set(0.0f,0.0f);
 		
 		// Do we want to let bodies sleep?
 		// This will speed up the physics simulation
@@ -274,11 +281,11 @@ static GameScene *sharedScene = nil;
 	int v = [self needsVal];
 	if(v) 
 	{
-		[self addBubbleAtPosition:ccp(CCRANDOM_0_1()*screenSize.width,CCRANDOM_0_1()*screenSize.height) value:v];	
+		[self addBubbleAtPosition:ccp(64+CCRANDOM_0_1()*(screenSize.width-128),64+CCRANDOM_0_1()*(screenSize.height-128)) value:v];	
 	}
 	else 
 	{
-		[self addBubbleAtPosition:ccp(CCRANDOM_0_1()*screenSize.width,CCRANDOM_0_1()*screenSize.height) value:1+CCRANDOM_0_1()*12 * difficulty];	
+		[self addBubbleAtPosition:ccp(64+CCRANDOM_0_1()*(screenSize.width-128),64+CCRANDOM_0_1()*(screenSize.height-128)) value:1+CCRANDOM_0_1()*6 * difficulty];	
 	}
 
 }
@@ -320,12 +327,59 @@ static GameScene *sharedScene = nil;
 		first = NO;
 		[self newGame];
 	}
+    
 	while ([self numBubbles]<maxBubbles) 
 		[self addBubble];
 	
+    CCArray* rem = [CCArray array];
+    for(Bubble* b1 in [self bubbles])
+    {
+        if(![b1 alive])
+            [rem addObject:b1];
+    }
+    [[self bubbles] removeObjectsInArray:rem];
+    
+    
+    for(Bubble* b1 in [self bubbles])
+    {
+        
+        for(Bubble* b2 in [self bubbles])
+        {
+            
+            if(b1!=b2)
+            {
+                
+                CGPoint len = ccpSub([b2 getPosition], [b1 getPosition] );
+                float length = ccpLength(len);
+                
+                if(length>32 && length < 512)
+                {
+                    CGPoint force = ccpNormalize(len);
+                    
+                    force = ccpMult(force, 150000.0f/(length*length));
+                    
+                    // printf("the force is %g\n",ccpLength(force));
+                    [b2 addForce:force ];
+                    [b1 addForce:ccpMult(force, -1.0f)];
+                }
+                
+            }
+        }
+        
+    }
+
+    
+    
 	[self checkMatches];
 	
 	[waves update:dt];
+    
+   
+    for (int i=0;i<[self numBubbles];i++) 
+    {
+        [[self getBubble:i] update:dt];
+    }                  
+                   
 	//It is recommended that a fixed time step is used with Box2D for stability
 	//of the simulation, however, we are using a variable time step here.
 	//You need to make an informed choice, the following URL is useful
@@ -353,7 +407,9 @@ static GameScene *sharedScene = nil;
 
 - (void)accelerometer:(UIAccelerometer*)accelerometer didAccelerate:(UIAcceleration*)acceleration
 {	
-	static float prevX=0, prevY=0;
+	
+    /*
+     static float prevX=0, prevY=0;
 	
 	//#define kFilterFactor 0.05f
 #define kFilterFactor 1.0f	// don't use filter. the code is here just as an example
@@ -369,6 +425,7 @@ static GameScene *sharedScene = nil;
 	b2Vec2 gravity( -accelY * 10, accelX * 10);
 	
 	world->SetGravity( gravity );
+     */
 }
 
 // on "dealloc" you need to release all your retained objects
