@@ -1,41 +1,35 @@
 //
-//  Bubble.h
+//  PhysicsBody.h
 //  BubbleBlitz
 //
-//  Created by Robert Backman on 12/31/10.
-//  Copyright 2010 Student: UC Merced. All rights reserved.
+//  Created by Robert Backman on 6/7/11.
+//  Copyright 2011 Student: UC Merced. All rights reserved.
 //
 
 #import "cocos2d.h"
 #import "Box2D.h"
-#import "IntegerNode.h"
 
-@interface Bubble : CCNode <CCTargetedTouchDelegate, NSCoding>
+enum bubble_colors
 {
-	    
-	CCSprite* glowSprite;
-	
-    NSMutableArray* bodies;
+  RED_BUBBLE,
+  BLUE_BUBBLE
+};
 
-    
-    bool alive;
-	IntegerNode* intNode;
-	CCLabelTTF* label;
-	bool isTouchEnabled_;
-	float glowScale;
-	CGPoint centroid;
+@interface Bubble : NSObject 
+{
+    CCSprite* sprite;
+    b2Body* b;
+    int val; 
 }
 
--(BOOL)active;
--(void)calculateCentroid;
--(void)activate;
--(void)destroy;
-+(id)bubbleWithPosition:(CGPoint)p value:(int)v;
--(id)initWithPosition:(CGPoint)p value:(int)v;
--(void) update: (ccTime) dt;
--(void) setIsTouchEnabled:(BOOL)enabled priority:(int)pr;
--(void)addForce:(CGPoint)f;
--(int)val;
+-(id)initWithPosition:(CGPoint)p color:(int)col val:(int)v;
++(id)bubbleWithPosition:(CGPoint)p color:(int)col val:(int)v;
 -(CGPoint)getPosition;
-@property(nonatomic,readonly)bool alive;
+-(void)update;
+-(void)addForce:(CGPoint)f;
+
+
+@property(nonatomic,readonly) CCSprite* sprite;
+@property(nonatomic,readonly) b2Body* b;
+
 @end

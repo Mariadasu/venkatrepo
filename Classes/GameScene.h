@@ -18,7 +18,7 @@
 //to define the ratio so that your most common object type is 1x1 metre.
 #define PTM_RATIO 32
 
-@class Bubble;
+@class MatchObject;
 @class WavePool;
 @class SoundLayer;
 // HelloWorld Layer
@@ -32,7 +32,7 @@
 	b2World* world;
 	GLESDebugDraw *m_debugDraw;
 	CGSize screenSize;
-	int maxBubbles;
+	int maxMatchObjects;
 	WavePool* waves;
 	bool addition;
 	bool subtraction;
@@ -45,14 +45,15 @@
 +(id) scene;
 
 // adds a new sprite at a given coordinate
--(void)addBubble;
--(void) addBubbleAtPosition:(CGPoint)p value:(int)v;
+-(void)addMatchObject;
+-(void) addMatchObjectAtPosition:(CGPoint)p value:(int)v;
 -(void)newGame;
--(CCArray*)bubbles;
--(int)numBubbles;
--(Bubble*)getBubble:(int)i;
--(int)getBubbleValue:(int)i;
+-(CCArray*)MatchObjects;
+-(int)numMatchObjects;
+-(MatchObject*)getMatchObject:(int)i;
+-(int)getMatchObjectValue:(int)i;
 -(void)addRippleAt:(CGPoint)p;
+
 @property (nonatomic,readonly) b2World* world;
 @property (nonatomic,readwrite)int difficulty;
 @property (nonatomic,readwrite)bool addition;

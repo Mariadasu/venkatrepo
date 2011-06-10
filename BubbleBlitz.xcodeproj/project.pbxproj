@@ -146,20 +146,21 @@
 		792A07C712F58AED007EC878 /* ValueMenu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 792A07C612F58AED007EC878 /* ValueMenu.mm */; };
 		7977E4C912F2DF470069071C /* MenuScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7977E4C812F2DF470069071C /* MenuScene.mm */; };
 		7977E53612F2E2A70069071C /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 7977E53512F2E2A70069071C /* pause.png */; };
-		797DBA3F12CE8A8A0081E888 /* Bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 797DBA3E12CE8A8A0081E888 /* Bubble.png */; };
-		797DBA8112CE8E670081E888 /* Bubble.mm in Sources */ = {isa = PBXBuildFile; fileRef = 797DBA8012CE8E670081E888 /* Bubble.mm */; };
+		797DBA3F12CE8A8A0081E888 /* BlueBubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 797DBA3E12CE8A8A0081E888 /* BlueBubble.png */; };
+		797DBA8112CE8E670081E888 /* MatchObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = 797DBA8012CE8E670081E888 /* MatchObject.mm */; };
 		797DBB0212CE946B0081E888 /* IntegerNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 797DBB0112CE946B0081E888 /* IntegerNode.mm */; };
 		797DBC1512CE9F060081E888 /* BubbleGlow.png in Resources */ = {isa = PBXBuildFile; fileRef = 797DBC1412CE9F060081E888 /* BubbleGlow.png */; };
 		797DBC8812CEAA9F0081E888 /* explosion.mm in Sources */ = {isa = PBXBuildFile; fileRef = 797DBC8712CEAA9F0081E888 /* explosion.mm */; };
 		797DBC9712CEAB420081E888 /* smoke.png in Resources */ = {isa = PBXBuildFile; fileRef = 797DBC9612CEAB420081E888 /* smoke.png */; };
 		797DBCCD12CEB0CD0081E888 /* river-rocks.png in Resources */ = {isa = PBXBuildFile; fileRef = 797DBCCC12CEB0CD0081E888 /* river-rocks.png */; };
-		79A49E5413A0804100430071 /* PhysicsBody.mm in Sources */ = {isa = PBXBuildFile; fileRef = 79A49E5113A0804100430071 /* PhysicsBody.mm */; };
+		79A49E5413A0804100430071 /* Bubble.mm in Sources */ = {isa = PBXBuildFile; fileRef = 79A49E5113A0804100430071 /* Bubble.mm */; };
 		79A49E5513A0804100430071 /* SoundLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 79A49E5313A0804100430071 /* SoundLayer.mm */; };
 		79A49E5B13A0806800430071 /* CoinReward.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 79A49E5613A0806800430071 /* CoinReward.mp3 */; };
 		79A49E5C13A0806800430071 /* Grenade.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 79A49E5713A0806800430071 /* Grenade.mp3 */; };
 		79A49E5D13A0806800430071 /* gridBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 79A49E5813A0806800430071 /* gridBackground.png */; };
 		79A49E5E13A0806800430071 /* oyshort.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 79A49E5913A0806800430071 /* oyshort.mp3 */; };
 		79A49E5F13A0806800430071 /* punch.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79A49E5A13A0806800430071 /* punch.wav */; };
+		79E5DABC13A1F2A700C3C4E1 /* RedBubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 79E5DABB13A1F2A700C3C4E1 /* RedBubble.png */; };
 		DC6640030F83B3EA000B3E49 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */; };
 		DC6640050F83B3EA000B3E49 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640040F83B3EA000B3E49 /* OpenAL.framework */; };
 		DCCBF1B70F6022AE0040855A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */; };
@@ -481,9 +482,9 @@
 		7977E4C712F2DF470069071C /* MenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScene.h; sourceTree = "<group>"; };
 		7977E4C812F2DF470069071C /* MenuScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MenuScene.mm; sourceTree = "<group>"; };
 		7977E53512F2E2A70069071C /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
-		797DBA3E12CE8A8A0081E888 /* Bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bubble.png; sourceTree = "<group>"; };
-		797DBA7F12CE8E670081E888 /* Bubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bubble.h; sourceTree = "<group>"; };
-		797DBA8012CE8E670081E888 /* Bubble.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Bubble.mm; sourceTree = "<group>"; };
+		797DBA3E12CE8A8A0081E888 /* BlueBubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlueBubble.png; sourceTree = "<group>"; };
+		797DBA7F12CE8E670081E888 /* MatchObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchObject.h; sourceTree = "<group>"; };
+		797DBA8012CE8E670081E888 /* MatchObject.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MatchObject.mm; sourceTree = "<group>"; };
 		797DBB0012CE946B0081E888 /* IntegerNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntegerNode.h; sourceTree = "<group>"; };
 		797DBB0112CE946B0081E888 /* IntegerNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IntegerNode.mm; sourceTree = "<group>"; };
 		797DBC1412CE9F060081E888 /* BubbleGlow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BubbleGlow.png; sourceTree = "<group>"; };
@@ -491,8 +492,8 @@
 		797DBC8712CEAA9F0081E888 /* explosion.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = explosion.mm; sourceTree = "<group>"; };
 		797DBC9612CEAB420081E888 /* smoke.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smoke.png; sourceTree = "<group>"; };
 		797DBCCC12CEB0CD0081E888 /* river-rocks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "river-rocks.png"; sourceTree = "<group>"; };
-		79A49E5013A0804100430071 /* PhysicsBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicsBody.h; sourceTree = "<group>"; };
-		79A49E5113A0804100430071 /* PhysicsBody.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PhysicsBody.mm; sourceTree = "<group>"; };
+		79A49E5013A0804100430071 /* Bubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bubble.h; sourceTree = "<group>"; };
+		79A49E5113A0804100430071 /* Bubble.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Bubble.mm; sourceTree = "<group>"; };
 		79A49E5213A0804100430071 /* SoundLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundLayer.h; sourceTree = "<group>"; };
 		79A49E5313A0804100430071 /* SoundLayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SoundLayer.mm; sourceTree = "<group>"; };
 		79A49E5613A0806800430071 /* CoinReward.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CoinReward.mp3; sourceTree = "<group>"; };
@@ -500,6 +501,7 @@
 		79A49E5813A0806800430071 /* gridBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gridBackground.png; sourceTree = "<group>"; };
 		79A49E5913A0806800430071 /* oyshort.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = oyshort.mp3; sourceTree = "<group>"; };
 		79A49E5A13A0806800430071 /* punch.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = punch.wav; sourceTree = "<group>"; };
+		79E5DABB13A1F2A700C3C4E1 /* RedBubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedBubble.png; sourceTree = "<group>"; };
 		DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		DC6640040F83B3EA000B3E49 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -757,33 +759,12 @@
 		2D500B1D0D5A766B00DBA0E3 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				79A49E5013A0804100430071 /* PhysicsBody.h */,
-				79A49E5113A0804100430071 /* PhysicsBody.mm */,
-				79A49E5213A0804100430071 /* SoundLayer.h */,
-				79A49E5313A0804100430071 /* SoundLayer.mm */,
-				791F1FB012ED3B6E0018F651 /* WavePool.h */,
-				791F1FB112ED3B6E0018F651 /* WavePool.mm */,
-				797DBC8612CEAA9F0081E888 /* explosion.h */,
-				797DBC8712CEAA9F0081E888 /* explosion.mm */,
-				797DBB0012CE946B0081E888 /* IntegerNode.h */,
-				797DBB0112CE946B0081E888 /* IntegerNode.mm */,
 				E0F81061120A17DF005866B8 /* GameConfig.h */,
-				50F4143710692D7D002A0D5E /* GLES-Render.h */,
-				50F4143810692D7D002A0D5E /* GLES-Render.mm */,
-				506EDC2F102F528A00A389B3 /* GameScene.h */,
-				506EDC30102F528A00A389B3 /* GameScene.mm */,
-				E0F81062120A17DF005866B8 /* RootViewController.h */,
-				E0F81063120A17DF005866B8 /* RootViewController.mm */,
-				1F3B9A2C0EF2145700286867 /* BubbleBlitzAppDelegate.h */,
-				1F3B9A2B0EF2145700286867 /* BubbleBlitzAppDelegate.mm */,
-				797DBA7F12CE8E670081E888 /* Bubble.h */,
-				797DBA8012CE8E670081E888 /* Bubble.mm */,
-				7977E4C712F2DF470069071C /* MenuScene.h */,
-				7977E4C812F2DF470069071C /* MenuScene.mm */,
-				792A07C212F58AE0007EC878 /* ToggleMenu.h */,
-				792A07C312F58AE0007EC878 /* ToggleMenu.mm */,
-				792A07C512F58AED007EC878 /* ValueMenu.h */,
-				792A07C612F58AED007EC878 /* ValueMenu.mm */,
+				79E5DABD13A1FD6300C3C4E1 /* Nodes */,
+				79E5DABE13A1FD8800C3C4E1 /* Layers */,
+				79E5DAC013A1FDBC00C3C4E1 /* Graphics */,
+				79E5DAC113A1FDDA00C3C4E1 /* App */,
+				79E5DABF13A1FDAA00C3C4E1 /* UI */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1022,25 +1003,111 @@
 		50F4144210692EE7002A0D5E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				79A49E5613A0806800430071 /* CoinReward.mp3 */,
-				79A49E5713A0806800430071 /* Grenade.mp3 */,
-				79A49E5813A0806800430071 /* gridBackground.png */,
-				79A49E5913A0806800430071 /* oyshort.mp3 */,
-				79A49E5A13A0806800430071 /* punch.wav */,
-				792A07A112F2EB7D007EC878 /* resume.png */,
-				792A06F212F2E504007EC878 /* menuBackground.jpg */,
-				7977E53512F2E2A70069071C /* pause.png */,
-				797DBCCC12CEB0CD0081E888 /* river-rocks.png */,
-				797DBC9612CEAB420081E888 /* smoke.png */,
-				797DBC1412CE9F060081E888 /* BubbleGlow.png */,
-				797DBA3E12CE8A8A0081E888 /* Bubble.png */,
-				50F4144310692EE7002A0D5E /* blocks.png */,
-				50F4144410692EE7002A0D5E /* Default.png */,
-				50F4144510692EE7002A0D5E /* fps_images.png */,
-				50F4144610692EE7002A0D5E /* Icon.png */,
+				79E5DAC213A1FDEE00C3C4E1 /* Sound */,
+				79E5DAC313A1FE0D00C3C4E1 /* Game Images */,
+				79E5DAC413A1FE2200C3C4E1 /* Other Images */,
 				50F4144710692EE7002A0D5E /* Info.plist */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		79E5DABD13A1FD6300C3C4E1 /* Nodes */ = {
+			isa = PBXGroup;
+			children = (
+				797DBB0012CE946B0081E888 /* IntegerNode.h */,
+				797DBB0112CE946B0081E888 /* IntegerNode.mm */,
+				79A49E5013A0804100430071 /* Bubble.h */,
+				79A49E5113A0804100430071 /* Bubble.mm */,
+				797DBA7F12CE8E670081E888 /* MatchObject.h */,
+				797DBA8012CE8E670081E888 /* MatchObject.mm */,
+			);
+			name = Nodes;
+			sourceTree = "<group>";
+		};
+		79E5DABE13A1FD8800C3C4E1 /* Layers */ = {
+			isa = PBXGroup;
+			children = (
+				506EDC2F102F528A00A389B3 /* GameScene.h */,
+				7977E4C712F2DF470069071C /* MenuScene.h */,
+				7977E4C812F2DF470069071C /* MenuScene.mm */,
+				506EDC30102F528A00A389B3 /* GameScene.mm */,
+				79A49E5213A0804100430071 /* SoundLayer.h */,
+				79A49E5313A0804100430071 /* SoundLayer.mm */,
+			);
+			name = Layers;
+			sourceTree = "<group>";
+		};
+		79E5DABF13A1FDAA00C3C4E1 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				792A07C212F58AE0007EC878 /* ToggleMenu.h */,
+				792A07C312F58AE0007EC878 /* ToggleMenu.mm */,
+				792A07C512F58AED007EC878 /* ValueMenu.h */,
+				792A07C612F58AED007EC878 /* ValueMenu.mm */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		79E5DAC013A1FDBC00C3C4E1 /* Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				791F1FB012ED3B6E0018F651 /* WavePool.h */,
+				791F1FB112ED3B6E0018F651 /* WavePool.mm */,
+				797DBC8612CEAA9F0081E888 /* explosion.h */,
+				797DBC8712CEAA9F0081E888 /* explosion.mm */,
+				50F4143710692D7D002A0D5E /* GLES-Render.h */,
+				50F4143810692D7D002A0D5E /* GLES-Render.mm */,
+			);
+			name = Graphics;
+			sourceTree = "<group>";
+		};
+		79E5DAC113A1FDDA00C3C4E1 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				E0F81062120A17DF005866B8 /* RootViewController.h */,
+				E0F81063120A17DF005866B8 /* RootViewController.mm */,
+				1F3B9A2C0EF2145700286867 /* BubbleBlitzAppDelegate.h */,
+				1F3B9A2B0EF2145700286867 /* BubbleBlitzAppDelegate.mm */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
+		79E5DAC213A1FDEE00C3C4E1 /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				79A49E5613A0806800430071 /* CoinReward.mp3 */,
+				79A49E5713A0806800430071 /* Grenade.mp3 */,
+				79A49E5913A0806800430071 /* oyshort.mp3 */,
+				79A49E5A13A0806800430071 /* punch.wav */,
+			);
+			name = Sound;
+			sourceTree = "<group>";
+		};
+		79E5DAC313A1FE0D00C3C4E1 /* Game Images */ = {
+			isa = PBXGroup;
+			children = (
+				79A49E5813A0806800430071 /* gridBackground.png */,
+				792A07A112F2EB7D007EC878 /* resume.png */,
+				792A06F212F2E504007EC878 /* menuBackground.jpg */,
+				7977E53512F2E2A70069071C /* pause.png */,
+				797DBC1412CE9F060081E888 /* BubbleGlow.png */,
+				79E5DABB13A1F2A700C3C4E1 /* RedBubble.png */,
+				797DBA3E12CE8A8A0081E888 /* BlueBubble.png */,
+				50F4144410692EE7002A0D5E /* Default.png */,
+				50F4144510692EE7002A0D5E /* fps_images.png */,
+				50F4144610692EE7002A0D5E /* Icon.png */,
+			);
+			name = "Game Images";
+			sourceTree = "<group>";
+		};
+		79E5DAC413A1FE2200C3C4E1 /* Other Images */ = {
+			isa = PBXGroup;
+			children = (
+				797DBCCC12CEB0CD0081E888 /* river-rocks.png */,
+				797DBC9612CEAB420081E888 /* smoke.png */,
+				50F4144310692EE7002A0D5E /* blocks.png */,
+			);
+			name = "Other Images";
 			sourceTree = "<group>";
 		};
 		E0504FC2122D44E7005B74CB /* cocos2d */ = {
@@ -1456,7 +1523,7 @@
 				50F4144910692EE7002A0D5E /* Default.png in Resources */,
 				50F4144A10692EE7002A0D5E /* fps_images.png in Resources */,
 				50F4144B10692EE7002A0D5E /* Icon.png in Resources */,
-				797DBA3F12CE8A8A0081E888 /* Bubble.png in Resources */,
+				797DBA3F12CE8A8A0081E888 /* BlueBubble.png in Resources */,
 				797DBC1512CE9F060081E888 /* BubbleGlow.png in Resources */,
 				797DBC9712CEAB420081E888 /* smoke.png in Resources */,
 				797DBCCD12CEB0CD0081E888 /* river-rocks.png in Resources */,
@@ -1468,6 +1535,7 @@
 				79A49E5D13A0806800430071 /* gridBackground.png in Resources */,
 				79A49E5E13A0806800430071 /* oyshort.mp3 in Resources */,
 				79A49E5F13A0806800430071 /* punch.wav in Resources */,
+				79E5DABC13A1F2A700C3C4E1 /* RedBubble.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1483,14 +1551,14 @@
 				506EDC31102F528A00A389B3 /* GameScene.mm in Sources */,
 				50F4143910692D7D002A0D5E /* GLES-Render.mm in Sources */,
 				E0F81064120A17DF005866B8 /* RootViewController.mm in Sources */,
-				797DBA8112CE8E670081E888 /* Bubble.mm in Sources */,
+				797DBA8112CE8E670081E888 /* MatchObject.mm in Sources */,
 				797DBB0212CE946B0081E888 /* IntegerNode.mm in Sources */,
 				797DBC8812CEAA9F0081E888 /* explosion.mm in Sources */,
 				791F1FB212ED3B6E0018F651 /* WavePool.mm in Sources */,
 				7977E4C912F2DF470069071C /* MenuScene.mm in Sources */,
 				792A07C412F58AE0007EC878 /* ToggleMenu.mm in Sources */,
 				792A07C712F58AED007EC878 /* ValueMenu.mm in Sources */,
-				79A49E5413A0804100430071 /* PhysicsBody.mm in Sources */,
+				79A49E5413A0804100430071 /* Bubble.mm in Sources */,
 				79A49E5513A0804100430071 /* SoundLayer.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

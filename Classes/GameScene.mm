@@ -9,7 +9,7 @@
 
 // Import the interfaces
 #import "GameScene.h"
-#import "Bubble.h"
+#import "MatchObject.h"
 #import "WavePool.h"
 #import "MenuScene.h"
 #import "SoundLayer.h"
@@ -18,7 +18,7 @@
 enum {
 	kTagBackground = -1,
 	kTagEffectNode,
-	kTagBubbleNode,
+	kTagMatchObjectNode,
 	kTagUINode
 };
 //test
@@ -52,15 +52,16 @@ static GameScene *sharedScene = nil;
 -(void)checkMatches
 {
 	NSMutableArray* selected = [NSMutableArray array];
-	for (int i = 0;i < [self numBubbles]; i++) 
+	for (int i = 0;i < [self numMatchObjects]; i++) 
 	{
-		if([[self getBubble:i] active])[selected addObject:[self getBubble:i]];
+		if([[self getMatchObject:i] isActive])
+            [selected addObject:[self getMatchObject:i]];
 	}
 	if ([selected count]>1) 
 	{
 		//there are some selected so check if they are matches
 		int v = -1;
-		for(Bubble* b in selected)
+		for(MatchObject* b in selected)
 		{
 			if (v==-1) { v = [b val]; }
 			else 
@@ -80,7 +81,7 @@ static GameScene *sharedScene = nil;
 		}
 		else
 		{
-			for(Bubble* b in selected)
+			for(MatchObject* b in selected)
 			{
 				[b destroy];
                 [sound playSound:POP_SOUND];
@@ -92,27 +93,26 @@ static GameScene *sharedScene = nil;
 	selected = 0;
 	
 }
--(CCArray*)bubbles
+-(CCArray*)MatchObjects
 {
-	return [[self getChildByTag:kTagBubbleNode] children];
+	return [[self getChildByTag:kTagMatchObjectNode] children];
 }
--(int)numBubbles
+-(int)numMatchObjects
 {
-	return [[self bubbles] count];
+	return [[self MatchObjects] count];
 }
--(Bubble*)getBubble:(int)i
+-(MatchObject*)getMatchObject:(int)i
 {
-	return [[self bubbles] objectAtIndex:i];
+	return [[self MatchObjects] objectAtIndex:i];
+}
+-(int)getMatchObjectValue:(int)i
+{
+	return [[self getMatchObject:i] val];
+}
+-(void)addMatchObjectAtPosition:(CGPoint)p value:(int)v
+{
 	
-}
--(int)getBubbleValue:(int)i
-{
-	return [[self getBubble:i] val];
-}
--(void)addBubbleAtPosition:(CGPoint)p value:(int)v
-{
-	
-	[[self getChildByTag:kTagBubbleNode] addChild:[Bubble bubbleWithPosition:p value:v]];
+	[[self getChildByTag:kTagMatchObjectNode] addChild:[MatchObject matchObjectWithPosition:p value:v]];
 
 }
 
@@ -121,7 +121,7 @@ static GameScene *sharedScene = nil;
 	id bg = [self getChildByTag:kTagBackground] ;
 	[bg runAction:[CCRipple3D actionWithPosition:p radius:256 waves:3 amplitude:1 grid:ccg(32,24) duration:8]];
 }
-// initialize your instance here
+
 -(void) pauseScene: (id) sender
 {
 	[[CCDirector sharedDirector] pushScene:[CCTransitionFlipY transitionWithDuration:2 scene:[MenuScene scene] orientation:kOrientationLeftOver]] ;
@@ -163,7 +163,7 @@ static GameScene *sharedScene = nil;
 		
 		[background runAction:waves];
 		
-		maxBubbles = 5;
+		maxMatchObjects = 5;
 		// enable touches
 		self.isTouchEnabled = YES;
 		
@@ -229,7 +229,7 @@ static GameScene *sharedScene = nil;
 		groundBody->CreateFixture(&groundBox,0);
 		
 		
-		[self addChild:[CCNode node]  z:kTagBubbleNode tag:kTagBubbleNode ];
+		[self addChild:[CCNode node]  z:kTagMatchObjectNode tag:kTagMatchObjectNode ];
 	
 		CCLabelTTF *label = [CCLabelTTF labelWithString:@"Tap screen" fontName:@"Marker Felt" fontSize:32];
 		[self addChild:label z:0];
@@ -247,15 +247,15 @@ static GameScene *sharedScene = nil;
 -(int)needsVal
 {
 
-	for(int i = 0; i < [self numBubbles]; i++)
+	for(int i = 0; i < [self numMatchObjects]; i++)
 	{
-		Bubble* b = [self getBubble:i];
-			for(int j = 0; j < [self numBubbles]; j++)
+		MatchObject* b = [self getMatchObject:i];
+			for(int j = 0; j < [self numMatchObjects]; j++)
 			{
 				
 				if (i != j) 
 				{
-					Bubble* b2 = [self getBubble:j];
+					MatchObject* b2 = [self getMatchObject:j];
 					if ([b val] == [b2 val]) 
 					{
 						//there is a match so return 0
@@ -269,29 +269,29 @@ static GameScene *sharedScene = nil;
 		
 		
 	}
-	return [[self getBubble:CCRANDOM_0_1()*[self numBubbles]] val];	
+	return [[self getMatchObject:CCRANDOM_0_1()*[self numMatchObjects]] val];	
 }
 
--(void)addBubble
+-(void)addMatchObject
 {
 	
 	
 	int v = [self needsVal];
 	if(v) 
 	{
-		[self addBubbleAtPosition:ccp(64+CCRANDOM_0_1()*(screenSize.width-128),64+CCRANDOM_0_1()*(screenSize.height-128)) value:v];	
+		[self addMatchObjectAtPosition:ccp(64+CCRANDOM_0_1()*(screenSize.width-128),64+CCRANDOM_0_1()*(screenSize.height-128)) value:v];	
 	}
 	else 
 	{
-		[self addBubbleAtPosition:ccp(64+CCRANDOM_0_1()*(screenSize.width-128),64+CCRANDOM_0_1()*(screenSize.height-128)) value:1+CCRANDOM_0_1()*6 * difficulty];	
+		[self addMatchObjectAtPosition:ccp(64+CCRANDOM_0_1()*(screenSize.width-128),64+CCRANDOM_0_1()*(screenSize.height-128)) value:1+CCRANDOM_0_1()*6 * difficulty];	
 	}
 
 }
 -(void)newGame
 {
-	for (int i=0; i<maxBubbles; i++) 
+	for (int i=0; i<maxMatchObjects; i++) 
 	{
-		[self addBubble];
+		[self addMatchObject];
 	}
 }
 -(void) draw
@@ -326,22 +326,22 @@ static GameScene *sharedScene = nil;
 		[self newGame];
 	}
     
-	while ([self numBubbles]<maxBubbles) 
-		[self addBubble];
+	while ([self numMatchObjects]<maxMatchObjects) 
+		[self addMatchObject];
 	
     CCArray* rem = [CCArray array];
-    for(Bubble* b1 in [self bubbles])
+    for(MatchObject* b1 in [self MatchObjects])
     {
         if(![b1 alive])
             [rem addObject:b1];
     }
-    [[self bubbles] removeObjectsInArray:rem];
+    [[self MatchObjects] removeObjectsInArray:rem];
     
     
-    for(Bubble* b1 in [self bubbles])
+    for(MatchObject* b1 in [self MatchObjects])
     {
         
-        for(Bubble* b2 in [self bubbles])
+        for(MatchObject* b2 in [self MatchObjects])
         {
             
             if(b1!=b2)
@@ -373,9 +373,9 @@ static GameScene *sharedScene = nil;
 	[waves update:dt];
     
    
-    for (int i=0;i<[self numBubbles];i++) 
+    for (int i=0;i<[self numMatchObjects];i++) 
     {
-        [[self getBubble:i] update:dt];
+        [[self getMatchObject:i] update:dt];
     }                  
                    
 	//It is recommended that a fixed time step is used with Box2D for stability
