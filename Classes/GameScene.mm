@@ -13,6 +13,7 @@
 #import "WavePool.h"
 #import "MenuScene.h"
 #import "SoundLayer.h"
+#import "explosion.h"
 
 // enums that will be used as tags
 enum {
@@ -84,7 +85,7 @@ static GameScene *sharedScene = nil;
 			for(MatchObject* b in selected)
 			{
 				[b destroy];
-                [sound playSound:POP_SOUND];
+                
 			}
 		}
 
@@ -96,6 +97,10 @@ static GameScene *sharedScene = nil;
 -(CCArray*)MatchObjects
 {
 	return [[self getChildByTag:kTagMatchObjectNode] children];
+}
+-(void)addRippleAt:(CGPoint)p radius:(int)r value:(int)v
+{
+     [waves addRippleAt:p radius:r val:v];
 }
 -(int)numMatchObjects
 {
@@ -116,11 +121,6 @@ static GameScene *sharedScene = nil;
 
 }
 
--(void)addRippleAt:(CGPoint)p
-{
-	id bg = [self getChildByTag:kTagBackground] ;
-	[bg runAction:[CCRipple3D actionWithPosition:p radius:256 waves:3 amplitude:1 grid:ccg(32,24) duration:8]];
-}
 
 -(void) pauseScene: (id) sender
 {
@@ -159,8 +159,7 @@ static GameScene *sharedScene = nil;
 		
 		[self addChild: menu z:1];
 		
-		
-		
+                
 		[background runAction:waves];
 		
 		maxMatchObjects = 5;
@@ -231,12 +230,18 @@ static GameScene *sharedScene = nil;
 		
 		[self addChild:[CCNode node]  z:kTagMatchObjectNode tag:kTagMatchObjectNode ];
 	
-		CCLabelTTF *label = [CCLabelTTF labelWithString:@"Tap screen" fontName:@"Marker Felt" fontSize:32];
-		[self addChild:label z:0];
-		[label setColor:ccc3(0,0,255)];
-		label.position = ccp( screenSize.width/2, screenSize.height-50);
-		
-		[self schedule: @selector(tick:)];
+
+		levelUp = NO;
+        levelUpScale = 1.0f;
+        
+        levelUpLabel = [CCLabelTTF labelWithString:@"Level Up" fontName:@"Marker Felt" fontSize:256];
+		[self addChild:levelUpLabel z:0];
+		[levelUpLabel setColor:ccc3(0,0,255)];
+		levelUpLabel.position = ccp( screenSize.width/2, screenSize.height/2);
+         [levelUpLabel setVisible:NO];
+
+        
+		[self schedule: @selector(update:)];
 		
 		first = YES;
 	}
@@ -247,6 +252,9 @@ static GameScene *sharedScene = nil;
 -(int)needsVal
 {
 
+    if([self numMatchObjects]==0)
+        return 0;
+    
 	for(int i = 0; i < [self numMatchObjects]; i++)
 	{
 		MatchObject* b = [self getMatchObject:i];
@@ -315,29 +323,9 @@ static GameScene *sharedScene = nil;
 }
 
 
-
-
--(void) tick: (ccTime) dt
+-(void)updatePhysics:(float)dt
 {
-	
-	if (first)
-	{
-		first = NO;
-		[self newGame];
-	}
-    
-	while ([self numMatchObjects]<maxMatchObjects) 
-		[self addMatchObject];
-	
-    CCArray* rem = [CCArray array];
-    for(MatchObject* b1 in [self MatchObjects])
-    {
-        if(![b1 alive])
-            [rem addObject:b1];
-    }
-    [[self MatchObjects] removeObjectsInArray:rem];
-    
-    
+    //add a repulsion force between the objects so they dont bunch up
     for(MatchObject* b1 in [self MatchObjects])
     {
         
@@ -347,10 +335,10 @@ static GameScene *sharedScene = nil;
             if(b1!=b2)
             {
                 
-                CGPoint len = ccpSub([b2 getPosition], [b1 getPosition] );
+                CGPoint len = ccpSub([b2 position], [b1 position] );
                 float length = ccpLength(len);
                 
-                if(length>32 && length < 512)
+                if(length>32 && length < 256)
                 {
                     CGPoint force = ccpNormalize(len);
                     
@@ -365,20 +353,7 @@ static GameScene *sharedScene = nil;
         }
         
     }
-
-    
-    
-	[self checkMatches];
-	
-	[waves update:dt];
-    
-   
-    for (int i=0;i<[self numMatchObjects];i++) 
-    {
-        [[self getMatchObject:i] update:dt];
-    }                  
-                   
-	//It is recommended that a fixed time step is used with Box2D for stability
+    //It is recommended that a fixed time step is used with Box2D for stability
 	//of the simulation, however, we are using a variable time step here.
 	//You need to make an informed choice, the following URL is useful
 	//http://gafferongames.com/game-physics/fix-your-timestep/
@@ -389,6 +364,85 @@ static GameScene *sharedScene = nil;
 	// Instruct the world to perform a single step of simulation. It is
 	// generally best to keep the time step and iterations fixed.
 	world->Step(dt, velocityIterations, positionIterations);
+    
+}
+
+-(void) update: (ccTime) dt
+{
+	
+	if (first)
+	{
+		first = NO;
+		[self newGame];
+	}
+   
+#ifdef CONTINUOUS_PLAY
+	while ([self numMatchObjects]<maxMatchObjects) 
+		[self addMatchObject];
+#else
+    if([self numMatchObjects]==0 && !levelUp)
+    {
+        levelUpScale = 1.0f;
+        levelUp = YES;
+        [levelUpLabel setVisible:YES];
+        //[levelUpLabel setOpacity:1];
+    
+    }
+    if(levelUp)
+    {
+        levelUpScale *= 0.9f;
+        [levelUpLabel setScale:levelUpScale];
+       // [levelUpLabel setOpacity:levelUpScale];
+        if (levelUpScale<=0.1f) 
+        {
+            levelUp = NO;
+            [levelUpLabel setVisible:NO];
+            [waves removeAllWaves];
+            for(int i=0;i<maxMatchObjects;i++)
+            {
+                [self addMatchObject];
+            }
+        }
+    }
+#endif
+    
+    
+    [self updatePhysics:dt];
+    
+	[waves update:dt];
+    
+   
+    for (int i=0;i<[self numMatchObjects];i++) 
+    {
+        MatchObject* anObject = [self getMatchObject:i];
+        
+        [anObject update:dt];
+        
+        
+        
+        if(![anObject alive])
+        {
+            [[GameScene scene] addChild:[RingExplosion explosionAtPosition:[anObject position]]];
+            [[GameScene scene] addChild:[BlockExplosion explosionAtPosition:[anObject position]]];
+            [sound playSound:POP_SOUND];
+            
+            [anObject destroy];
+        }
+        else
+        {
+            for(Wave* w in  [waves waves])
+            {
+                float h = [w heightAt:[anObject position]] ;
+                
+                if (h > 0 )
+                {
+                    [anObject setAlive:NO];
+                }
+            }
+        }
+    }                  
+  
+	
 
 }
 
@@ -399,7 +453,7 @@ static GameScene *sharedScene = nil;
 		CGPoint location = [touch locationInView: [touch view]];
 		
 		location = [[CCDirector sharedDirector] convertToGL: location];
-		[waves addRippleAt:location];
+		
 	}
 }
 

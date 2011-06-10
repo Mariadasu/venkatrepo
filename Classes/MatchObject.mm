@@ -8,7 +8,7 @@
 
 #import "MatchObject.h"
 #import "GameScene.h"
-#import "explosion.h"
+
 #import "Bubble.h"
 
 @implementation MatchObject
@@ -33,13 +33,13 @@
       
     }    
 }
+-(void)dealloc
+{
+
+    [super dealloc];
+}
 -(void)destroy
 {
-	
-   
-    [[GameScene scene] addChild:[RingExplosion explosionAtPosition:centroid]];
-    [[GameScene scene] addChild:[BlockExplosion explosionAtPosition:centroid]];
-       
 	
     [intNode release];
 	[bubbles removeAllObjects];
@@ -50,6 +50,7 @@
     glowSprite=0;
     
     [self removeFromParentAndCleanup:YES];
+    
    
 	
 }
@@ -90,7 +91,7 @@
         //for now the bubbles are just made at random locations around the MatchObject position and the are all blue
         for (int i=0; i<v; i++) 
         {
-            [bubbles addObject:[Bubble bubbleWithPosition:CGPointMake(p.x+CCRANDOM_MINUS1_1()*64 , p.y+CCRANDOM_MINUS1_1()*64) 
+                [bubbles addObject:[Bubble bubbleWithPosition:CGPointMake(p.x+CCRANDOM_MINUS1_1()*64 , p.y+CCRANDOM_MINUS1_1()*64) 
                                                     color:(int)(CCRANDOM_0_1()*2.0f) /*make the bubble random color*/
                                                       val:CCRANDOM_0_1()*2+1 /*for now all bubbles have val 1*/
                                 ]];          
@@ -121,7 +122,7 @@
 	[glowSprite setVisible:YES];
 
 }
--(CGPoint)getPosition
+-(CGPoint)position
 {
     return centroid;
 }
@@ -143,7 +144,7 @@
     centroid = CGPointMake(0, 0);
     for (Bubble* b in bubbles) 
     {
-        centroid = ccpAdd(centroid, [b getPosition]);
+        centroid = ccpAdd(centroid, [b position]);
     }
     centroid = ccpMult(centroid, 1.0f/[bubbles count]);
     
@@ -160,7 +161,7 @@
             if(b1!=b2)
             {
                 
-                CGPoint len = ccpSub([b2 getPosition], [b1 getPosition] );
+                CGPoint len = ccpSub([b2 position], [b1 position] );
                 float length = ccpLength(len);
                 
                 if(length>16)
@@ -210,17 +211,21 @@
 	CGPoint p = [[CCDirector sharedDirector] convertToGL: [touch locationInView:[touch view]] ];
 	bool hit = NO;
 	
-	 for (Bubble* b in bubbles)
+
+    for (Bubble* b in bubbles)
     {
-        if(ccpDistance([b getPosition] , p ) < 80 ) 
+        if(ccpDistance([b position] , p ) < [b radius] ) 
         { 
             hit = YES;
-            [self activate];
             touchStart = p;
+            alive = NO;
+           
         }
 
     }
-	
+	if(hit)
+         [[GameScene scene] addRippleAt:centroid radius:[intNode getVal]*64 value:[intNode getVal]];
+    
 	return hit;
 }
 

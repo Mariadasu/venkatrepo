@@ -11,8 +11,7 @@
 #import "cocos2d.h"
 
 #import "CDAudioManager.h"
-#define SOUND_ACTIVE
-#define BACKGROUND_MUSIC_ACTIVE
+
 enum sounds {
     POP_SOUND = 0,
     EXPLOSION_SOUND,

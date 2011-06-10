@@ -1028,9 +1028,9 @@
 			isa = PBXGroup;
 			children = (
 				506EDC2F102F528A00A389B3 /* GameScene.h */,
+				506EDC30102F528A00A389B3 /* GameScene.mm */,
 				7977E4C712F2DF470069071C /* MenuScene.h */,
 				7977E4C812F2DF470069071C /* MenuScene.mm */,
-				506EDC30102F528A00A389B3 /* GameScene.mm */,
 				79A49E5213A0804100430071 /* SoundLayer.h */,
 				79A49E5313A0804100430071 /* SoundLayer.mm */,
 			);

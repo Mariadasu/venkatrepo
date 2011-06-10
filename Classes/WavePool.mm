@@ -11,14 +11,19 @@
 
 @implementation Wave
 @synthesize alive;
+@synthesize radius;
+@synthesize origin;
+@synthesize value;
 
--(id)initWithPosition:(CGPoint)p waveHeight:(float)h decay:(float)d width:(float)w
+-(id)initWithPosition:(CGPoint)p waveHeight:(int)h decay:(float)d width:(int)w radius:(int)r value:(int)v
 {
 	self = [super init];
 	if( self ) 
 	{
+        radius = 0;
+        maxRadius = r;
+        value = v;
 		origin = p;
-		dist = 0;
 		height = h;
 		decayRate = d;
 		waveWidth = w;
@@ -27,25 +32,28 @@
 	
 	return self;
 }
-+(id)waveWithPosition:(CGPoint)p waveHeight:(float)h decay:(float)d width:(float)w
+
++(id)waveWithPosition:(CGPoint)p waveHeight:(int)h decay:(float)d width:(int)w  radius:(int)r value:(int)v
+
 {
-	return [[[Wave alloc] initWithPosition:p waveHeight:h decay:d width:w] autorelease];
+	return [[[Wave alloc] initWithPosition:p waveHeight:h decay:d width:w radius:r value:v] autorelease];
 }
 -(void)update
 {
-	dist += 5;
-	if (dist>2048) {
+	radius += 10;
+	if (radius>maxRadius) 
+    {
 		alive = NO;
 	}
 	height *= decayRate;
 }
 -(float)heightAt:(CGPoint)p
 {
-	float pdist = ccpDistance(p, origin);
-	float distFromWave = ABS(pdist - dist);
+	int pdist = (int)ccpDistance(p, origin);
+	int distFromWave = ABS(pdist - radius);
 	if (distFromWave < waveWidth) 
 	{
-		return height*(distFromWave/waveWidth);
+		return height*((float)distFromWave/(float)waveWidth);
 	}
 	return 0;
 }
@@ -53,6 +61,17 @@
 
 @implementation WavePool
 
+@synthesize waves;
+
+-(void)removeAllWaves
+{
+    [waves removeAllObjects];   
+}
+-(void)dealloc
+{
+    [waves release];
+    [super dealloc];
+}
 +(id)poolWithImage:(CCSprite*) sprite size:(ccGridSize)gSize
 {
 	return [[ [WavePool alloc] initWithImage:sprite size:gSize] autorelease];
@@ -69,9 +88,10 @@
 	
 	return self;
 }
--(void)addRippleAt:(CGPoint)p
+-(void)addRippleAt:(CGPoint)p radius:(int)r val:(int)v
 {
-	[waves addObject:[Wave waveWithPosition:p waveHeight:20 decay:1.0f width:50]];
+	[waves addObject:[Wave waveWithPosition:p waveHeight:20 decay:1.0f width:50 radius:r value:v]];
+
 }
 -(void)update:(ccTime)time
 {

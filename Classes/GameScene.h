@@ -11,7 +11,7 @@
 #import "cocos2d.h"
 #import "Box2D.h"
 #import "GLES-Render.h"
-
+#import "GameConfig.h"
 //Pixel to metres ratio. Box2D uses metres as the unit for measurement.
 //This ratio defines how many pixels correspond to 1 Box2D "metre"
 //Box2D is optimized for objects of 1x1 metre therefore it makes sense
@@ -39,6 +39,9 @@
 	bool multiplication;
 	bool remainder;
 	bool division;
+    float levelUpScale;
+    bool levelUp;
+    CCLabelTTF* levelUpLabel; 
 }
 
 // returns a Scene that contains the HelloWorld as the only child
@@ -47,12 +50,13 @@
 // adds a new sprite at a given coordinate
 -(void)addMatchObject;
 -(void) addMatchObjectAtPosition:(CGPoint)p value:(int)v;
+-(void)addRippleAt:(CGPoint)position radius:(int)r value:(int)v;
 -(void)newGame;
 -(CCArray*)MatchObjects;
 -(int)numMatchObjects;
 -(MatchObject*)getMatchObject:(int)i;
 -(int)getMatchObjectValue:(int)i;
--(void)addRippleAt:(CGPoint)p;
+
 
 @property (nonatomic,readonly) b2World* world;
 @property (nonatomic,readwrite)int difficulty;

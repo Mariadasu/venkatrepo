@@ -12,6 +12,7 @@
 @implementation Bubble
 @synthesize  sprite;
 @synthesize b;
+@synthesize radius;
 
 -(void)dealloc
 {
@@ -43,7 +44,7 @@
                 sprite = [CCSprite spriteWithFile:@"BlueBubble.png"];
             break;
         }
-    
+    radius = val*[sprite contentSize].width/4.0f;
     sprite.position=p;
     
     
@@ -58,10 +59,10 @@
 	
 	// Define another box shape for our dynamic body.
 	b2CircleShape dynamicCircle;
-        
-        /*TODO:check that this is correct*/
-     [sprite setScale:0.5f*val];   
-	dynamicCircle.m_radius = (val*32)/PTM_RATIO;  
+      
+
+    [sprite setScale:0.5f*val];   
+    dynamicCircle.m_radius = radius/PTM_RATIO;  
         
         
 	// Define the dynamic body fixture.
@@ -75,13 +76,13 @@
     }
     return self;
 }
--(CGPoint)getPosition
+-(CGPoint)position
 {
     return CGPointMake( b->GetPosition().x * PTM_RATIO, b->GetPosition().y * PTM_RATIO);
 }
 -(void)update
 {
-    sprite.position = [self getPosition];
+    sprite.position = [self position];
 }
 
 @end

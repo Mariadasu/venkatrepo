@@ -20,15 +20,17 @@ enum bubble_colors
     CCSprite* sprite;
     b2Body* b;
     int val; 
+    float radius;
 }
 
 -(id)initWithPosition:(CGPoint)p color:(int)col val:(int)v;
 +(id)bubbleWithPosition:(CGPoint)p color:(int)col val:(int)v;
--(CGPoint)getPosition;
+-(CGPoint)position;
 -(void)update;
 -(void)addForce:(CGPoint)f;
 
 
+@property(nonatomic,readonly)float radius;
 @property(nonatomic,readonly) CCSprite* sprite;
 @property(nonatomic,readonly) b2Body* b;
 
