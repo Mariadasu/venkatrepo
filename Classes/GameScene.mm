@@ -398,10 +398,11 @@ static GameScene *sharedScene = nil;
             levelUp = NO;
             [levelUpLabel setVisible:NO];
             [waves removeAllWaves];
-            for(int i=0;i<maxMatchObjects;i++)
+			[self newGame];
+            /*for(int i=0;i<maxMatchObjects;i++) // Kelvin make a call to newGame
             {
                 [self addMatchObject];
-            }
+            } */
         }
     }
 #endif

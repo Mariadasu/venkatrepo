@@ -92,8 +92,8 @@
         for (int i=0; i<v; i++) 
         {
                 [bubbles addObject:[Bubble bubbleWithPosition:CGPointMake(p.x+CCRANDOM_MINUS1_1()*64 , p.y+CCRANDOM_MINUS1_1()*64) 
-                                                    color:(int)(CCRANDOM_0_1()*2.0f) /*make the bubble random color*/
-                                                      val:CCRANDOM_0_1()*2+1 /*for now all bubbles have val 1*/
+                                                    color:0 /* (int)(CCRANDOM_0_1()*2.0f) /*make the bubble random color*/
+                                                      val:1 /* CCRANDOM_0_1()*2+1 /*for now all bubbles have val 1*/
                                 ]];          
         }
         
