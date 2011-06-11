@@ -22,7 +22,7 @@
 
 -(int)val
 {
-	return [intNode getVal];	
+	return value; //[intNode getVal];	
 }
 
 -(void)addForce:(CGPoint)f
@@ -58,7 +58,7 @@
 {
 	if( (self=[super init]))
     {
-		
+		value = v;
         alive = YES;
 	intNode = [[IntegerNode alloc] initNode:nil startVal:v];
 	[intNode expand];
@@ -85,15 +85,18 @@
     glowSprite = [CCSprite spriteWithFile:@"BubbleGlow.png"];
 	[glowSprite setVisible:NO];
     [glowSprite setOpacity:180];
-        
+	
+	int col = (v < 0)?0:1;
+	int val = (v < 0)?-v:v;
+		
 	[self addChild:glowSprite];
 	
         //for now the bubbles are just made at random locations around the MatchObject position and the are all blue
-        for (int i=0; i<v; i++) 
+        for (int i=0; i<val; i++) 
         {
-                [bubbles addObject:[Bubble bubbleWithPosition:CGPointMake(p.x+CCRANDOM_MINUS1_1()*64 , p.y+CCRANDOM_MINUS1_1()*64) 
-                                                    color:0 /* (int)(CCRANDOM_0_1()*2.0f) /*make the bubble random color*/
-                                                      val:1 /* CCRANDOM_0_1()*2+1 /*for now all bubbles have val 1*/
+                [bubbles addObject:[Bubble bubbleWithPosition:p //make all the bubbles in same group start at same p
+														color:col /* (int)(CCRANDOM_0_1()*2.0f) make the bubble random color*/
+                                                      val:1 /* CCRANDOM_0_1()*2+1 for now all bubbles have val 1*/
                                 ]];          
         }
         

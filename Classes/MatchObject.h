@@ -18,6 +18,7 @@
     float glowScale;         //this is essentialy a timer to determine if the object has been selected recently
     NSMutableArray* bubbles; //the group of bubbles that belong to this object
 	IntegerNode* intNode;    //class for generating expresions
+	int value;				//Inherent value of the MatchObject types
 	CCLabelTTF* label;       //can be used to display the text for the expression or value
     CGPoint centroid;        //this is the point at the center of the object.. just the average of each bubbles position
     

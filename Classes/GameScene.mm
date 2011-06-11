@@ -162,7 +162,7 @@ static GameScene *sharedScene = nil;
                 
 		[background runAction:waves];
 		
-		maxMatchObjects = 5;
+		maxMatchObjects = 10;
 		// enable touches
 		self.isTouchEnabled = YES;
 		
@@ -295,11 +295,20 @@ static GameScene *sharedScene = nil;
 	}
 
 }
+
+-(void)addMatchObject:(int) max
+{
+	int v = rand() % max;
+	v = v?v:1;
+	v = (rand() % 2)?v:-v;
+	[self addMatchObjectAtPosition:ccp(64+CCRANDOM_0_1()*(screenSize.width-128),64+CCRANDOM_0_1()*(screenSize.height-128)) value:v];
+}
+
 -(void)newGame
 {
 	for (int i=0; i<maxMatchObjects; i++) 
 	{
-		[self addMatchObject];
+		[self addMatchObject:(maxMatchObjects/2)];
 	}
 }
 -(void) draw
