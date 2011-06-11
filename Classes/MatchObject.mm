@@ -86,8 +86,8 @@
 	[glowSprite setVisible:NO];
     [glowSprite setOpacity:180];
 	
-	int col = (v < 0)?0:1;
-	int val = (v < 0)?-v:v;
+	int col = (v < 0)?RED_BUBBLE:BLUE_BUBBLE;
+	int val = (v < 0)?-v:v; //could use fabs(v);
 		
 	[self addChild:glowSprite];
 	
