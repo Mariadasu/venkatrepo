@@ -292,7 +292,10 @@ static GameScene *sharedScene = nil;
 {
 	
 	
-	int v = [self needsVal];
+	int v = rand() % (difficulty<<2); // [self needsVal];
+	v = v?v:1;
+	v = (v%2)?-v:v;
+	
 	if(v) 
 	{
 		[self addMatchObjectAtPosition:p value:v];	

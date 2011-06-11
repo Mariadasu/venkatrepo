@@ -71,8 +71,8 @@
 		
         alive = YES;
         hit = NO;
-	intNode = [[IntegerNode alloc] initNode:nil startVal:v];
-	[intNode expand];
+	// intNode = [[IntegerNode alloc] initNode:nil startVal:v];
+	// [intNode expand];
         label = 0;
       
         value = v;
@@ -97,18 +97,21 @@
     glowSprite = [CCSprite spriteWithFile:@"BubbleGlow.png"];
 	[glowSprite setVisible:NO];
     [glowSprite setOpacity:180];
+		
+	bubble_colors col = (v < 0)?RED_BUBBLE:BLUE_BUBBLE;
+	int numBubbles = (v < 0)?-v:v;
         
 	[self addChild:glowSprite];
 	
         //for now the bubbles are just made at random locations around the MatchObject position and the are all blue
         float rad = CCRANDOM_0_1()*2;
-        for (int i=0; i<v; i++) 
+        for (int i=0; i<numBubbles; i++) 
         {
             rad += (2*3.1415/v);
             CGPoint pos = ccpAdd(p,ccpRotateByAngle(ccp(CCRANDOM_MINUS1_1()*12,64 + CCRANDOM_0_1()*12), ccp(0,0), rad));
             
                 [bubbles addObject:[Bubble bubbleWithPosition:pos
-                                                        color:BLUE_BUBBLE   //color:(int)(CCRANDOM_0_1()*2.0f) /*make the bubble random color*/
+                                                        color:col   //color:(int)(CCRANDOM_0_1()*2.0f) /*make the bubble random color*/
                                                           val:1             // val:CCRANDOM_0_1()*2+1 /*for now all bubbles have val 1*/
                                 ]];          
         }
