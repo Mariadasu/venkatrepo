@@ -161,6 +161,7 @@
 		79A49E5E13A0806800430071 /* oyshort.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 79A49E5913A0806800430071 /* oyshort.mp3 */; };
 		79A49E5F13A0806800430071 /* punch.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79A49E5A13A0806800430071 /* punch.wav */; };
 		79E5DABC13A1F2A700C3C4E1 /* RedBubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 79E5DABB13A1F2A700C3C4E1 /* RedBubble.png */; };
+		79E5DAC713A30B1600C3C4E1 /* BonusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E5DAC613A30B1600C3C4E1 /* BonusLabel.m */; };
 		DC6640030F83B3EA000B3E49 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */; };
 		DC6640050F83B3EA000B3E49 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640040F83B3EA000B3E49 /* OpenAL.framework */; };
 		DCCBF1B70F6022AE0040855A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */; };
@@ -502,6 +503,8 @@
 		79A49E5913A0806800430071 /* oyshort.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = oyshort.mp3; sourceTree = "<group>"; };
 		79A49E5A13A0806800430071 /* punch.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = punch.wav; sourceTree = "<group>"; };
 		79E5DABB13A1F2A700C3C4E1 /* RedBubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedBubble.png; sourceTree = "<group>"; };
+		79E5DAC513A30B1500C3C4E1 /* BonusLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BonusLabel.h; sourceTree = "<group>"; };
+		79E5DAC613A30B1600C3C4E1 /* BonusLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BonusLabel.m; sourceTree = "<group>"; };
 		DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		DC6640040F83B3EA000B3E49 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1057,6 +1060,8 @@
 				797DBC8712CEAA9F0081E888 /* explosion.mm */,
 				50F4143710692D7D002A0D5E /* GLES-Render.h */,
 				50F4143810692D7D002A0D5E /* GLES-Render.mm */,
+				79E5DAC513A30B1500C3C4E1 /* BonusLabel.h */,
+				79E5DAC613A30B1600C3C4E1 /* BonusLabel.m */,
 			);
 			name = Graphics;
 			sourceTree = "<group>";
@@ -1560,6 +1565,7 @@
 				792A07C712F58AED007EC878 /* ValueMenu.mm in Sources */,
 				79A49E5413A0804100430071 /* Bubble.mm in Sources */,
 				79A49E5513A0804100430071 /* SoundLayer.mm in Sources */,
+				79E5DAC713A30B1600C3C4E1 /* BonusLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

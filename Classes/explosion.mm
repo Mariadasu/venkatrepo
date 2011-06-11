@@ -155,18 +155,18 @@
 		emissionRate = totalParticles/duration;
 		
 		// color of particles
-		startColor.r = 0.9f;
-		startColor.g = 0.5f;
-		startColor.b = 0.0f;
+		startColor.r = 0.1f;
+		startColor.g = 0.1f;
+		startColor.b = 0.5f;
 		startColor.a = 1.0f;
 		startColorVar.r = 0.0f;
 		startColorVar.g = 0.0f;
 		startColorVar.b = 0.0f;
 		startColorVar.a = 0.0f;
-		endColor.r = 0.5f;
-		endColor.g = 0.2f;
+		endColor.r = 0.0f;
+		endColor.g = 0.0f;
 		endColor.b = 0.2f;
-		endColor.a = 0.3f;
+		endColor.a = 0.0f;
 		endColorVar.r = 0.0f;
 		endColorVar.g = 0.0f;
 		endColorVar.b = 0.0f;

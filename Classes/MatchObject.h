@@ -24,6 +24,8 @@
     bool alive;              //flag to have this object deleted
 	bool isTouchEnabled_;    //the touching happens at the MatchObject level but maybe it should be on each bubble
 	CGPoint touchStart;
+    int value;
+    bool hit;
 	
 }
 
@@ -44,4 +46,5 @@
 -(void) setIsTouchEnabled:(BOOL)enabled priority:(int)pr; //activate touches for this object
 
 @property(nonatomic,readwrite)bool alive;
+@property(nonatomic,readonly)int value;
 @end

@@ -40,7 +40,7 @@
 }
 -(void)update
 {
-	radius += 10;
+	radius += 5;
 	if (radius>maxRadius) 
     {
 		alive = NO;

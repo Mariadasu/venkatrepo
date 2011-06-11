@@ -14,6 +14,7 @@
 @implementation MatchObject
 
 @synthesize alive;
+@synthesize value;
 
 +(id)matchObjectWithPosition:(CGPoint)p value:(int)v
 {
@@ -30,7 +31,6 @@
     for (Bubble* b in bubbles)
     {
         [b addForce:f];
-      
     }    
 }
 -(void)dealloc
@@ -41,6 +41,16 @@
 -(void)destroy
 {
 	
+    
+    [[GameScene scene] addBonusLabelAt:[self position] value:value];
+
+    
+    if(hit)
+    {
+                
+        [[GameScene scene] addRippleAt:[self position] radius:256 value:[intNode getVal]];
+    }
+    
     [intNode release];
 	[bubbles removeAllObjects];
     [bubbles release];
@@ -60,10 +70,12 @@
     {
 		
         alive = YES;
+        hit = NO;
 	intNode = [[IntegerNode alloc] initNode:nil startVal:v];
 	[intNode expand];
         label = 0;
       
+        value = v;
         /*
          label = [CCLabelTTF labelWithString:[[intNode getTreeString]copy] dimensions:CGSizeMake(128, 64)  alignment:CCTextAlignmentCenter fontName:@"Marker Felt" fontSize:32];
 		label.color = ccc3(0,0,0);
@@ -89,11 +101,15 @@
 	[self addChild:glowSprite];
 	
         //for now the bubbles are just made at random locations around the MatchObject position and the are all blue
+        float rad = CCRANDOM_0_1()*2;
         for (int i=0; i<v; i++) 
         {
-                [bubbles addObject:[Bubble bubbleWithPosition:CGPointMake(p.x+CCRANDOM_MINUS1_1()*64 , p.y+CCRANDOM_MINUS1_1()*64) 
-                                                    color:(int)(CCRANDOM_0_1()*2.0f) /*make the bubble random color*/
-                                                      val:CCRANDOM_0_1()*2+1 /*for now all bubbles have val 1*/
+            rad += (2*3.1415/v);
+            CGPoint pos = ccpAdd(p,ccpRotateByAngle(ccp(CCRANDOM_MINUS1_1()*12,64 + CCRANDOM_0_1()*12), ccp(0,0), rad));
+            
+                [bubbles addObject:[Bubble bubbleWithPosition:pos
+                                                        color:BLUE_BUBBLE   //color:(int)(CCRANDOM_0_1()*2.0f) /*make the bubble random color*/
+                                                          val:1             // val:CCRANDOM_0_1()*2+1 /*for now all bubbles have val 1*/
                                 ]];          
         }
         
@@ -209,12 +225,11 @@
 - (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
 	CGPoint p = [[CCDirector sharedDirector] convertToGL: [touch locationInView:[touch view]] ];
-	bool hit = NO;
 	
 
     for (Bubble* b in bubbles)
     {
-        if(ccpDistance([b position] , p ) < [b radius] ) 
+        if(ccpDistance([b position] , p ) < [b radius]*2 ) 
         { 
             hit = YES;
             touchStart = p;
@@ -223,8 +238,7 @@
         }
 
     }
-	if(hit)
-         [[GameScene scene] addRippleAt:centroid radius:[intNode getVal]*64 value:[intNode getVal]];
+	
     
 	return hit;
 }

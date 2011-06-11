@@ -14,6 +14,7 @@
 #import "MenuScene.h"
 #import "SoundLayer.h"
 #import "explosion.h"
+#import "BonusLabel.h"
 
 // enums that will be used as tags
 enum {
@@ -131,13 +132,16 @@ static GameScene *sharedScene = nil;
 {
 	if( (self=[super init])) {
 		difficulty = 1;
-		
+		maxMatchObjects = 6;
 		addition = YES;
 		multiplication = YES;
 		division = YES;
 		remainder = YES;
 		subtraction = YES;
-		
+        levelUp = NO;
+        levelUpScale = 1.0f;
+        score = 0;
+        
         
         sound = [[[SoundLayer alloc] init] autorelease];
         //[self addChild:sound];
@@ -155,14 +159,14 @@ static GameScene *sharedScene = nil;
 		[pauseButton setScale:3];
 		CCMenu *menu = [CCMenu menuWithItems:pauseButton, nil];
 		
-		menu.position = ccp(32,32);
+		menu.position = ccp(64,32);
 		
 		[self addChild: menu z:1];
 		
                 
 		[background runAction:waves];
 		
-		maxMatchObjects = 5;
+		
 		// enable touches
 		self.isTouchEnabled = YES;
 		
@@ -212,27 +216,26 @@ static GameScene *sharedScene = nil;
 		b2PolygonShape groundBox;		
 		
 		// bottom
-		groundBox.SetAsEdge(b2Vec2(0,0), b2Vec2(screenSize.width/PTM_RATIO,0));
-		groundBody->CreateFixture(&groundBox,0);
+		groundBox.SetAsEdge(b2Vec2(0,80/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,80/PTM_RATIO));
+        groundBody->CreateFixture(&groundBox,0);
 		
 		// top
 		groundBox.SetAsEdge(b2Vec2(0,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO));
-		groundBody->CreateFixture(&groundBox,0);
+        groundBody->CreateFixture(&groundBox,0);
 		
 		// left
-		groundBox.SetAsEdge(b2Vec2(0,screenSize.height/PTM_RATIO), b2Vec2(0,0));
+		groundBox.SetAsEdge(b2Vec2(0,screenSize.height/PTM_RATIO), b2Vec2(0,80/PTM_RATIO));
 		groundBody->CreateFixture(&groundBox,0);
 		
 		// right
-		groundBox.SetAsEdge(b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,0));
+		groundBox.SetAsEdge(b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,80/PTM_RATIO));
 		groundBody->CreateFixture(&groundBox,0);
 		
 		
 		[self addChild:[CCNode node]  z:kTagMatchObjectNode tag:kTagMatchObjectNode ];
 	
 
-		levelUp = NO;
-        levelUpScale = 1.0f;
+
         
         levelUpLabel = [CCLabelTTF labelWithString:@"Level Up" fontName:@"Marker Felt" fontSize:256];
 		[self addChild:levelUpLabel z:0];
@@ -240,6 +243,11 @@ static GameScene *sharedScene = nil;
 		levelUpLabel.position = ccp( screenSize.width/2, screenSize.height/2);
          [levelUpLabel setVisible:NO];
 
+       scoreLabel = [CCLabelTTF labelWithString:@"Score:0" fontName:@"Marker Felt" fontSize:64];
+  
+        [self addChild:scoreLabel z:0];
+		[scoreLabel setColor:ccc3(0,0,255)];
+		scoreLabel.position = ccp( screenSize.width/2, screenSize.height-64);
         
 		[self schedule: @selector(update:)];
 		
@@ -280,27 +288,34 @@ static GameScene *sharedScene = nil;
 	return [[self getMatchObject:CCRANDOM_0_1()*[self numMatchObjects]] val];	
 }
 
--(void)addMatchObject
+-(void)addMatchObject:(CGPoint)p
 {
 	
 	
 	int v = [self needsVal];
 	if(v) 
 	{
-		[self addMatchObjectAtPosition:ccp(64+CCRANDOM_0_1()*(screenSize.width-128),64+CCRANDOM_0_1()*(screenSize.height-128)) value:v];	
+		[self addMatchObjectAtPosition:p value:v];	
 	}
 	else 
 	{
-		[self addMatchObjectAtPosition:ccp(64+CCRANDOM_0_1()*(screenSize.width-128),64+CCRANDOM_0_1()*(screenSize.height-128)) value:1+CCRANDOM_0_1()*6 * difficulty];	
+		[self addMatchObjectAtPosition:p value:1+CCRANDOM_0_1()*6 * difficulty];	
 	}
 
 }
--(void)newGame
+-(void)newLevel
 {
-	for (int i=0; i<maxMatchObjects; i++) 
-	{
-		[self addMatchObject];
-	}
+    for(int i=0;i<4;i++)
+    {
+        for(int j=0;j<3;j++)
+        {
+            if([self numMatchObjects] >= maxMatchObjects)
+                return;
+            
+            [self addMatchObject:ccp(256 + j*256 + CCRANDOM_MINUS1_1()*64, 256+i*256 + CCRANDOM_MINUS1_1()*64 )];
+        }
+    }
+	
 }
 -(void) draw
 {
@@ -366,20 +381,54 @@ static GameScene *sharedScene = nil;
 	world->Step(dt, velocityIterations, positionIterations);
     
 }
-
+-(void)addBonusLabelAt:(CGPoint)p value:(int)v
+{
+    int matches = 0;
+    
+    for (Wave* w1 in [waves waves]) 
+    {
+        if ([w1 value] == v) 
+        {
+            matches++;
+            
+        }
+        else
+        {
+             
+             break;
+        }
+    }
+    if (matches>0) 
+    {
+        
+        [self addChild:[BonusLabel bonusLabelWithPosition:p value:matches*100]];
+        [sound playSound:REWARD_SOUND];
+        score += matches*100;
+    }
+    else
+    {
+       [self addChild:[BonusLabel bonusLabelWithPosition:p value:10]];
+        score += 10;
+    }
+    
+    
+    [scoreLabel setString:[NSString stringWithFormat:@"Score:%d",score]];
+    
+}
 -(void) update: (ccTime) dt
 {
 	
 	if (first)
 	{
 		first = NO;
-		[self newGame];
+		[self newLevel];
 	}
    
 #ifdef CONTINUOUS_PLAY
 	while ([self numMatchObjects]<maxMatchObjects) 
 		[self addMatchObject];
 #else
+    
     if([self numMatchObjects]==0 && !levelUp)
     {
         levelUpScale = 1.0f;
@@ -398,13 +447,11 @@ static GameScene *sharedScene = nil;
             levelUp = NO;
             [levelUpLabel setVisible:NO];
             [waves removeAllWaves];
-            for(int i=0;i<maxMatchObjects;i++)
-            {
-                [self addMatchObject];
-            }
+            [self newLevel];
         }
     }
 #endif
+    
     
     
     [self updatePhysics:dt];
@@ -423,7 +470,7 @@ static GameScene *sharedScene = nil;
         if(![anObject alive])
         {
             [[GameScene scene] addChild:[RingExplosion explosionAtPosition:[anObject position]]];
-            [[GameScene scene] addChild:[BlockExplosion explosionAtPosition:[anObject position]]];
+            //[[GameScene scene] addChild:[BlockExplosion explosionAtPosition:[anObject position]]];
             [sound playSound:POP_SOUND];
             
             [anObject destroy];
@@ -454,6 +501,7 @@ static GameScene *sharedScene = nil;
 		
 		location = [[CCDirector sharedDirector] convertToGL: location];
 		
+        
 	}
 }
 

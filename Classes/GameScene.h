@@ -42,16 +42,20 @@
     float levelUpScale;
     bool levelUp;
     CCLabelTTF* levelUpLabel; 
+    CCLabelTTF* scoreLabel;
+    int score;
 }
 
 // returns a Scene that contains the HelloWorld as the only child
 +(id) scene;
 
 // adds a new sprite at a given coordinate
--(void)addMatchObject;
--(void) addMatchObjectAtPosition:(CGPoint)p value:(int)v;
+-(void)addMatchObject:(CGPoint)p;
+
 -(void)addRippleAt:(CGPoint)position radius:(int)r value:(int)v;
--(void)newGame;
+-(void)addBonusLabelAt:(CGPoint)p value:(int)v;
+
+
 -(CCArray*)MatchObjects;
 -(int)numMatchObjects;
 -(MatchObject*)getMatchObject:(int)i;
