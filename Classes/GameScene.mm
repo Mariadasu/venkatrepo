@@ -162,7 +162,7 @@ static GameScene *sharedScene = nil;
                 
 		[background runAction:waves];
 		
-		maxMatchObjects = 10;
+		maxMatchObjects = 5;
 		// enable touches
 		self.isTouchEnabled = YES;
 		
@@ -295,20 +295,11 @@ static GameScene *sharedScene = nil;
 	}
 
 }
-
--(void)addMatchObject:(int) max
-{
-	int v = rand() % max;
-	v = v?v:1;
-	v = (rand() % 2)?v:-v;
-	[self addMatchObjectAtPosition:ccp(64+CCRANDOM_0_1()*(screenSize.width-128),64+CCRANDOM_0_1()*(screenSize.height-128)) value:v];
-}
-
 -(void)newGame
 {
 	for (int i=0; i<maxMatchObjects; i++) 
 	{
-		[self addMatchObject:(maxMatchObjects/2)];
+		[self addMatchObject];
 	}
 }
 -(void) draw
@@ -407,11 +398,10 @@ static GameScene *sharedScene = nil;
             levelUp = NO;
             [levelUpLabel setVisible:NO];
             [waves removeAllWaves];
-			[self newGame];
-            /*for(int i=0;i<maxMatchObjects;i++) // Kelvin make a call to newGame
+            for(int i=0;i<maxMatchObjects;i++)
             {
                 [self addMatchObject];
-            } */
+            }
         }
     }
 #endif
