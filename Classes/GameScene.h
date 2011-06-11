@@ -46,7 +46,8 @@
     int score;
 }
 
-// returns a Scene that contains the HelloWorld as the only child
+// returns a singelton instance of the GameScene if it hasnt been created then it will make one
+//so any object can access the GameScene by importing "GameScene.h" and calling [GameScene scene] .. ex [[GameScene scene] addition];
 +(id) scene;
 
 // adds a new sprite at a given coordinate
@@ -61,7 +62,7 @@
 -(MatchObject*)getMatchObject:(int)i;
 -(int)getMatchObjectValue:(int)i;
 
-
+@property (nonatomic,readonly) SoundLayer* sound;
 @property (nonatomic,readonly) b2World* world;
 @property (nonatomic,readwrite)int difficulty;
 @property (nonatomic,readwrite)bool addition;

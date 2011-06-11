@@ -102,7 +102,7 @@
 		[w update];
 		if(![w alive])
 		{
-			NSLog(@"wave removed");
+		//	NSLog(@"wave removed");
 			[discardedWaves addObject:w];
 		}
 	}

@@ -48,7 +48,7 @@
     if(hit)
     {
                 
-        [[GameScene scene] addRippleAt:[self position] radius:256 value:[intNode getVal]];
+        [[GameScene scene] addRippleAt:[self position] radius:256 value:[self value]];
     }
     
     [intNode release];
@@ -108,7 +108,7 @@
         for (int i=0; i<numBubbles; i++) 
         {
             rad += (2*3.1415/v);
-            CGPoint pos = ccpAdd(p,ccpRotateByAngle(ccp(CCRANDOM_MINUS1_1()*12,64 + CCRANDOM_0_1()*12), ccp(0,0), rad));
+            CGPoint pos = p; //ccpAdd(p,ccpRotateByAngle(ccp(CCRANDOM_MINUS1_1()*12,64 + CCRANDOM_0_1()*12), ccp(0,0), rad));
             
                 [bubbles addObject:[Bubble bubbleWithPosition:pos
                                                         color:col   //color:(int)(CCRANDOM_0_1()*2.0f) /*make the bubble random color*/

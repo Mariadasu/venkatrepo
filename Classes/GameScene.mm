@@ -30,7 +30,7 @@ enum {
 
 @synthesize world;
 @synthesize difficulty;
-
+@synthesize sound;
 @synthesize addition;
 @synthesize subtraction;
 @synthesize multiplication;
@@ -51,50 +51,6 @@ static GameScene *sharedScene = nil;
 	return sharedScene;	
 }
 
--(void)checkMatches
-{
-	NSMutableArray* selected = [NSMutableArray array];
-	for (int i = 0;i < [self numMatchObjects]; i++) 
-	{
-		if([[self getMatchObject:i] isActive])
-            [selected addObject:[self getMatchObject:i]];
-	}
-	if ([selected count]>1) 
-	{
-		//there are some selected so check if they are matches
-		int v = -1;
-		for(MatchObject* b in selected)
-		{
-			if (v==-1) { v = [b val]; }
-			else 
-			{
-				if (v != [b val]) 
-				{
-					//there are mismatches
-					v=-1;
-					break;
-				}
-			}
-
-		}
-		if (v==-1) 
-		{
-			NSLog(@"there were mismatches");
-		}
-		else
-		{
-			for(MatchObject* b in selected)
-			{
-				[b destroy];
-                
-			}
-		}
-
-	}
-	[selected removeAllObjects];
-	selected = 0;
-	
-}
 -(CCArray*)MatchObjects
 {
 	return [[self getChildByTag:kTagMatchObjectNode] children];
@@ -256,7 +212,7 @@ static GameScene *sharedScene = nil;
 	return self;
 }
 
-
+/*check to make sure there is atleast one match already made.. if there is a match return zero if not return the value of a random MatchObject*/
 -(int)needsVal
 {
 
@@ -291,7 +247,7 @@ static GameScene *sharedScene = nil;
 -(void)addMatchObject:(CGPoint)p
 {
 	
-	
+	/*I am not sure this will guarentee a match is on screen*/
 	int v = rand() % (difficulty<<2); // [self needsVal];
 	v = v?v:1;
 	v = (v%2)?-v:v;
@@ -306,6 +262,7 @@ static GameScene *sharedScene = nil;
 	}
 
 }
+/*add maxMaxbjects to the level in a grid like patterns*/
 -(void)newLevel
 {
     for(int i=0;i<4;i++)
@@ -320,6 +277,7 @@ static GameScene *sharedScene = nil;
     }
 	
 }
+/*enable this to draw any level graphics with pure opengl commands.. everything else is handled by the rendering engine*/
 -(void) draw
 {
 	/*
@@ -340,7 +298,7 @@ static GameScene *sharedScene = nil;
 
 }
 
-
+/*calculate forces and make a timestep for the physics*/
 -(void)updatePhysics:(float)dt
 {
     //add a repulsion force between the objects so they dont bunch up
@@ -384,10 +342,11 @@ static GameScene *sharedScene = nil;
 	world->Step(dt, velocityIterations, positionIterations);
     
 }
+/*A bonus label is currently the way to add points*/
 -(void)addBonusLabelAt:(CGPoint)p value:(int)v
 {
     int matches = 0;
-    
+    /*check if there are any waves that have the value being added*/
     for (Wave* w1 in [waves waves]) 
     {
         if ([w1 value] == v) 
@@ -397,13 +356,17 @@ static GameScene *sharedScene = nil;
         }
         else
         {
-             
-             break;
+            /*not sure how to handle this but essentially it means to get a bonus you have to have only popped bubbles with the
+             same value. so if you bopped one with a differnt value then you dont get bonus, but then it seems very hard to get a bonus since the waves 
+             lase for a while*/
+           //matches = 0;  
+           //  break;
         }
     }
+  //  printf("num matches %d\n",matches);
     if (matches>0) 
     {
-        
+        /*if there is matches add more points, right now it is 100 times the number of matches so far*/
         [self addChild:[BonusLabel bonusLabelWithPosition:p value:matches*100]];
         [sound playSound:REWARD_SOUND];
         score += matches*100;
@@ -427,11 +390,12 @@ static GameScene *sharedScene = nil;
 		[self newLevel];
 	}
    
-#ifdef CONTINUOUS_PLAY
-	while ([self numMatchObjects]<maxMatchObjects) 
-		[self addMatchObject];
-#else
-    
+    #ifdef CONTINUOUS_PLAY
+    /*keep maxMatchObject number of objects on screen*/
+        while ([self numMatchObjects]<maxMatchObjects) 
+            [self addMatchObject];
+    #else
+    /*once the objects are clear make a new level*/
     if([self numMatchObjects]==0 && !levelUp)
     {
         levelUpScale = 1.0f;
@@ -455,20 +419,16 @@ static GameScene *sharedScene = nil;
     }
 #endif
     
-    
-    
     [self updatePhysics:dt];
     
 	[waves update:dt];
     
-   
+   /*clear out any MatchObjects that are not alive and add an explosion and a pop sound*/
     for (int i=0;i<[self numMatchObjects];i++) 
     {
         MatchObject* anObject = [self getMatchObject:i];
         
         [anObject update:dt];
-        
-        
         
         if(![anObject alive])
         {
@@ -480,6 +440,7 @@ static GameScene *sharedScene = nil;
         }
         else
         {
+            /*check if any waves are hitting this object and then pop them without considering a bonus or making a new wave*/
             for(Wave* w in  [waves waves])
             {
                 float h = [w heightAt:[anObject position]] ;
@@ -498,7 +459,8 @@ static GameScene *sharedScene = nil;
 
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	//Add a new body/atlas sprite at the touched location
+    /*
+	//use this to deal with touches at the game scene level.. each MatchObject handles touches itself
 	for( UITouch *touch in touches ) {
 		CGPoint location = [touch locationInView: [touch view]];
 		
@@ -506,11 +468,12 @@ static GameScene *sharedScene = nil;
 		
         
 	}
+     */
 }
 
 - (void)accelerometer:(UIAccelerometer*)accelerometer didAccelerate:(UIAcceleration*)acceleration
 {	
-	
+	//uncomment this if you want the accelerometer to effect the physics gravity
     /*
      static float prevX=0, prevY=0;
 	
