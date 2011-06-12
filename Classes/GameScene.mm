@@ -247,9 +247,11 @@ static GameScene *sharedScene = nil;
 -(void)addMatchObject:(CGPoint)p
 {
 	
-	/*I am not sure this will guarentee a match is on screen*/
-	int v = rand() % (difficulty<<2); // [self needsVal];
-	v = v?v:1;
+	/*I am not sure this will guarentee a match is on screen
+	 It does not but that's because it's inefficient and we need a better way to control
+	 so changed it to just generating bubbles for now but the numbers are fairly low so there are matches*/
+	int v = rand() % (difficulty<<3); // [self needsVal];
+	v = v?v:2;
 	v = (v%2)?-v:v;
 	
 	if(v) 
