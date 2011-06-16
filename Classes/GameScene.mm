@@ -98,7 +98,7 @@ static GameScene *sharedScene = nil;
         levelUpScale = 1.0f;
         score = 0;
         
-        
+        selectedObjects = [[CCArray alloc] init];
         sound = [[[SoundLayer alloc] init] autorelease];
         //[self addChild:sound];
         [sound loadLayer];
@@ -458,7 +458,42 @@ static GameScene *sharedScene = nil;
 	
 
 }
-
+-(void)objectPressed:(MatchObject*)obj
+{
+    for(MatchObject* m in selectedObjects)
+    {
+        if ([m value] != [obj value]) 
+        {
+            //there is a mismatch so play bad sound and unselect all objects
+            [selectedObjects removeAllObjects];
+            return;
+            
+        }
+    }
+    [selectedObjects addObject:obj];
+}
+-(void)objectReleased:(MatchObject*)obj
+{
+    if ([selectedObjects containsObject:obj] )
+    {
+        
+        for(MatchObject* m in selectedObjects)
+        {
+            if ([m selected]) 
+            {
+               //there is still an object selected
+                return;
+                
+            }
+        }
+        for(MatchObject* m in selectedObjects)
+        {
+            [m setAlive:NO];
+        }
+        
+    }
+}
+            
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     /*

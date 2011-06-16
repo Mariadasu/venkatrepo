@@ -15,6 +15,7 @@
 
 @synthesize alive;
 @synthesize value;
+@synthesize selected;
 
 +(id)matchObjectWithPosition:(CGPoint)p value:(int)v
 {
@@ -236,8 +237,9 @@
         { 
             hit = YES;
             touchStart = p;
-            alive = NO;
-           
+            //alive = NO;
+            selected = YES;
+             [[GameScene scene] objectPressed:self];
         }
 
     }
@@ -254,17 +256,24 @@
 }
 - (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    CGPoint p = [[CCDirector sharedDirector] convertToGL: [touch locationInView:[touch view]] ];
+   // CGPoint p = [[CCDirector sharedDirector] convertToGL: [touch locationInView:[touch view]] ];
     
-    for (Bubble* b in bubbles)
+   /* for (Bubble* b in bubbles)
     {
-        if([self isActive]) 
+        if(ccpDistance([b position] , p ) < [b radius]*2 ) 
+        { */
+        
+            selected = NO;
+            [[GameScene scene] objectReleased:self];
+      //  }
+        /*if([self isActive]) 
         { 
             CGPoint vecDir = ccpSub(p, touchStart);
             [self addForce:vecDir];
         }
+         */
         
-    }
+ //   }
     
 	
 }

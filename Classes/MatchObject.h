@@ -26,6 +26,7 @@
 	CGPoint touchStart;
     int value;
     bool hit;
+    bool selected;
 	
 }
 
@@ -44,7 +45,7 @@
 -(CGPoint)position;          //this is the position of the centroid
 
 -(void) setIsTouchEnabled:(BOOL)enabled priority:(int)pr; //activate touches for this object
-
+@property(nonatomic,readonly)bool selected;
 @property(nonatomic,readwrite)bool alive;
 @property(nonatomic,readonly)int value;
 @end

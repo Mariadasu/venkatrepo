@@ -44,11 +44,16 @@
     CCLabelTTF* levelUpLabel; 
     CCLabelTTF* scoreLabel;
     int score;
+    
+    CCArray* selectedObjects;
 }
 
 // returns a singelton instance of the GameScene if it hasnt been created then it will make one
 //so any object can access the GameScene by importing "GameScene.h" and calling [GameScene scene] .. ex [[GameScene scene] addition];
 +(id) scene;
+
+-(void)objectPressed:(MatchObject*)obj;
+-(void)objectReleased:(MatchObject*)obj;
 
 // adds a new sprite at a given coordinate
 -(void)addMatchObject:(CGPoint)p;

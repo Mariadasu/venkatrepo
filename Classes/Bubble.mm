@@ -44,7 +44,7 @@
                 sprite = [CCSprite spriteWithFile:@"BlueBubble.png"];
             break;
         }
-    radius = val*[sprite contentSize].width/4.0f;
+    radius = val*[sprite contentSize].width/3.0f;
     sprite.position=p;
     
     
@@ -61,7 +61,7 @@
 	b2CircleShape dynamicCircle;
       
 
-    [sprite setScale:0.5f*val];   
+    [sprite setScale:0.75f*val];   
     dynamicCircle.m_radius = radius/PTM_RATIO;  
         
         
