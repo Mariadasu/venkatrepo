@@ -41,7 +41,7 @@
 
 
 -(void)addForce:(CGPoint)f;     //add a linear force to each bubble in the group
--(int)val;                      //the value of he group
+-(int)getVal;                      //the value of the group
 -(CGPoint)position;          //this is the position of the centroid
 
 -(void) setIsTouchEnabled:(BOOL)enabled priority:(int)pr; //activate touches for this object

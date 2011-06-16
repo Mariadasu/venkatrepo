@@ -22,9 +22,9 @@
 	return [[[MatchObject alloc]	initWithPosition:p value:(int)v] autorelease];
 }
 
--(int)val
+-(int)getVal
 {
-	return [intNode getVal];	
+	return [GameScene getVal:value];	
 }
 
 -(void)addForce:(CGPoint)f
@@ -43,13 +43,13 @@
 {
 	
     
-    [[GameScene scene] addBonusLabelAt:[self position] value:value];
+    [[GameScene scene] addBonusLabelAt:[self position] value:[GameScene getVal:value]];
 
     
     if(hit)
     {
                 
-        [[GameScene scene] addRippleAt:[self position] radius:256 value:[self value]];
+        [[GameScene scene] addRippleAt:[self position] radius:256 value:[GameScene getVal:value]];
     }
     
     [intNode release];
@@ -100,24 +100,26 @@
     [glowSprite setOpacity:180];
 		
 	bubble_colors col = (v < 0)?RED_BUBBLE:BLUE_BUBBLE;
-	int numBubbles = (v < 0)?-v:v;
+    int numBubbles = [GameScene getVal:(v < 0)?-v:v];
         
 	[self addChild:glowSprite];
-	
-        //for now the bubbles are just made at random locations around the MatchObject position and the are all blue
+
+        //for now the bubbles are just made at random locations around the MatchObject position
         float rad = CCRANDOM_0_1()*2;
-        for (int i=0; i<numBubbles; i++) 
+        for (int i=0; i<=numBubbles; i++) 
         {
             rad += (2*3.1415/v);
             CGPoint pos = ccpAdd(p,ccp(CCRANDOM_MINUS1_1()*5,CCRANDOM_MINUS1_1()*5));
+            label = [CCLabelTTF labelWithString:@"1" dimensions:CGSizeMake(128, 64)  alignment:CCTextAlignmentCenter fontName:@"Marker Felt" fontSize:32];
+            label.color = ccc3(0,0,0);
+            
             ; //ccpAdd(p,ccpRotateByAngle(ccp(CCRANDOM_MINUS1_1()*12,64 + CCRANDOM_0_1()*12), ccp(0,0), rad));
             
                 [bubbles addObject:[Bubble bubbleWithPosition:pos
                                                         color:col   //color:(int)(CCRANDOM_0_1()*2.0f) /*make the bubble random color*/
-                                                          val:1             // val:CCRANDOM_0_1()*2+1 /*for now all bubbles have val 1*/
+                                                        val:label   // val:CCRANDOM_0_1()*2+1 /*for now all bubbles have val 1*/
                                 ]];          
         }
-        
         
         for (Bubble* b in bubbles)
             [self addChild:[b sprite] ];

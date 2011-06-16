@@ -15,16 +15,16 @@ enum bubble_colors
   BLUE_BUBBLE
 };
 
-@interface Bubble : NSObject 
+@interface Bubble : CCNode
 {
     CCSprite* sprite;
     b2Body* b;
-    int val; 
+    CCLabelTTF* label;
     float radius;
 }
 
--(id)initWithPosition:(CGPoint)p color:(int)col val:(int)v;
-+(id)bubbleWithPosition:(CGPoint)p color:(int)col val:(int)v;
+-(id)initWithPosition:(CGPoint)p color:(int)col val:(CCLabelTTF*)lab;
++(id)bubbleWithPosition:(CGPoint)p color:(int)col val:(CCLabelTTF*)lab;
 -(CGPoint)position;
 -(void)update;
 -(void)addForce:(CGPoint)f;

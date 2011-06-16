@@ -67,6 +67,10 @@
 -(MatchObject*)getMatchObject:(int)i;
 -(int)getMatchObjectValue:(int)i;
 
++(int)genNum;
++(int)getVal:(int)i;
++(NSString*)getExpr:(int)i;
+
 @property (nonatomic,readonly) SoundLayer* sound;
 @property (nonatomic,readonly) b2World* world;
 @property (nonatomic,readwrite)int difficulty;

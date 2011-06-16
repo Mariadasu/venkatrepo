@@ -25,6 +25,8 @@ enum {
 };
 //test
 
+int MAXNUM = 100;
+
 // HelloWorld implementation
 @implementation GameScene
 
@@ -44,9 +46,9 @@ static GameScene *sharedScene = nil;
 {
 	if (sharedScene == nil) 
 	{
-	
+        
 		sharedScene = [[[GameScene alloc] init] autorelease];
-	
+        
 	}
 	return sharedScene;	
 }
@@ -57,7 +59,7 @@ static GameScene *sharedScene = nil;
 }
 -(void)addRippleAt:(CGPoint)p radius:(int)r value:(int)v
 {
-     [waves addRippleAt:p radius:r val:v];
+    [waves addRippleAt:p radius:r val:v];
 }
 -(int)numMatchObjects
 {
@@ -69,13 +71,13 @@ static GameScene *sharedScene = nil;
 }
 -(int)getMatchObjectValue:(int)i
 {
-	return [[self getMatchObject:i] val];
+	return [GameScene getVal:[[self getMatchObject:i] value]];
 }
 -(void)addMatchObjectAtPosition:(CGPoint)p value:(int)v
 {
 	
 	[[self getChildByTag:kTagMatchObjectNode] addChild:[MatchObject matchObjectWithPosition:p value:v]];
-
+    
 }
 
 
@@ -110,7 +112,7 @@ static GameScene *sharedScene = nil;
 		
 		[self addChild:background z:kTagBackground tag:kTagBackground];
 		
-	
+        
 		CCMenuItemImage *pauseButton = [CCMenuItemImage itemFromNormalImage:@"pause.png" selectedImage:@"pause.png" target:self selector:@selector(pauseScene:)];
 		[pauseButton setScale:3];
 		CCMenu *menu = [CCMenu menuWithItems:pauseButton, nil];
@@ -119,7 +121,7 @@ static GameScene *sharedScene = nil;
 		
 		[self addChild: menu z:1];
 		
-                
+        
 		[background runAction:waves];
 		
 		
@@ -152,10 +154,10 @@ static GameScene *sharedScene = nil;
 		
 		uint32 flags = 0;
 		flags += b2DebugDraw::e_shapeBit;
-//		flags += b2DebugDraw::e_jointBit;
-//		flags += b2DebugDraw::e_aabbBit;
-//		flags += b2DebugDraw::e_pairBit;
-//		flags += b2DebugDraw::e_centerOfMassBit;
+        //		flags += b2DebugDraw::e_jointBit;
+        //		flags += b2DebugDraw::e_aabbBit;
+        //		flags += b2DebugDraw::e_pairBit;
+        //		flags += b2DebugDraw::e_centerOfMassBit;
 		m_debugDraw->SetFlags(flags);		
 		
 		
@@ -189,18 +191,18 @@ static GameScene *sharedScene = nil;
 		
 		
 		[self addChild:[CCNode node]  z:kTagMatchObjectNode tag:kTagMatchObjectNode ];
-	
-
-
+        
+        
+        
         
         levelUpLabel = [CCLabelTTF labelWithString:@"Level Up" fontName:@"Marker Felt" fontSize:256];
 		[self addChild:levelUpLabel z:0];
 		[levelUpLabel setColor:ccc3(255,255,255)];
 		levelUpLabel.position = ccp( screenSize.width/2, screenSize.height/2);
-         [levelUpLabel setVisible:NO];
-
-       scoreLabel = [CCLabelTTF labelWithString:@"Score:0" fontName:@"Marker Felt" fontSize:64];
-  
+        [levelUpLabel setVisible:NO];
+        
+        scoreLabel = [CCLabelTTF labelWithString:@"Score:0" fontName:@"Marker Felt" fontSize:64];
+        
         [self addChild:scoreLabel z:0];
 		[scoreLabel setColor:ccc3(255,255,255)];
 		scoreLabel.position = ccp( screenSize.width/2, screenSize.height-64);
@@ -212,37 +214,6 @@ static GameScene *sharedScene = nil;
 	return self;
 }
 
-/*check to make sure there is atleast one match already made.. if there is a match return zero if not return the value of a random MatchObject*/
--(int)needsVal
-{
-
-    if([self numMatchObjects]==0)
-        return 0;
-    
-	for(int i = 0; i < [self numMatchObjects]; i++)
-	{
-		MatchObject* b = [self getMatchObject:i];
-			for(int j = 0; j < [self numMatchObjects]; j++)
-			{
-				
-				if (i != j) 
-				{
-					MatchObject* b2 = [self getMatchObject:j];
-					if ([b val] == [b2 val]) 
-					{
-						//there is a match so return 0
-						return 0;
-					}
-					
-
-				}
-				
-			}
-		
-		
-	}
-	return [[self getMatchObject:CCRANDOM_0_1()*[self numMatchObjects]] val];	
-}
 
 -(void)addMatchObject:(CGPoint)p
 {
@@ -250,19 +221,23 @@ static GameScene *sharedScene = nil;
 	/*I am not sure this will guarentee a match is on screen
 	 It does not but that's because it's inefficient and we need a better way to control
 	 so changed it to just generating bubbles for now but the numbers are fairly low so there are matches*/
-	int v = rand() % (difficulty<<3); // [self needsVal];
-	v = v?v:2;
-	v = (v%2)?-v:v;
-	
-	if(v) 
-	{
-		[self addMatchObjectAtPosition:p value:v];	
-	}
-	else 
-	{
-		[self addMatchObjectAtPosition:p value:1+CCRANDOM_0_1()*6 * difficulty];	
-	}
-
+	/* int v = (rand() % (difficulty<<3)) + 1; // [self needsVal];
+     v = (v%2)?-v:lv;
+     
+     
+     
+     if(v) 
+     {
+     [self addMatchObjectAtPosition:p value:v];	
+     }
+     else 
+     {
+     [self addMatchObjectAtPosition:p value:1+CCRANDOM_0_1()*6 * difficulty];	
+     } OLD CODE*/
+    // Kelvin: New Structure
+    
+    [self addMatchObjectAtPosition:p value:[GameScene genNum]];	
+    
 }
 /*add maxMaxbjects to the level in a grid like patterns*/
 -(void)newLevel
@@ -283,21 +258,21 @@ static GameScene *sharedScene = nil;
 -(void) draw
 {
 	/*
-	// Default GL states: GL_TEXTURE_2D, GL_VERTEX_ARRAY, GL_COLOR_ARRAY, GL_TEXTURE_COORD_ARRAY
-	// Needed states:  GL_VERTEX_ARRAY, 
-	// Unneeded states: GL_TEXTURE_2D, GL_COLOR_ARRAY, GL_TEXTURE_COORD_ARRAY
-	glDisable(GL_TEXTURE_2D);
-	glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	
-	world->DrawDebugData();
-	
-	// restore default GL states
-	glEnable(GL_TEXTURE_2D);
-	glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+     // Default GL states: GL_TEXTURE_2D, GL_VERTEX_ARRAY, GL_COLOR_ARRAY, GL_TEXTURE_COORD_ARRAY
+     // Needed states:  GL_VERTEX_ARRAY, 
+     // Unneeded states: GL_TEXTURE_2D, GL_COLOR_ARRAY, GL_TEXTURE_COORD_ARRAY
+     glDisable(GL_TEXTURE_2D);
+     glDisableClientState(GL_COLOR_ARRAY);
+     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+     
+     world->DrawDebugData();
+     
+     // restore default GL states
+     glEnable(GL_TEXTURE_2D);
+     glEnableClientState(GL_COLOR_ARRAY);
+     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	 */
-
+    
 }
 
 /*calculate forces and make a timestep for the physics*/
@@ -351,7 +326,7 @@ static GameScene *sharedScene = nil;
     /*check if there are any waves that have the value being added*/
     for (Wave* w1 in [waves waves]) 
     {
-        if ([w1 value] == v) 
+        if ([w1 value] == v)
         {
             matches++;
             
@@ -361,11 +336,11 @@ static GameScene *sharedScene = nil;
             /*not sure how to handle this but essentially it means to get a bonus you have to have only popped bubbles with the
              same value. so if you bopped one with a differnt value then you dont get bonus, but then it seems very hard to get a bonus since the waves 
              lase for a while*/
-           //matches = 0;  
-           //  break;
+            //matches = 0;  
+            //  break;
         }
     }
-  //  printf("num matches %d\n",matches);
+    //  printf("num matches %d\n",matches);
     if (matches>0) 
     {
         /*if there is matches add more points, right now it is 100 times the number of matches so far*/
@@ -375,7 +350,7 @@ static GameScene *sharedScene = nil;
     }
     else
     {
-       [self addChild:[BonusLabel bonusLabelWithPosition:p value:10]];
+        [self addChild:[BonusLabel bonusLabelWithPosition:p value:10]];
         score += 10;
     }
     
@@ -391,12 +366,12 @@ static GameScene *sharedScene = nil;
 		first = NO;
 		[self newLevel];
 	}
-   
-    #ifdef CONTINUOUS_PLAY
+    
+#ifdef CONTINUOUS_PLAY
     /*keep maxMatchObject number of objects on screen*/
-        while ([self numMatchObjects]<maxMatchObjects) 
-            [self addMatchObject];
-    #else
+    while ([self numMatchObjects]<maxMatchObjects) 
+        [self addMatchObject];
+#else
     /*once the objects are clear make a new level*/
     if([self numMatchObjects]==0 && !levelUp)
     {
@@ -404,13 +379,13 @@ static GameScene *sharedScene = nil;
         levelUp = YES;
         [levelUpLabel setVisible:YES];
         //[levelUpLabel setOpacity:1];
-    
+        
     }
     if(levelUp)
     {
         levelUpScale *= 0.9f;
         [levelUpLabel setScale:levelUpScale];
-       // [levelUpLabel setOpacity:levelUpScale];
+        // [levelUpLabel setOpacity:levelUpScale];
         if (levelUpScale<=0.1f) 
         {
             levelUp = NO;
@@ -425,7 +400,7 @@ static GameScene *sharedScene = nil;
     
 	[waves update:dt];
     
-   /*clear out any MatchObjects that are not alive and add an explosion and a pop sound*/
+    /*clear out any MatchObjects that are not alive and add an explosion and a pop sound*/
     for (int i=0;i<[self numMatchObjects];i++) 
     {
         MatchObject* anObject = [self getMatchObject:i];
@@ -454,15 +429,15 @@ static GameScene *sharedScene = nil;
             }
         }
     }                  
-  
+    
 	
-
+    
 }
 -(void)objectPressed:(MatchObject*)obj
 {
     for(MatchObject* m in selectedObjects)
     {
-        if ([m value] != [obj value]) 
+        if ([GameScene getVal:[m value]] != [GameScene getVal:[obj value]]) 
         {
             //there is a mismatch so play bad sound and unselect all objects
             [selectedObjects removeAllObjects];
@@ -481,7 +456,7 @@ static GameScene *sharedScene = nil;
         {
             if ([m selected]) 
             {
-               //there is still an object selected
+                //there is still an object selected
                 return;
                 
             }
@@ -494,18 +469,18 @@ static GameScene *sharedScene = nil;
         
     }
 }
-            
+
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     /*
-	//use this to deal with touches at the game scene level.. each MatchObject handles touches itself
-	for( UITouch *touch in touches ) {
-		CGPoint location = [touch locationInView: [touch view]];
-		
-		location = [[CCDirector sharedDirector] convertToGL: location];
-		
-        
-	}
+     //use this to deal with touches at the game scene level.. each MatchObject handles touches itself
+     for( UITouch *touch in touches ) {
+     CGPoint location = [touch locationInView: [touch view]];
+     
+     location = [[CCDirector sharedDirector] convertToGL: location];
+     
+     
+     }
      */
 }
 
@@ -514,23 +489,49 @@ static GameScene *sharedScene = nil;
 	//uncomment this if you want the accelerometer to effect the physics gravity
     /*
      static float prevX=0, prevY=0;
-	
-	//#define kFilterFactor 0.05f
-#define kFilterFactor 1.0f	// don't use filter. the code is here just as an example
-	
-	float accelX = (float) acceleration.x * kFilterFactor + (1- kFilterFactor)*prevX;
-	float accelY = (float) acceleration.y * kFilterFactor + (1- kFilterFactor)*prevY;
-	
-	prevX = accelX;
-	prevY = accelY;
-	
-	// accelerometer values are in "Portrait" mode. Change them to Landscape left
-	// multiply the gravity by 10
-	b2Vec2 gravity( -accelY * 10, accelX * 10);
-	
-	world->SetGravity( gravity );
+     
+     //#define kFilterFactor 0.05f
+     #define kFilterFactor 1.0f	// don't use filter. the code is here just as an example
+     
+     float accelX = (float) acceleration.x * kFilterFactor + (1- kFilterFactor)*prevX;
+     float accelY = (float) acceleration.y * kFilterFactor + (1- kFilterFactor)*prevY;
+     
+     prevX = accelX;
+     prevY = accelY;
+     
+     // accelerometer values are in "Portrait" mode. Change them to Landscape left
+     // multiply the gravity by 10
+     b2Vec2 gravity( -accelY * 10, accelX * 10);
+     
+     world->SetGravity( gravity );
      */
 }
+
++(int)genNum
+{
+    int v = rand() % MAXNUM;
+    v = (rand()%2)?-v:v;
+    printf("Generated %d\n", v);
+    int effNum = [self getVal:v];
+    if (v == 0 || effNum > 9 || effNum < -9) // (v in badNumberList) 
+        v = [self genNum];
+    printf("Final generated %d\n", v);
+    return v;
+}
+
++(int)getVal:(int)i
+{
+    int secondD = i/10;
+    int firstD = i%10;
+    printf("Value of %d is evaluated to %d\n", i, secondD+firstD);
+    return secondD+firstD;
+}
+
++(NSString*)getExpr:(int)i
+{
+    return [NSString stringWithFormat:@"%d",[self getVal:i]];
+}
+
 
 // on "dealloc" you need to release all your retained objects
 - (void) dealloc
@@ -540,7 +541,7 @@ static GameScene *sharedScene = nil;
 	world = NULL;
 	
 	delete m_debugDraw;
-
+    
 	// don't forget to call "super dealloc"
 	[super dealloc];
 }

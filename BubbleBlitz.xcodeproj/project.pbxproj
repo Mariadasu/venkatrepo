@@ -1826,7 +1826,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Robert Backman (3224HUXN8A)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Robert Backman (3224HUXN8A)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = NO;
 				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
@@ -1838,6 +1839,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_CFLAGS = "-fvisibility=hidden";
 				PREBINDING = NO;
+				PROVISIONING_PROFILE = "42FFE0E7-FCB7-45CC-8FEF-C702BEF8A2C9";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "42FFE0E7-FCB7-45CC-8FEF-C702BEF8A2C9";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};

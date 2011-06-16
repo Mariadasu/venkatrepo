@@ -21,20 +21,20 @@
     [super dealloc];
 }
 
-+(id)bubbleWithPosition:(CGPoint)p color:(int)col val:(int)v
++(id)bubbleWithPosition:(CGPoint)p color:(int)col val:(CCLabelTTF*)lab
 {
-   return  [[[Bubble alloc] initWithPosition:p color:col val:v] autorelease];
+   return  [[[Bubble alloc] initWithPosition:p color:col val:lab] autorelease];
 }
 
 -(void)addForce:(CGPoint)f
 {
     b->ApplyForce(b2Vec2(f.x, f.y), b->GetPosition());
 }
--(id)initWithPosition:(CGPoint)p color:(int)col val:(int)v
+-(id)initWithPosition:(CGPoint)p color:(int)col val:(CCLabelTTF*)lab
 {
-    if( (self=[super init])) {
-        val = v;
-        
+    if( (self=[super init])) 
+    {
+
         switch (col) {
             case RED_BUBBLE:
                 sprite = [CCSprite spriteWithFile:@"RedBubble.png"];
@@ -44,36 +44,45 @@
                 sprite = [CCSprite spriteWithFile:@"BlueBubble.png"];
             break;
         }
-    radius = val*[sprite contentSize].width/3.0f;
-    sprite.position=p;
+        
+        int size = 1;
+        
+        radius = size*[sprite contentSize].width/3.0f;
+        sprite.position=p;
     
     
-    // Define the dynamic body.
-	//Set up a 1m squared box in the physics world
-	b2BodyDef bodyDef;
-	bodyDef.type = b2_dynamicBody;
+        // Define the dynamic body.
+        //Set up a 1m squared box in the physics world
+        b2BodyDef bodyDef;
+        bodyDef.type = b2_dynamicBody;
 	
-	bodyDef.position.Set(p.x/PTM_RATIO, p.y/PTM_RATIO);
-	bodyDef.userData = sprite;
-	b = [[GameScene scene] world]->CreateBody(&bodyDef);
+        bodyDef.position.Set(p.x/PTM_RATIO, p.y/PTM_RATIO);
+        bodyDef.userData = sprite;
+        b = [[GameScene scene] world]->CreateBody(&bodyDef);
 	
-	// Define another box shape for our dynamic body.
-	b2CircleShape dynamicCircle;
+        // Define another box shape for our dynamic body.
+        b2CircleShape dynamicCircle;
       
 
-    [sprite setScale:0.75f*val];   
-    dynamicCircle.m_radius = radius/PTM_RATIO;  
+        [sprite setScale:0.75f*size];   
+        dynamicCircle.m_radius = radius/PTM_RATIO;  
         
         
-	// Define the dynamic body fixture.
-	b2FixtureDef fixtureDef;
-	fixtureDef.shape = &dynamicCircle;	
-	fixtureDef.density = 1.0f;
-	fixtureDef.friction = 0.0f;
-	fixtureDef.restitution = 0.05f;
+        // Define the dynamic body fixture.
+        b2FixtureDef fixtureDef;
+        fixtureDef.shape = &dynamicCircle;	
+        fixtureDef.density = 1.0f;
+        fixtureDef.friction = 0.0f;
+        fixtureDef.restitution = 0.05f;
 	
-	b->CreateFixture(&fixtureDef);
+        b->CreateFixture(&fixtureDef);
+        
+
+        label = lab;
+        
+        [self addChild:label];    
     }
+    
     return self;
 }
 -(CGPoint)position

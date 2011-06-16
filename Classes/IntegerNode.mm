@@ -124,6 +124,7 @@ static int getFactor(int x)
 
 - (NSString*) getTreeString
 {
+
 	int level = (1 << (rand() % 3)) & OUTMASK; // to randomize output
 	if(op != NULL)
 		switch (level) {
