@@ -160,6 +160,7 @@
 		79A49E5D13A0806800430071 /* gridBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 79A49E5813A0806800430071 /* gridBackground.png */; };
 		79A49E5E13A0806800430071 /* oyshort.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 79A49E5913A0806800430071 /* oyshort.mp3 */; };
 		79A49E5F13A0806800430071 /* punch.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79A49E5A13A0806800430071 /* punch.wav */; };
+		79A78E8713A9EA0E009829EC /* Pop1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 79A78E8613A9EA0E009829EC /* Pop1.mp3 */; };
 		79E5DABC13A1F2A700C3C4E1 /* RedBubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 79E5DABB13A1F2A700C3C4E1 /* RedBubble.png */; };
 		79E5DAC713A30B1600C3C4E1 /* BonusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E5DAC613A30B1600C3C4E1 /* BonusLabel.m */; };
 		DC6640030F83B3EA000B3E49 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */; };
@@ -502,6 +503,7 @@
 		79A49E5813A0806800430071 /* gridBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gridBackground.png; sourceTree = "<group>"; };
 		79A49E5913A0806800430071 /* oyshort.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = oyshort.mp3; sourceTree = "<group>"; };
 		79A49E5A13A0806800430071 /* punch.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = punch.wav; sourceTree = "<group>"; };
+		79A78E8613A9EA0E009829EC /* Pop1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Pop1.mp3; sourceTree = "<group>"; };
 		79E5DABB13A1F2A700C3C4E1 /* RedBubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedBubble.png; sourceTree = "<group>"; };
 		79E5DAC513A30B1500C3C4E1 /* BonusLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BonusLabel.h; sourceTree = "<group>"; };
 		79E5DAC613A30B1600C3C4E1 /* BonusLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BonusLabel.m; sourceTree = "<group>"; };
@@ -1080,6 +1082,7 @@
 		79E5DAC213A1FDEE00C3C4E1 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
+				79A78E8613A9EA0E009829EC /* Pop1.mp3 */,
 				79A49E5613A0806800430071 /* CoinReward.mp3 */,
 				79A49E5713A0806800430071 /* Grenade.mp3 */,
 				79A49E5913A0806800430071 /* oyshort.mp3 */,
@@ -1541,6 +1544,7 @@
 				79A49E5E13A0806800430071 /* oyshort.mp3 in Resources */,
 				79A49E5F13A0806800430071 /* punch.wav in Resources */,
 				79E5DABC13A1F2A700C3C4E1 /* RedBubble.png in Resources */,
+				79A78E8713A9EA0E009829EC /* Pop1.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

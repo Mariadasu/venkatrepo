@@ -19,10 +19,10 @@
     self = [super init];
 	if(self){
         
-    labelScale = 1.0f;
+    labelScale = 0.1f;
         bonusLabel  = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d",v] fontName:@"Marker Felt" fontSize:64];
         [self addChild:bonusLabel z:0];
-        [bonusLabel setColor:ccc3(0,0,255)];
+        [bonusLabel setColor:ccc3(255,255,255)];
         bonusLabel.position = p;
         [self schedule:@selector(update:)];
         
@@ -39,9 +39,9 @@
 
 -(void)update:(ccTime)dt
 {
-    labelScale *= 0.9f;
+    labelScale += 0.2f;
     [bonusLabel setScale:labelScale];
-    if(labelScale<0.1)
+    if(labelScale>2.0f)
         [self removeFromParentAndCleanup:YES];
 }
 @end

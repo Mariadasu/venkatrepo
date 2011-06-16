@@ -153,8 +153,11 @@
 
     
 	[loadRequests addObject:[[[CDBufferLoadRequest alloc] init:EXPLOSION_SOUND filePath:@"Grenade.mp3"] autorelease]];
-	[loadRequests addObject:[[[CDBufferLoadRequest alloc] init:POP_SOUND filePath:@"punch.wav"] autorelease]];
-	[loadRequests addObject:[[[CDBufferLoadRequest alloc] init:REWARD_SOUND filePath:@"CoinReward.mp3"] autorelease]];
+	[loadRequests addObject:[[[CDBufferLoadRequest alloc] init:PUNCH_SOUND filePath:@"punch.wav"] autorelease]];
+	[loadRequests addObject:[[[CDBufferLoadRequest alloc] init:POP_SOUND filePath:@"Pop1.mp3"] autorelease]];
+    [loadRequests addObject:[[[CDBufferLoadRequest alloc] init:REWARD_SOUND filePath:@"CoinReward.mp3"] autorelease]];
+    
+    
     //[loadRequests addObject:[[[CDBufferLoadRequest alloc] init:SPLASH_SOUND filePath:@"clickfast.mp3"] autorelease]];
 	
 	[sse loadBuffersAsynchronously:loadRequests];

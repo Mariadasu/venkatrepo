@@ -14,6 +14,7 @@
 
 enum sounds {
     POP_SOUND = 0,
+    PUNCH_SOUND,
     EXPLOSION_SOUND,
     REWARD_SOUND,
     SPLASH_SOUND,

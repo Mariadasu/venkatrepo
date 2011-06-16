@@ -195,14 +195,14 @@ static GameScene *sharedScene = nil;
         
         levelUpLabel = [CCLabelTTF labelWithString:@"Level Up" fontName:@"Marker Felt" fontSize:256];
 		[self addChild:levelUpLabel z:0];
-		[levelUpLabel setColor:ccc3(0,0,255)];
+		[levelUpLabel setColor:ccc3(255,255,255)];
 		levelUpLabel.position = ccp( screenSize.width/2, screenSize.height/2);
          [levelUpLabel setVisible:NO];
 
        scoreLabel = [CCLabelTTF labelWithString:@"Score:0" fontName:@"Marker Felt" fontSize:64];
   
         [self addChild:scoreLabel z:0];
-		[scoreLabel setColor:ccc3(0,0,255)];
+		[scoreLabel setColor:ccc3(255,255,255)];
 		scoreLabel.position = ccp( screenSize.width/2, screenSize.height-64);
         
 		[self schedule: @selector(update:)];
@@ -486,6 +486,7 @@ static GameScene *sharedScene = nil;
                 
             }
         }
+        
         for(MatchObject* m in selectedObjects)
         {
             [m setAlive:NO];
