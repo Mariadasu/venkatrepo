@@ -16,7 +16,7 @@
 	    
 	CCSprite* glowSprite;    //this sprite shows which bubbles are selected so they don't have to be popped at the same time.. probably not the best
     float glowScale;         //this is essentialy a timer to determine if the object has been selected recently
-    NSMutableArray* bubbles; //the group of bubbles that belong to this object
+    CCNode* bubbles; //the group of bubbles that belong to this object
 	IntegerNode* intNode;    //class for generating expresions
 	CCLabelTTF* label;       //can be used to display the text for the expression or value
     CGPoint centroid;        //this is the point at the center of the object.. just the average of each bubbles position
@@ -36,7 +36,7 @@
 
 +(id)matchObjectWithPosition:(CGPoint)p value:(int)v;  //autorelease version of constructor
 -(id)initWithPosition:(CGPoint)p value:(int)v;
--(void) update: (ccTime) dt;                      
+                      
 
 
 

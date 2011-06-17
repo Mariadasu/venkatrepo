@@ -101,6 +101,7 @@ static GameScene *sharedScene = nil;
         score = 0;
         
         selectedObjects = [[CCArray alloc] init];
+        
         sound = [[[SoundLayer alloc] init] autorelease];
         //[self addChild:sound];
         [sound loadLayer];
@@ -108,10 +109,14 @@ static GameScene *sharedScene = nil;
 		background = [CCSprite spriteWithFile:@"gridBackground.png"];
 		background.anchorPoint = ccp(0,0);
 		background.position = ccp(0,0);
-		waves = [[WavePool alloc] initWithImage:background size:ccg(30,30)];
+		
+        waves = [[WavePool alloc] initWithImage:background size:ccg(30,30)];
 		
 		[self addChild:background z:kTagBackground tag:kTagBackground];
 		
+        [background runAction:waves];
+		
+        
         
 		CCMenuItemImage *pauseButton = [CCMenuItemImage itemFromNormalImage:@"pause.png" selectedImage:@"pause.png" target:self selector:@selector(pauseScene:)];
 		[pauseButton setScale:3];
@@ -120,10 +125,6 @@ static GameScene *sharedScene = nil;
 		menu.position = ccp(64,32);
 		
 		[self addChild: menu z:1];
-		
-        
-		[background runAction:waves];
-		
 		
 		// enable touches
 		self.isTouchEnabled = YES;
@@ -197,6 +198,7 @@ static GameScene *sharedScene = nil;
         
         levelUpLabel = [CCLabelTTF labelWithString:@"Level Up" fontName:@"Marker Felt" fontSize:256];
 		[self addChild:levelUpLabel z:0];
+        
 		[levelUpLabel setColor:ccc3(255,255,255)];
 		levelUpLabel.position = ccp( screenSize.width/2, screenSize.height/2);
         [levelUpLabel setVisible:NO];
@@ -405,7 +407,7 @@ static GameScene *sharedScene = nil;
     {
         MatchObject* anObject = [self getMatchObject:i];
         
-        [anObject update:dt];
+       // [anObject update:dt];
         
         if(![anObject alive])
         {

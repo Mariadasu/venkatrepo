@@ -29,7 +29,8 @@
 
 -(void)addForce:(CGPoint)f
 {
-    for (Bubble* b in bubbles)
+    CCArray* children = [bubbles children];
+    for (Bubble* b in children)
     {
         [b addForce:f];
     }    
@@ -53,8 +54,8 @@
     }
     
     [intNode release];
-	[bubbles removeAllObjects];
-    [bubbles release];
+	[bubbles removeAllChildrenWithCleanup:YES];
+    //[bubbles release];
     bubbles = 0;
     intNode = 0;
     
@@ -93,7 +94,8 @@
 	 int idy = (CCRANDOM_0_1() > .5 ? 0:1);
 	 */
 	
-    bubbles = [[NSMutableArray alloc] init];
+        bubbles = [CCNode node];
+        [self addChild:bubbles z:0];
         
     glowSprite = [CCSprite spriteWithFile:@"BubbleGlow.png"];
 	[glowSprite setVisible:NO];
@@ -110,24 +112,24 @@
         {
             rad += (2*3.1415/v);
             CGPoint pos = ccpAdd(p,ccp(CCRANDOM_MINUS1_1()*5,CCRANDOM_MINUS1_1()*5));
-            label = [CCLabelTTF labelWithString:@"1" dimensions:CGSizeMake(128, 64)  alignment:CCTextAlignmentCenter fontName:@"Marker Felt" fontSize:32];
-            label.color = ccc3(0,0,0);
             
             ; //ccpAdd(p,ccpRotateByAngle(ccp(CCRANDOM_MINUS1_1()*12,64 + CCRANDOM_0_1()*12), ccp(0,0), rad));
             
-                [bubbles addObject:[Bubble bubbleWithPosition:pos
-                                                        color:col   //color:(int)(CCRANDOM_0_1()*2.0f) /*make the bubble random color*/
-                                                        val:label   // val:CCRANDOM_0_1()*2+1 /*for now all bubbles have val 1*/
-                                ]];          
+                 
+            [bubbles addChild:[Bubble bubbleWithPosition:pos
+                                                color:col   //color:(int)(CCRANDOM_0_1()*2.0f) /*make the bubble random color*/
+                                                  val:0   // val:CCRANDOM_0_1()*2+1 /*for now all bubbles have val 1*/
+                            ] z:1 ];
+            
         }
         
-        for (Bubble* b in bubbles)
-            [self addChild:[b sprite] ];
+       // for (Bubble* b in bubbles)
+        //    [self addChild:[b sprite] ];
 	
        
 	
 	
-        //[self schedule: @selector(update:)];
+        [self schedule: @selector(update:)];
 		
 		[self setIsTouchEnabled:YES priority:1];
 	}
@@ -165,20 +167,23 @@
 {
     
     centroid = CGPointMake(0, 0);
-    for (Bubble* b in bubbles) 
+    CCArray* children = [bubbles children];
+    for (Bubble* b in children) 
     {
         centroid = ccpAdd(centroid, [b position]);
     }
-    centroid = ccpMult(centroid, 1.0f/[bubbles count]);
+    centroid = ccpMult(centroid, 1.0f/[children count]);
     
 }
 
 -(void) update: (ccTime) dt
 {
 
-    for (Bubble* b1 in bubbles)    {
+     CCArray* children = [bubbles children];
+    for (Bubble* b1 in children)    
+    {
        
-         for (Bubble* b2 in bubbles)
+         for (Bubble* b2 in children)
         {
         
             if(b1!=b2)
@@ -204,10 +209,7 @@
     }
 
     
-     for (Bubble* b in bubbles)
-   {
-       [b update];
-   }
+   
     
     [self calculateCentroid];
     
@@ -233,8 +235,8 @@
 {
 	CGPoint p = [[CCDirector sharedDirector] convertToGL: [touch locationInView:[touch view]] ];
 	
-
-    for (Bubble* b in bubbles)
+    CCArray* children = [bubbles children];
+    for (Bubble* b in children)
     {
         if(ccpDistance([b position] , p ) < [b radius]*2 ) 
         { 

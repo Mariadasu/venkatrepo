@@ -45,6 +45,8 @@
             break;
         }
         
+        [self addChild:sprite z:0];
+        
         int size = 1;
         
         radius = size*[sprite contentSize].width/3.0f;
@@ -78,9 +80,14 @@
         b->CreateFixture(&fixtureDef);
         
 
-        label = lab;
+        label = [CCLabelTTF labelWithString:@"1" dimensions:CGSizeMake(128, 64)  alignment:CCTextAlignmentCenter fontName:@"Marker Felt" fontSize:32];
+        label.color = ccc3(255,255,255);
         
-        [self addChild:label];    
+        
+        [self addChild:label z:1];   
+        
+        [self schedule: @selector(update:)];
+
     }
     
     return self;
@@ -89,9 +96,10 @@
 {
     return CGPointMake( b->GetPosition().x * PTM_RATIO, b->GetPosition().y * PTM_RATIO);
 }
--(void)update
+-(void)update: (ccTime) dt
 {
     sprite.position = [self position];
+    label.position = sprite.position;
 }
 
 @end

@@ -29,6 +29,7 @@
 	int difficulty;
 	bool first;
 	CCSprite* background;
+   
 	b2World* world;
 	GLESDebugDraw *m_debugDraw;
 	CGSize screenSize;

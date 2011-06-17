@@ -26,12 +26,13 @@ enum bubble_colors
 -(id)initWithPosition:(CGPoint)p color:(int)col val:(CCLabelTTF*)lab;
 +(id)bubbleWithPosition:(CGPoint)p color:(int)col val:(CCLabelTTF*)lab;
 -(CGPoint)position;
--(void)update;
+
 -(void)addForce:(CGPoint)f;
 
 
 @property(nonatomic,readonly)float radius;
 @property(nonatomic,readonly) CCSprite* sprite;
+
 @property(nonatomic,readonly) b2Body* b;
 
 @end
