@@ -18,7 +18,16 @@
 //to define the ratio so that your most common object type is 1x1 metre.
 #define PTM_RATIO 32
 
-//int OUTMASK = 0xFF;
+static int OUTMASK = 0xFF;
+
+enum operators
+{
+    ADDITION,
+    SUBTRACTION,
+    MULTIPlICATION,
+    DIVISION,
+    FRACTION
+};
 
 @class MatchObject;
 @class WavePool;
@@ -72,7 +81,9 @@
 
 +(int)genNum;
 +(int)getVal:(int)i;
-+(NSString*)getExpr:(int)i;
++(int)getValExprOp:(int)i expr:(NSString**)str op:(operators*)op;
++(NSString*)getExpr:(int)i mode:(int)m;
++(operators)getOp:(int)i;
 
 @property (nonatomic,readonly) SoundLayer* sound;
 @property (nonatomic,readonly) b2World* world;

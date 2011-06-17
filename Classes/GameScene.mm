@@ -526,6 +526,13 @@ static GameScene *sharedScene = nil;
 
 +(int)getVal:(int)i
 {
+    NSString *str;
+    operators op;
+    return [self getValExprOp:i expr:&str op:&op];
+}
+
++(int)getValExprOp:(int)i expr:(NSString **)str op:(operators*)op
+{
     int thirdD = i/100;
     i = i%100;
     int secondD = i/10;
@@ -535,26 +542,65 @@ static GameScene *sharedScene = nil;
         retVal = secondD*firstD;
         if (retVal < -9 || retVal > 9)
             if (thirdD % firstD == 0)
-                printf("Division %d / %d = %d\n", thirdD, firstD, retVal = thirdD / firstD);
-        else
-            printf("Multiply %d * %d = %d\n", thirdD, firstD, retVal = thirdD * firstD);
-
+            {
+                retVal = thirdD / firstD;
+                *op = DIVISION;
+                *str = [NSString stringWithFormat:@"%d / %d", thirdD, firstD]; 
+                // printf("Division %d / %d = %d\n", thirdD, firstD, retVal);
+            }
+            else 
+            {
+                retVal = thirdD * firstD;
+                *op = MULTIPlICATION;
+                *str = [NSString stringWithFormat:@"%d * %d", thirdD, firstD]; 
+                // printf("Multiply %d * %d = %d\n", thirdD, firstD, retVal);
+            }
+            
     } else {
         retVal = secondD + firstD;
         
-        if (retVal < -9 || retVal > 9)
-            printf("Sub %d - %d = %d\n", secondD, firstD, retVal = secondD - firstD);
+        if (retVal < -9 || retVal > 9) 
+        {
+            retVal = secondD - firstD;
+            *op = SUBTRACTION;
+            *str = [NSString stringWithFormat:@"%d - %d", secondD, firstD]; 
+            //printf("Sub %d - %d = %d\n", secondD, firstD, retVal);
+        }
+            
         else
-            printf("Add %d + %d = %d\n", secondD, firstD, retVal = secondD + firstD);
+        {
+            retVal = secondD + firstD;
+            *op = ADDITION;
+            *str = [NSString stringWithFormat:@"%d + %d", secondD, firstD]; 
+           //printf("Add %d + %d = %d\n", secondD, firstD, retVal);
+        }
+            
     }
+
     return retVal;
 }
 
-+(NSString*)getExpr:(int)i
++(NSString*)getExpr:(int)i mode:(int)m
 {
-    return [NSString stringWithFormat:@"%d",[self getVal:i]];
+    NSString *str;
+    operators op;
+    int val = [self getValExprOp:i expr:&str op:&op];
+    
+    if (m == 0)
+        return [NSString stringWithFormat:@""];
+    else if (m == 1)
+        return [NSString stringWithFormat:@"%d",val];
+
+    return str;
 }
 
++(operators)getOp:(int)i
+{
+    NSString *str;
+    operators op;
+    [self getValExprOp:i expr:&str op:&op];
+    return op;
+}
 
 // on "dealloc" you need to release all your retained objects
 - (void) dealloc

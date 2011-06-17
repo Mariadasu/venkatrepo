@@ -7,7 +7,7 @@
 #include <math.h>
 
 static bool seedInit = NO;
-static int OUTMASK = 0xFF;
+//static int OUTMASK = 0xFF;
 static int OPLEVEL = 5;
 static int OPMASK = 0xFF;
 /*[[GameScene scene] addition]?1:0 | 

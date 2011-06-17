@@ -104,19 +104,18 @@
         bubble_colors col = (numBubbles < 0)?RED_BUBBLE:BLUE_BUBBLE;
         numBubbles = (numBubbles < 0)?-numBubbles:numBubbles;
         
-        int outMode = rand()%2;
+        int outMode = rand()%3; // Change this to control the types that get outputted
         
         [self addChild:glowSprite];
         
-        NSString *str = @"";
-        int size = 2;
+        NSString *str = [GameScene getExpr:v mode:outMode];
+        int size = 2+outMode;
         
-        if (outMode)
+        if (outMode > 0)
         {
             numBubbles = 1;
-            str = [GameScene getExpr:v];
-            size = 3; // Increase the size of the Bubbles 50%
         }
+        
         printf("Starting Node %d with numBubbles %d\n", v, numBubbles);
        
         //for now the bubbles are just made at random locations around the MatchObject position
