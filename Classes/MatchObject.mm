@@ -116,7 +116,7 @@
             numBubbles = 1;
         }
         
-        printf("Starting Node %d with numBubbles %d\n", v, numBubbles);
+        printf("Starting Node %d with numBubbles %d and %s\n", v, numBubbles, [str UTF8String]);
        
         //for now the bubbles are just made at random locations around the MatchObject position
         float rad = CCRANDOM_0_1()*2;

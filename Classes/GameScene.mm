@@ -25,7 +25,7 @@ enum {
 };
 //test
 
-int MAXNUM = 100;
+int MAXNUM = 1000;
 
 // HelloWorld implementation
 @implementation GameScene
@@ -512,15 +512,17 @@ static GameScene *sharedScene = nil;
 +(int)genNum
 {
     int v = 0, effNum = 0;
+    operators op;
+    NSString *str;
     
     do
     {
         v = rand() % MAXNUM;
         v = (rand()%2)?-v:v;
-        effNum = [self getVal:v];
+        effNum = [self getValExprOp:v expr:&str op:&op];
     } while (effNum == 0 || effNum > 9 || effNum < -9); // It's not 0 or between -9 and 9
     
-    printf("Final generated %d\n", v);
+    printf("Final generated %d and str %s\n", v, [str UTF8String]);
     return v;
 }
 
@@ -538,9 +540,12 @@ static GameScene *sharedScene = nil;
     int secondD = i/10;
     int firstD = i%10;
     int retVal = secondD+firstD;
+    *op = COUNTING;
+    //*str = [NSString stringWithFormat:@""];
+    
     if (thirdD) {
-        retVal = secondD*firstD;
-        if (retVal < -9 || retVal > 9)
+        retVal = thirdD * firstD;
+        if (retVal < -9 || retVal > 9) {
             if (thirdD % firstD == 0)
             {
                 retVal = thirdD / firstD;
@@ -548,13 +553,13 @@ static GameScene *sharedScene = nil;
                 *str = [NSString stringWithFormat:@"%d / %d", thirdD, firstD]; 
                 // printf("Division %d / %d = %d\n", thirdD, firstD, retVal);
             }
-            else 
-            {
-                retVal = thirdD * firstD;
-                *op = MULTIPlICATION;
-                *str = [NSString stringWithFormat:@"%d * %d", thirdD, firstD]; 
-                // printf("Multiply %d * %d = %d\n", thirdD, firstD, retVal);
-            }
+        } else 
+        {
+            retVal = thirdD * firstD;
+            *op = MULTIPlICATION;
+            *str = [NSString stringWithFormat:@"%d * %d", thirdD, firstD]; 
+            // printf("Multiply %d * %d = %d\n", thirdD, firstD, retVal);
+        }
             
     } else {
         retVal = secondD + firstD;
@@ -591,7 +596,7 @@ static GameScene *sharedScene = nil;
     else if (m == 1)
         return [NSString stringWithFormat:@"%d",val];
 
-    return str;
+    return str; // [NSString stringWithString:str];
 }
 
 +(operators)getOp:(int)i

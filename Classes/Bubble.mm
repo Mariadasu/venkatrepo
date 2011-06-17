@@ -81,7 +81,7 @@
         int fontsize = (size == 3)?4:3;
         
         // Made font size grow with bubble size
-        label = [CCLabelTTF labelWithString:str dimensions:CGSizeMake(150, 64)  alignment:CCTextAlignmentCenter fontName:@"Marker Felt" fontSize:16*fontsize];
+        label = [CCLabelTTF labelWithString:str dimensions:CGSizeMake(256, 64)  alignment:CCTextAlignmentCenter fontName:@"Marker Felt" fontSize:16*fontsize];
         label.color = ccc3(255,255,255);
         
         
