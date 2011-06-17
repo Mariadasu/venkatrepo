@@ -78,8 +78,8 @@
 	
         b->CreateFixture(&fixtureDef);
         
-
-        label = [CCLabelTTF labelWithString:str dimensions:CGSizeMake(128, 64)  alignment:CCTextAlignmentCenter fontName:@"Marker Felt" fontSize:32];
+        // Made font size grow with bubble size
+        label = [CCLabelTTF labelWithString:str dimensions:CGSizeMake(128, 64)  alignment:CCTextAlignmentCenter fontName:@"Marker Felt" fontSize:16*size];
         label.color = ccc3(255,255,255);
         
         
