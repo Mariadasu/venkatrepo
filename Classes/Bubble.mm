@@ -21,16 +21,16 @@
     [super dealloc];
 }
 
-+(id)bubbleWithPosition:(CGPoint)p color:(int)col val:(CCLabelTTF*)lab
++(id)bubbleWithPosition:(CGPoint)p color:(int)col val:(NSString*)str size:(int)z
 {
-   return  [[[Bubble alloc] initWithPosition:p color:col val:lab] autorelease];
+    return  [[[Bubble alloc] initWithPosition:p color:col val:str size:z] autorelease];
 }
 
 -(void)addForce:(CGPoint)f
 {
     b->ApplyForce(b2Vec2(f.x, f.y), b->GetPosition());
 }
--(id)initWithPosition:(CGPoint)p color:(int)col val:(CCLabelTTF*)lab
+-(id)initWithPosition:(CGPoint)p color:(int)col val:(NSString*)str size:(int)size
 {
     if( (self=[super init])) 
     {
@@ -46,10 +46,9 @@
         }
         
         [self addChild:sprite z:0];
+
         
-        int size = 1;
-        
-        radius = size*[sprite contentSize].width/3.0f;
+        radius = size/2*[sprite contentSize].width/3.0f;
         sprite.position=p;
     
     
@@ -66,7 +65,7 @@
         b2CircleShape dynamicCircle;
       
 
-        [sprite setScale:0.75f*size];   
+        [sprite setScale:0.75f*size/2];   
         dynamicCircle.m_radius = radius/PTM_RATIO;  
         
         
@@ -80,7 +79,7 @@
         b->CreateFixture(&fixtureDef);
         
 
-        label = [CCLabelTTF labelWithString:@"1" dimensions:CGSizeMake(128, 64)  alignment:CCTextAlignmentCenter fontName:@"Marker Felt" fontSize:32];
+        label = [CCLabelTTF labelWithString:str dimensions:CGSizeMake(128, 64)  alignment:CCTextAlignmentCenter fontName:@"Marker Felt" fontSize:32];
         label.color = ccc3(255,255,255);
         
         

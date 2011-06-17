@@ -90,7 +90,7 @@ static GameScene *sharedScene = nil;
 {
 	if( (self=[super init])) {
 		difficulty = 1;
-		maxMatchObjects = 6;
+		maxMatchObjects = 10;
 		addition = YES;
 		multiplication = YES;
 		division = YES;
@@ -244,14 +244,14 @@ static GameScene *sharedScene = nil;
 /*add maxMaxbjects to the level in a grid like patterns*/
 -(void)newLevel
 {
-    for(int i=0;i<4;i++)
+    for(int i=0;i<maxMatchObjects/3+1;i++)
     {
         for(int j=0;j<3;j++)
         {
             if([self numMatchObjects] >= maxMatchObjects)
                 return;
-            
-            [self addMatchObject:ccp(256 + j*256 + CCRANDOM_MINUS1_1()*64, 256+i*256 + CCRANDOM_MINUS1_1()*64 )];
+            // Kelvin: this logic needs to change the bubbles are being created outside the grid so changed i*256 to i*128
+            [self addMatchObject:ccp(256 + j*256 + CCRANDOM_MINUS1_1()*64, 256+i*128 + CCRANDOM_MINUS1_1()*64 )];
         }
     }
 	
@@ -511,22 +511,43 @@ static GameScene *sharedScene = nil;
 
 +(int)genNum
 {
-    int v = rand() % MAXNUM;
-    v = (rand()%2)?-v:v;
-    printf("Generated %d\n", v);
-    int effNum = [self getVal:v];
-    if (v == 0 || effNum > 9 || effNum < -9) // (v in badNumberList) 
-        v = [self genNum];
+    int v = 0, effNum = 0;
+    
+    do
+    {
+        v = rand() % MAXNUM;
+        v = (rand()%2)?-v:v;
+        effNum = [self getVal:v];
+    } while (effNum == 0 || effNum > 9 || effNum < -9); // It's not 0 or between -9 and 9
+    
     printf("Final generated %d\n", v);
     return v;
 }
 
 +(int)getVal:(int)i
 {
+    int thirdD = i/100;
+    i = i%100;
     int secondD = i/10;
     int firstD = i%10;
-    printf("Value of %d is evaluated to %d\n", i, secondD+firstD);
-    return secondD+firstD;
+    int retVal = secondD+firstD;
+    if (thirdD) {
+        retVal = secondD*firstD;
+        if (retVal < -9 || retVal > 9)
+            if (thirdD % firstD == 0)
+                printf("Division %d / %d = %d\n", thirdD, firstD, retVal = thirdD / firstD);
+        else
+            printf("Multiply %d * %d = %d\n", thirdD, firstD, retVal = thirdD * firstD);
+
+    } else {
+        retVal = secondD + firstD;
+        
+        if (retVal < -9 || retVal > 9)
+            printf("Sub %d - %d = %d\n", secondD, firstD, retVal = secondD - firstD);
+        else
+            printf("Add %d + %d = %d\n", secondD, firstD, retVal = secondD + firstD);
+    }
+    return retVal;
 }
 
 +(NSString*)getExpr:(int)i

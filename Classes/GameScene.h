@@ -18,6 +18,8 @@
 //to define the ratio so that your most common object type is 1x1 metre.
 #define PTM_RATIO 32
 
+//int OUTMASK = 0xFF;
+
 @class MatchObject;
 @class WavePool;
 @class SoundLayer;

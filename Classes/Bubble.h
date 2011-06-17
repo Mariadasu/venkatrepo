@@ -23,8 +23,8 @@ enum bubble_colors
     float radius;
 }
 
--(id)initWithPosition:(CGPoint)p color:(int)col val:(CCLabelTTF*)lab;
-+(id)bubbleWithPosition:(CGPoint)p color:(int)col val:(CCLabelTTF*)lab;
+-(id)initWithPosition:(CGPoint)p color:(int)col val:(NSString*)str size:(int)z;
++(id)bubbleWithPosition:(CGPoint)p color:(int)col val:(NSString*)str size:(int)size;
 -(CGPoint)position;
 
 -(void)addForce:(CGPoint)f;
