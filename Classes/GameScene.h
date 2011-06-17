@@ -22,7 +22,6 @@ static int OUTMASK = 0xFF;
 
 enum operators
 {
-    COUNTING,
     ADDITION,
     SUBTRACTION,
     MULTIPlICATION,

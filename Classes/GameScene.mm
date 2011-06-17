@@ -540,8 +540,8 @@ static GameScene *sharedScene = nil;
     int secondD = i/10;
     int firstD = i%10;
     int retVal = secondD+firstD;
-    *op = COUNTING;
-    //*str = [NSString stringWithFormat:@""];
+    *op = ADDITION;
+    *str = [NSString stringWithFormat:@"%d + %d", secondD, firstD];
     
     if (thirdD) {
         retVal = thirdD * firstD;
@@ -571,14 +571,14 @@ static GameScene *sharedScene = nil;
             *str = [NSString stringWithFormat:@"%d - %d", secondD, firstD]; 
             //printf("Sub %d - %d = %d\n", secondD, firstD, retVal);
         }
-            
+         /*   This is the default case
         else
         {
             retVal = secondD + firstD;
             *op = ADDITION;
             *str = [NSString stringWithFormat:@"%d + %d", secondD, firstD]; 
            //printf("Add %d + %d = %d\n", secondD, firstD, retVal);
-        }
+        } */
             
     }
 
