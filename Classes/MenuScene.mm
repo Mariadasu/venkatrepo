@@ -69,6 +69,11 @@ enum {
 	[[GameScene scene] setMultiplication:[(ToggleMenu*)sender toggleOn]];	
 }
 
+-(void)symToggle: (id) sender
+{
+	[[GameScene scene] setSymbols:[(ToggleMenu*)sender toggleOn]];	
+}
+
 -(void)makeEasier: (id) sender
 {
 	int diff = [[GameScene scene] difficulty];
@@ -116,19 +121,21 @@ enum {
 		CCMenuItem *easier = [CCMenuItemFont itemFromString: @"Easier" target: self selector:@selector(makeEasier:)];
 		easier.position	= ccp(0,-128);
 		
-		ToggleMenu* divT = [ToggleMenu toggleMenuWithString:@"Division" selector:@selector(divToggle:) value:[[GameScene scene] division]];
-		divT.position = ccp(0,-192);
-		ToggleMenu* multT = [ToggleMenu toggleMenuWithString:@"Multiplication" selector:@selector(multToggle:) value:[[GameScene scene] multiplication]];
-		multT.position = ccp(0,-256);
+        ToggleMenu* symT = [ToggleMenu toggleMenuWithString:@"Symbols" selector:@selector(symToggle:) value:[[GameScene scene] symbols]];
+		symT.position = ccp(0,-192); // 
 		ToggleMenu* addT = [ToggleMenu toggleMenuWithString:@"Addition" selector:@selector(addToggle:) value:[[GameScene scene] addition]];
-		addT.position = ccp(0,-320);
+		addT.position = ccp(0,-256); // 320
 		ToggleMenu* subT = [ToggleMenu toggleMenuWithString:@"Subtraction" selector:@selector(subToggle:) value:[[GameScene scene] subtraction]];
-		subT.position = ccp(0,-384);
+		subT.position = ccp(0,-320); // 384
+		ToggleMenu* divT = [ToggleMenu toggleMenuWithString:@"Division" selector:@selector(divToggle:) value:[[GameScene scene] division]];
+		divT.position = ccp(0,-384); // 192
+		ToggleMenu* multT = [ToggleMenu toggleMenuWithString:@"Multiplication" selector:@selector(multToggle:) value:[[GameScene scene] multiplication]];
+		multT.position = ccp(0,-448); // 256
 		ToggleMenu* remT = [ToggleMenu toggleMenuWithString:@"Remainder" selector:@selector(remToggle:) value:[[GameScene scene] remainder]];
-		remT.position = ccp(0,-448);
+		remT.position = ccp(0,-512);
 
 		
-		CCMenu *menu = [CCMenu menuWithItems:resumeButton,harder,easier,divT,multT,addT,subT,remT, nil];
+		CCMenu *menu = [CCMenu menuWithItems:resumeButton,harder,easier,symT,addT,subT,divT,multT,remT, nil];
 		
 		menu.position = ccp(512,screenSize.height-32);
 		

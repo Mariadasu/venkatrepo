@@ -46,6 +46,7 @@ enum operators
 	CGSize screenSize;
 	int maxMatchObjects;
 	WavePool* waves;
+    bool symbols;
 	bool addition;
 	bool subtraction;
 	bool multiplication;
@@ -93,4 +94,5 @@ enum operators
 @property (nonatomic,readwrite)bool multiplication;
 @property (nonatomic,readwrite)bool remainder;
 @property (nonatomic,readwrite)bool division;
+@property (nonatomic,readwrite)bool symbols;
 @end

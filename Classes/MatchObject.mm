@@ -99,22 +99,39 @@
         glowSprite = [CCSprite spriteWithFile:@"BubbleGlow.png"];
         [glowSprite setVisible:NO];
         [glowSprite setOpacity:180];
-		
-        int numBubbles = [GameScene getVal:v];
+
+        operators op;
+        NSString *temp;
+        
+        int numBubbles = [GameScene getValExprOp:v expr:&temp op:&op];
         bubble_colors col = (numBubbles < 0)?RED_BUBBLE:BLUE_BUBBLE;
         numBubbles = (numBubbles < 0)?-numBubbles:numBubbles;
         
         int outMode = rand()%3; // Change this to control the types that get outputted
+
+        
         
         [self addChild:glowSprite];
+        if (![[GameScene scene] symbols])
+            outMode = 0;
+        
+        if (outMode > 0)
+        {
+            if (outMode == 2)
+                if (![[GameScene scene] addition] && op == ADDITION ||
+                    ![[GameScene scene] subtraction] && op == SUBTRACTION ||
+                    ![[GameScene scene] multiplication] && op == MULTIPlICATION ||
+                    ![[GameScene scene] division] && op == DIVISION)
+                        outMode = 1; // If the operator is not turned on then set the output to be just the Number
+                    
+                    
+            numBubbles = 1;
+        }
         
         NSString *str = [GameScene getExpr:v mode:outMode];
         int size = 2+outMode;
         
-        if (outMode > 0)
-        {
-            numBubbles = 1;
-        }
+
         
         printf("Starting Node %d with numBubbles %d and %s\n", v, numBubbles, [str UTF8String]);
        

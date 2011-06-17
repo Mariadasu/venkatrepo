@@ -38,6 +38,7 @@ int MAXNUM = 1000;
 @synthesize multiplication;
 @synthesize remainder;
 @synthesize division;
+@synthesize symbols;
 
 
 static GameScene *sharedScene = nil;
@@ -91,11 +92,12 @@ static GameScene *sharedScene = nil;
 	if( (self=[super init])) {
 		difficulty = 1;
 		maxMatchObjects = 10;
-		addition = YES;
-		multiplication = YES;
-		division = YES;
-		remainder = YES;
-		subtraction = YES;
+        symbols = NO;
+		addition = NO;
+		multiplication = NO;
+		division = NO;
+		remainder = NO;
+		subtraction = NO;
         levelUp = NO;
         levelUpScale = 1.0f;
         score = 0;
@@ -511,7 +513,7 @@ static GameScene *sharedScene = nil;
 
 +(int)genNum
 {
-    int v = 0, effNum = 0;
+    int v = 0, effNum = 0, count = 0;
     operators op;
     NSString *str;
     
@@ -520,7 +522,10 @@ static GameScene *sharedScene = nil;
         v = rand() % MAXNUM;
         v = (rand()%2)?-v:v;
         effNum = [self getValExprOp:v expr:&str op:&op];
+        count++;
     } while (effNum == 0 || effNum > 9 || effNum < -9); // It's not 0 or between -9 and 9
+    if (count > 3)
+        printf("Count is %d\n", count);
     
     printf("Final generated %d and str %s\n", v, [str UTF8String]);
     return v;
@@ -543,9 +548,11 @@ static GameScene *sharedScene = nil;
     *op = ADDITION;
     *str = [NSString stringWithFormat:@"%d + %d", secondD, firstD];
     
-    if (thirdD) {
-        retVal = thirdD * firstD;
-        if (retVal < -9 || retVal > 9) {
+    if (thirdD) // Increase density for mult/division (thirdD && !firstD) {
+    {
+        
+        int multVal = thirdD * firstD;
+        if (multVal < -9 || multVal > 9) {
             if (thirdD % firstD == 0)
             {
                 retVal = thirdD / firstD;
@@ -555,14 +562,14 @@ static GameScene *sharedScene = nil;
             }
         } else 
         {
-            retVal = thirdD * firstD;
+            retVal = multVal;
             *op = MULTIPlICATION;
             *str = [NSString stringWithFormat:@"%d * %d", thirdD, firstD]; 
             // printf("Multiply %d * %d = %d\n", thirdD, firstD, retVal);
         }
             
     } else {
-        retVal = secondD + firstD;
+        // retVal = secondD + firstD;
         
         if (retVal < -9 || retVal > 9) 
         {
