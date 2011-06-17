@@ -13,9 +13,9 @@
 
 @synthesize toggleOn;
 
--(id)initWithString:(NSString*)lbl selector:(SEL)s  value:(bool)val
+-(id)initWithString:(NSString*)lbl target:(id)t selector:(SEL)s  value:(bool)val
 {
-	self = [super initWithTarget:nil selector:s];
+	self = [super initWithTarget:t selector:s];
 	if( self ) 
 	{
 		toggleOn = val;
@@ -40,9 +40,9 @@
 	return self;
 }
 
-+(id)toggleMenuWithString:(NSString*)label selector:(SEL)s  value:(bool)val
++(id)toggleMenuWithString:(NSString*)label target:(id)t  selector:(SEL)s  value:(bool)val
 {
-	return [[[ToggleMenu alloc]	initWithString:label selector:s  value:val] autorelease];
+	return [[[ToggleMenu alloc]	initWithString:label target:t selector:s  value:val] autorelease];
 }
 
 -(void) selected

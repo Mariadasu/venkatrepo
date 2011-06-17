@@ -370,7 +370,7 @@ static GameScene *sharedScene = nil;
 		first = NO;
 		[self newLevel];
 	}
-    
+//    printf("%d %d %d %d %d %d\n",addition,subtraction,multiplication,division,remainder,symbols);
 #ifdef CONTINUOUS_PLAY
     /*keep maxMatchObject number of objects on screen*/
     while ([self numMatchObjects]<maxMatchObjects) 

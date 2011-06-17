@@ -121,17 +121,17 @@ enum {
 		CCMenuItem *easier = [CCMenuItemFont itemFromString: @"Easier" target: self selector:@selector(makeEasier:)];
 		easier.position	= ccp(0,-128);
 		
-        ToggleMenu* symT = [ToggleMenu toggleMenuWithString:@"Symbols" selector:@selector(symToggle:) value:[[GameScene scene] symbols]];
+        ToggleMenu* symT = [ToggleMenu toggleMenuWithString:@"Symbols" target: self selector:@selector(symToggle:) value:[[GameScene scene] symbols]];
 		symT.position = ccp(0,-192); // 
-		ToggleMenu* addT = [ToggleMenu toggleMenuWithString:@"Addition" selector:@selector(addToggle:) value:[[GameScene scene] addition]];
+		ToggleMenu* addT = [ToggleMenu toggleMenuWithString:@"Addition" target: self selector:@selector(addToggle:) value:[[GameScene scene] addition]];
 		addT.position = ccp(0,-256); // 320
-		ToggleMenu* subT = [ToggleMenu toggleMenuWithString:@"Subtraction" selector:@selector(subToggle:) value:[[GameScene scene] subtraction]];
+		ToggleMenu* subT = [ToggleMenu toggleMenuWithString:@"Subtraction" target: self selector:@selector(subToggle:) value:[[GameScene scene] subtraction]];
 		subT.position = ccp(0,-320); // 384
-		ToggleMenu* divT = [ToggleMenu toggleMenuWithString:@"Division" selector:@selector(divToggle:) value:[[GameScene scene] division]];
+		ToggleMenu* divT = [ToggleMenu toggleMenuWithString:@"Division" target: self selector:@selector(divToggle:) value:[[GameScene scene] division]];
 		divT.position = ccp(0,-384); // 192
-		ToggleMenu* multT = [ToggleMenu toggleMenuWithString:@"Multiplication" selector:@selector(multToggle:) value:[[GameScene scene] multiplication]];
+		ToggleMenu* multT = [ToggleMenu toggleMenuWithString:@"Multiplication" target: self selector:@selector(multToggle:) value:[[GameScene scene] multiplication]];
 		multT.position = ccp(0,-448); // 256
-		ToggleMenu* remT = [ToggleMenu toggleMenuWithString:@"Remainder" selector:@selector(remToggle:) value:[[GameScene scene] remainder]];
+		ToggleMenu* remT = [ToggleMenu toggleMenuWithString:@"Remainder" target: self selector:@selector(remToggle:) value:[[GameScene scene] remainder]];
 		remT.position = ccp(0,-512);
 
 		
