@@ -121,7 +121,8 @@
                 if (![[GameScene scene] addition] && op == ADDITION ||
                     ![[GameScene scene] subtraction] && op == SUBTRACTION ||
                     ![[GameScene scene] multiplication] && op == MULTIPlICATION ||
-                    ![[GameScene scene] division] && op == DIVISION)
+                    ![[GameScene scene] division] && op == DIVISION ||
+                    ![[GameScene scene] remainder] && op == REMAINDER)
                         outMode = 1; // If the operator is not turned on then set the output to be just the Number
                     
                     

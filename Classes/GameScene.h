@@ -18,7 +18,7 @@
 //to define the ratio so that your most common object type is 1x1 metre.
 #define PTM_RATIO 32
 
-static int OUTMASK = 0xFF;
+//static int OUTMASK = 0xFF;
 
 enum operators
 {
@@ -26,6 +26,7 @@ enum operators
     SUBTRACTION,
     MULTIPlICATION,
     DIVISION,
+    REMAINDER,
     FRACTION
 };
 

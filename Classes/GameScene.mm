@@ -92,7 +92,7 @@ static GameScene *sharedScene = nil;
 	if( (self=[super init])) {
 		difficulty = 1;
 		maxMatchObjects = 10;
-        symbols = NO;
+        symbols = YES;
 		addition = NO;
 		multiplication = NO;
 		division = NO;
@@ -552,13 +552,21 @@ static GameScene *sharedScene = nil;
     {
         
         int multVal = thirdD * firstD;
-        if (multVal < -9 || multVal > 9) {
+        thirdD = (thirdD < 0)?-thirdD:thirdD;
+        firstD = (firstD < 0)?-firstD:firstD;
+        if (multVal < -9 || multVal > 9) 
+        {
             if (thirdD % firstD == 0)
             {
                 retVal = thirdD / firstD;
                 *op = DIVISION;
                 *str = [NSString stringWithFormat:@"%d / %d", thirdD, firstD]; 
                 // printf("Division %d / %d = %d\n", thirdD, firstD, retVal);
+            } else
+            {
+                retVal = thirdD % firstD;
+                *op = REMAINDER;
+                *str = [NSString stringWithFormat:@"%d %% %d", thirdD, firstD];
             }
         } else 
         {
