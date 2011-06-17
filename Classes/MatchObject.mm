@@ -37,7 +37,7 @@
 }
 -(void)dealloc
 {
-
+    
     [super dealloc];
 }
 -(void)destroy
@@ -45,11 +45,11 @@
 	
     
     [[GameScene scene] addBonusLabelAt:[self position] value:[GameScene getVal:value]];
-
+    
     
     if(hit)
     {
-                
+        
         [[GameScene scene] addRippleAt:[self position] radius:256 value:[GameScene getVal:value]];
     }
     
@@ -63,7 +63,7 @@
     
     [self removeFromParentAndCleanup:YES];
     
-   
+    
 	
 }
 -(id)initWithPosition:(CGPoint)p value:(int)v
@@ -73,62 +73,72 @@
 		
         alive = YES;
         hit = NO;
-	// intNode = [[IntegerNode alloc] initNode:nil startVal:v];
-	// [intNode expand];
+        // intNode = [[IntegerNode alloc] initNode:nil startVal:v];
+        // [intNode expand];
         label = 0;
-      
         value = v;
         /*
          label = [CCLabelTTF labelWithString:[[intNode getTreeString]copy] dimensions:CGSizeMake(128, 64)  alignment:CCTextAlignmentCenter fontName:@"Marker Felt" fontSize:32];
-		label.color = ccc3(0,0,0);
+         label.color = ccc3(0,0,0);
 		 [self addChild:label];
-		*/
+         */
         
 		
-	//CCLOG(@"Add sprite %0.2f x %02.f",p.x,p.y);
-	//	CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [self getChildByTag:kTagBatchNode];
-	
-	/*	//We have a 64x64 sprite sheet with 4 different 32x32 images.  The following code is
-	 //just randomly picking one of the images
-	 int idx = (CCRANDOM_0_1() > .5 ? 0:1);
-	 int idy = (CCRANDOM_0_1() > .5 ? 0:1);
-	 */
-	
+        //CCLOG(@"Add sprite %0.2f x %02.f",p.x,p.y);
+        //	CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [self getChildByTag:kTagBatchNode];
+        
+        /*	//We have a 64x64 sprite sheet with 4 different 32x32 images.  The following code is
+         //just randomly picking one of the images
+         int idx = (CCRANDOM_0_1() > .5 ? 0:1);
+         int idy = (CCRANDOM_0_1() > .5 ? 0:1);
+         */
+        
         bubbles = [CCNode node];
         [self addChild:bubbles z:0];
         
-    glowSprite = [CCSprite spriteWithFile:@"BubbleGlow.png"];
-	[glowSprite setVisible:NO];
-    [glowSprite setOpacity:180];
+        glowSprite = [CCSprite spriteWithFile:@"BubbleGlow.png"];
+        [glowSprite setVisible:NO];
+        [glowSprite setOpacity:180];
 		
-	bubble_colors col = (v < 0)?RED_BUBBLE:BLUE_BUBBLE;
-    int numBubbles = [GameScene getVal:(v < 0)?-v:v];
+        int numBubbles = [GameScene getVal:v];
+        bubble_colors col = (numBubbles < 0)?RED_BUBBLE:BLUE_BUBBLE;
+        numBubbles = (numBubbles < 0)?-numBubbles:numBubbles;
         
-	[self addChild:glowSprite];
-
+        int outMode = rand()%2;
+        
+        [self addChild:glowSprite];
+        
+        NSString *str = @"";
+        int size = 2;
+        
+        if (outMode)
+        {
+            numBubbles = 1;
+            str = [GameScene getExpr:v];
+            size = 3; // Increase the size of the Bubbles 50%
+        }
+        printf("Starting Node %d with numBubbles %d\n", v, numBubbles);
+       
         //for now the bubbles are just made at random locations around the MatchObject position
         float rad = CCRANDOM_0_1()*2;
-        for (int i=0; i<=numBubbles; i++) 
+        for (int i=0; i<numBubbles; i++) 
         {
-            rad += (2*3.1415/v);
+            rad += (2*3.1415/numBubbles);
             CGPoint pos = ccpAdd(p,ccp(CCRANDOM_MINUS1_1()*5,CCRANDOM_MINUS1_1()*5));
             
             ; //ccpAdd(p,ccpRotateByAngle(ccp(CCRANDOM_MINUS1_1()*12,64 + CCRANDOM_0_1()*12), ccp(0,0), rad));
             
-                 
             [bubbles addChild:[Bubble bubbleWithPosition:pos
-                                                color:col   //color:(int)(CCRANDOM_0_1()*2.0f) /*make the bubble random color*/
-                                                  val:0   // val:CCRANDOM_0_1()*2+1 /*for now all bubbles have val 1*/
-                            ] z:1 ];
+                                                   color:col   //color:(int)(CCRANDOM_0_1()*2.0f) /*make the bubble random color*/
+                                                     val:str   // val:CCRANDOM_0_1()*2+1 /*for now all bubbles have val 1*/
+                                                    size:size
+                               ] z:1 ];
             
         }
         
-       // for (Bubble* b in bubbles)
-        //    [self addChild:[b sprite] ];
-	
-       
-	
-	
+        
+        printf("Ending Node %d\n", v);
+        
         [self schedule: @selector(update:)];
 		
 		[self setIsTouchEnabled:YES priority:1];
@@ -145,24 +155,24 @@
 	glowScale = 1;
 	[glowSprite setScale:glowScale];
 	[glowSprite setVisible:YES];
-
+    
 }
 -(CGPoint)position
 {
     return centroid;
 }
 -(void) setIsTouchEnabled:(BOOL)enabled priority:(int)pr
-		{
-			if( isTouchEnabled_ != enabled ) 
-			{
-				isTouchEnabled_ = enabled;
-				
-				if( enabled )
-					[[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:pr swallowsTouches:NO];
-				else
-					[[CCTouchDispatcher sharedDispatcher] removeDelegate:self];
-			}
-		}
+{
+    if( isTouchEnabled_ != enabled ) 
+    {
+        isTouchEnabled_ = enabled;
+        
+        if( enabled )
+            [[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:pr swallowsTouches:NO];
+        else
+            [[CCTouchDispatcher sharedDispatcher] removeDelegate:self];
+    }
+}
 -(void)calculateCentroid
 {
     
@@ -178,14 +188,14 @@
 
 -(void) update: (ccTime) dt
 {
-
-     CCArray* children = [bubbles children];
+    
+    CCArray* children = [bubbles children];
     for (Bubble* b1 in children)    
     {
-       
-         for (Bubble* b2 in children)
-        {
         
+        for (Bubble* b2 in children)
+        {
+            
             if(b1!=b2)
             {
                 
@@ -200,32 +210,32 @@
                     
                     // printf("the force is %g\n",ccpLength(force));
                     [b1 addForce:force ];
-                   [b2 addForce:ccpMult(force, -1.0f)];
+                    [b2 addForce:ccpMult(force, -1.0f)];
                 }
                 
             }
         }
         
     }
-
     
-   
+    
+    
     
     [self calculateCentroid];
     
-        label.position = centroid;
+    label.position = centroid;
 	//	label.rotation = mySprite.rotation;
-		glowSprite.position = centroid;
+    glowSprite.position = centroid;
 	//	glowSprite.rotation = centroid;
-		if ([self isActive]) 
-		{
-			glowScale *= 0.9f;
-			[glowSprite setScale:glowScale];
-			if (![self isActive]) 
-			{
-				[glowSprite setVisible:NO];
-			}
-		}
+    if ([self isActive]) 
+    {
+        glowScale *= 0.9f;
+        [glowSprite setScale:glowScale];
+        if (![self isActive]) 
+        {
+            [glowSprite setVisible:NO];
+        }
+    }
 	
 }
 
@@ -244,9 +254,9 @@
             touchStart = p;
             //alive = NO;
             selected = YES;
-             [[GameScene scene] objectPressed:self];
+            [[GameScene scene] objectPressed:self];
         }
-
+        
     }
 	
     
@@ -261,24 +271,24 @@
 }
 - (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
-   // CGPoint p = [[CCDirector sharedDirector] convertToGL: [touch locationInView:[touch view]] ];
+    // CGPoint p = [[CCDirector sharedDirector] convertToGL: [touch locationInView:[touch view]] ];
     
-   /* for (Bubble* b in bubbles)
-    {
-        if(ccpDistance([b position] , p ) < [b radius]*2 ) 
-        { */
-        
-            selected = NO;
-            [[GameScene scene] objectReleased:self];
-      //  }
-        /*if([self isActive]) 
-        { 
-            CGPoint vecDir = ccpSub(p, touchStart);
-            [self addForce:vecDir];
-        }
-         */
-        
- //   }
+    /* for (Bubble* b in bubbles)
+     {
+     if(ccpDistance([b position] , p ) < [b radius]*2 ) 
+     { */
+    
+    selected = NO;
+    [[GameScene scene] objectReleased:self];
+    //  }
+    /*if([self isActive]) 
+     { 
+     CGPoint vecDir = ccpSub(p, touchStart);
+     [self addForce:vecDir];
+     }
+     */
+    
+    //   }
     
 	
 }
@@ -304,7 +314,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder 
 {
-
+    
 	
     [aCoder encodeFloat:centroid.x  forKey:@"position_x"];
 	[aCoder encodeFloat:centroid.y  forKey:@"position_y"];
