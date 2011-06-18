@@ -25,7 +25,7 @@ enum {
 };
 //test
 
-int MAXNUM = 1000;
+int MAXNUM = 10000;
 
 // HelloWorld implementation
 @implementation GameScene
@@ -39,7 +39,7 @@ int MAXNUM = 1000;
 @synthesize remainder;
 @synthesize division;
 @synthesize symbols;
-
+@synthesize fraction;
 
 static GameScene *sharedScene = nil;
 
@@ -81,7 +81,6 @@ static GameScene *sharedScene = nil;
     
 }
 
-
 -(void) pauseScene: (id) sender
 {
 	[[CCDirector sharedDirector] pushScene:[CCTransitionFlipY transitionWithDuration:2 scene:[MenuScene scene] orientation:kOrientationLeftOver]] ;
@@ -96,8 +95,9 @@ static GameScene *sharedScene = nil;
 		addition = NO;
 		multiplication = NO;
 		division = NO;
-		remainder = NO;
+		remainder = YES;
 		subtraction = NO;
+        fraction = NO;
         levelUp = NO;
         levelUpScale = 1.0f;
         score = 0;
@@ -516,14 +516,14 @@ static GameScene *sharedScene = nil;
     int v = 0, effNum = 0, count = 0;
     operators op;
     NSString *str;
-    
+    bool fraction = [[GameScene scene] fraction];
     do
     {
         v = rand() % MAXNUM;
         v = (rand()%2)?-v:v;
         effNum = [self getValExprOp:v expr:&str op:&op];
         count++;
-    } while (effNum == 0 || effNum > 9 || effNum < -9); // It's not 0 or between -9 and 9
+    } while (effNum == 0 || (effNum <= 100 && fraction && effNum > 9) || (!fraction && effNum > 9) || effNum < -9); // It's not 0 or between -9 and 9
     if (count > 3)
         printf("Count is %d\n", count);
     
@@ -540,6 +540,8 @@ static GameScene *sharedScene = nil;
 
 +(int)getValExprOp:(int)i expr:(NSString **)str op:(operators*)op
 {
+    int fourthD = i/1000;
+    i = i%1000;
     int thirdD = i/100;
     i = i%100;
     int secondD = i/10;
@@ -548,7 +550,16 @@ static GameScene *sharedScene = nil;
     *op = ADDITION;
     *str = [NSString stringWithFormat:@"%d + %d", secondD, firstD];
     
-    if (thirdD) // Increase density for mult/division (thirdD && !firstD) {
+    if (fourthD)
+    {
+        fourthD = (fourthD < 0)?-fourthD:fourthD;
+        firstD = (firstD < 0)?-firstD:firstD;
+        if (fourthD < firstD) {
+            retVal = 100 + fourthD + firstD;
+            *op = FRACTION;
+            *str = [NSString stringWithFormat:@" %d \n---\n %d", fourthD, firstD];
+        }
+    } else if (thirdD) // Increase density for mult/division (thirdD && !firstD) {
     {
         
         int multVal = thirdD * firstD;

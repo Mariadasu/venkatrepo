@@ -74,6 +74,11 @@ enum {
 	[[GameScene scene] setSymbols:[(ToggleMenu*)sender toggleOn]];	
 }
 
+-(void)fracToggle: (id) sender
+{
+	[[GameScene scene] setFraction:[(ToggleMenu*)sender toggleOn]];	
+}
+
 -(void)makeEasier: (id) sender
 {
 	int diff = [[GameScene scene] difficulty];
@@ -133,9 +138,11 @@ enum {
 		multT.position = ccp(0,-448); // 256
 		ToggleMenu* remT = [ToggleMenu toggleMenuWithString:@"Remainder" target: self selector:@selector(remToggle:) value:[[GameScene scene] remainder]];
 		remT.position = ccp(0,-512);
-
+		ToggleMenu* fracT = [ToggleMenu toggleMenuWithString:@"Fraction" target: self selector:@selector(fracToggle:) value:[[GameScene scene] fraction]];
+		fracT.position = ccp(0,-576);
+        
 		
-		CCMenu *menu = [CCMenu menuWithItems:resumeButton,harder,easier,symT,addT,subT,divT,multT,remT, nil];
+		CCMenu *menu = [CCMenu menuWithItems:resumeButton,harder,easier,symT,addT,subT,divT,multT,remT, fracT, nil];
 		
 		menu.position = ccp(512,screenSize.height-32);
 		

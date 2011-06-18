@@ -53,6 +53,8 @@ enum operators
 	bool multiplication;
 	bool remainder;
 	bool division;
+    bool fraction;
+    
     float levelUpScale;
     bool levelUp;
     CCLabelTTF* levelUpLabel; 
@@ -96,4 +98,5 @@ enum operators
 @property (nonatomic,readwrite)bool remainder;
 @property (nonatomic,readwrite)bool division;
 @property (nonatomic,readwrite)bool symbols;
+@property (nonatomic,readwrite)bool fraction;
 @end

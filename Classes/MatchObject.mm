@@ -129,6 +129,11 @@
             numBubbles = 1;
         }
         
+        if (op == FRACTION) {
+            numBubbles = 1;
+            outMode = 3;
+        }
+        
         NSString *str = [GameScene getExpr:v mode:outMode];
         int size = 2+outMode;
         
