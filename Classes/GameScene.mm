@@ -91,13 +91,15 @@ static GameScene *sharedScene = nil;
 	if( (self=[super init])) {
 		difficulty = 1;
 		maxMatchObjects = 10;
+        minMatches = 2;
+        
         symbols = YES;
 		addition = NO;
 		multiplication = NO;
 		division = NO;
-		remainder = YES;
+		remainder = NO;
 		subtraction = NO;
-        fraction = NO;
+        fraction = YES;
         levelUp = NO;
         levelUpScale = 1.0f;
         score = 0;
@@ -246,6 +248,20 @@ static GameScene *sharedScene = nil;
 /*add maxMaxbjects to the level in a grid like patterns*/
 -(void)newLevel
 {
+    int nums[maxMatchObjects]; // Holds all the numbers for the current Scene
+  
+    int makeMatch = minMatches-1; // Assumes minMatches is less than half of maxMatchObjects
+    int n = 0;
+    for (n = 0; n < maxMatchObjects; n++)
+    {
+        if (n == (maxMatchObjects - makeMatch))
+            nums[n] = [GameScene getVal:nums[makeMatch--]]; // Copy the effective value from beginning index
+        else
+            nums[n] = [GameScene genNum];
+    }
+    
+  
+    n = 0;            
     for(int i=0;i<maxMatchObjects/3+1;i++)
     {
         for(int j=0;j<3;j++)
@@ -253,7 +269,7 @@ static GameScene *sharedScene = nil;
             if([self numMatchObjects] >= maxMatchObjects)
                 return;
             // Kelvin: this logic needs to change the bubbles are being created outside the grid so changed i*256 to i*128
-            [self addMatchObject:ccp(256 + j*256 + CCRANDOM_MINUS1_1()*64, 256+i*128 + CCRANDOM_MINUS1_1()*64 )];
+            [self addMatchObjectAtPosition:ccp(256 + j*256 + CCRANDOM_MINUS1_1()*64, 256+i*128 + CCRANDOM_MINUS1_1()*64 ) value:nums[n++]];
         }
     }
 	
@@ -523,7 +539,10 @@ static GameScene *sharedScene = nil;
         v = (rand()%2)?-v:v;
         effNum = [self getValExprOp:v expr:&str op:&op];
         count++;
-    } while (effNum == 0 || (effNum <= 100 && fraction && effNum > 9) || (!fraction && effNum > 9) || effNum < -9); // It's not 0 or between -9 and 9
+        if (effNum > 9 && effNum <= 100)
+            printf("Number between 9-100 %d = %d", v, effNum);
+    } while (effNum == 0 || (effNum <= 100 && fraction && effNum > 9) ||    // It's not 0 or between -9 and 9
+             (!fraction && effNum > 9) || effNum < -9);                     // fractions are 102-809
     if (count > 3)
         printf("Count is %d\n", count);
     
@@ -550,16 +569,25 @@ static GameScene *sharedScene = nil;
     *op = ADDITION;
     *str = [NSString stringWithFormat:@"%d + %d", secondD, firstD];
     
-    if (fourthD)
+    if (fourthD && [[GameScene scene] fraction])
     {
         fourthD = (fourthD < 0)?-fourthD:fourthD;
         firstD = (firstD < 0)?-firstD:firstD;
         if (fourthD < firstD) {
-            retVal = 100 + fourthD + firstD;
+            retVal = 1000 * fourthD + firstD;
+            
+            if (firstD % fourthD == 0)
+                retVal = 1000*fourthD + firstD/fourthD;
+            else if (fourthD == 6 && firstD == 8)
+                retVal = 1000*3+4;
+                
             *op = FRACTION;
             *str = [NSString stringWithFormat:@" %d \n---\n %d", fourthD, firstD];
+            return retVal;
         }
-    } else if (thirdD) // Increase density for mult/division (thirdD && !firstD) {
+    } //else 
+    if (thirdD && ([[GameScene scene] multiplication] || 
+                   [[GameScene scene] division] || [[GameScene scene] remainder]))
     {
         
         int multVal = thirdD * firstD;
@@ -587,8 +615,10 @@ static GameScene *sharedScene = nil;
             // printf("Multiply %d * %d = %d\n", thirdD, firstD, retVal);
         }
             
-    } else {
+    } // else {
         // retVal = secondD + firstD;
+    
+    // Do subtraction if the values are two digits
         
         if (retVal < -9 || retVal > 9) 
         {
@@ -606,7 +636,7 @@ static GameScene *sharedScene = nil;
            //printf("Add %d + %d = %d\n", secondD, firstD, retVal);
         } */
             
-    }
+    // }
 
     return retVal;
 }

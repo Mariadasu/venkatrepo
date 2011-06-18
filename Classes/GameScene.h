@@ -46,6 +46,8 @@ enum operators
 	GLESDebugDraw *m_debugDraw;
 	CGSize screenSize;
 	int maxMatchObjects;
+    int minMatches;
+    
 	WavePool* waves;
     bool symbols;
 	bool addition;

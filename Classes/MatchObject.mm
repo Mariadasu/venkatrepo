@@ -108,8 +108,6 @@
         numBubbles = (numBubbles < 0)?-numBubbles:numBubbles;
         
         int outMode = rand()%3; // Change this to control the types that get outputted
-
-        
         
         [self addChild:glowSprite];
         if (![[GameScene scene] symbols])
@@ -129,7 +127,7 @@
             numBubbles = 1;
         }
         
-        if (op == FRACTION) {
+        if (op == FRACTION) { //Make sure to only print out in fractional format
             numBubbles = 1;
             outMode = 3;
         }
