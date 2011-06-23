@@ -162,7 +162,7 @@
     [loadRequests addObject:[[[CDBufferLoadRequest alloc] init:SQUEAK_SMALL_SOUND filePath:@"squeak3.wav"] autorelease]];
    
     [loadRequests addObject:[[[CDBufferLoadRequest alloc] init:ERROR_SOUND filePath:@"errorSound1.wav"] autorelease]];
-    [loadRequests addObject:[[[CDBufferLoadRequest alloc] init:ERROR2_SOUND filePath:@"erroSoubd2.wav"] autorelease]];
+    [loadRequests addObject:[[[CDBufferLoadRequest alloc] init:ERROR2_SOUND filePath:@"errorSound2.wav"] autorelease]];
     
     
 

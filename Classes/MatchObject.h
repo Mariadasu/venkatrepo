@@ -35,7 +35,7 @@
 -(void)destroy;     //remove all bubbles and call removeFromParent
 
 +(id)matchObjectWithPosition:(CGPoint)p value:(int)v;  //autorelease version of constructor
--(id)initWithPosition:(CGPoint)p value:(int)v;
+//-(id)initWithPosition:(CGPoint)p value:(int)v;
                       
 
 

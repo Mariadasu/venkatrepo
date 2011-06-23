@@ -141,7 +141,7 @@
 		50F4144B10692EE7002A0D5E /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F4144610692EE7002A0D5E /* Icon.png */; };
 		79167C2613B3E7E8000662C2 /* squeak2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79167C2313B3E7E8000662C2 /* squeak2.wav */; };
 		79167C2713B3E7E8000662C2 /* squeak3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79167C2413B3E7E8000662C2 /* squeak3.wav */; };
-		79167C2813B3E7E8000662C2 /* squeek.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79167C2513B3E7E8000662C2 /* squeek.wav */; };
+		79167C2813B3E7E8000662C2 /* squeak.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79167C2513B3E7E8000662C2 /* squeak.wav */; };
 		79167C2B13B3ED50000662C2 /* errorSound1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79167C2913B3ED50000662C2 /* errorSound1.wav */; };
 		79167C2C13B3ED50000662C2 /* errorSound2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79167C2A13B3ED50000662C2 /* errorSound2.wav */; };
 		791F1FB212ED3B6E0018F651 /* WavePool.mm in Sources */ = {isa = PBXBuildFile; fileRef = 791F1FB112ED3B6E0018F651 /* WavePool.mm */; };
@@ -480,7 +480,7 @@
 		50F4144710692EE7002A0D5E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79167C2313B3E7E8000662C2 /* squeak2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = squeak2.wav; sourceTree = "<group>"; };
 		79167C2413B3E7E8000662C2 /* squeak3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = squeak3.wav; sourceTree = "<group>"; };
-		79167C2513B3E7E8000662C2 /* squeek.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = squeek.wav; sourceTree = "<group>"; };
+		79167C2513B3E7E8000662C2 /* squeak.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = squeak.wav; sourceTree = "<group>"; };
 		79167C2913B3ED50000662C2 /* errorSound1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = errorSound1.wav; sourceTree = "<group>"; };
 		79167C2A13B3ED50000662C2 /* errorSound2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = errorSound2.wav; sourceTree = "<group>"; };
 		791F1FB012ED3B6E0018F651 /* WavePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WavePool.h; sourceTree = "<group>"; };
@@ -1096,7 +1096,7 @@
 				79167C2A13B3ED50000662C2 /* errorSound2.wav */,
 				79167C2313B3E7E8000662C2 /* squeak2.wav */,
 				79167C2413B3E7E8000662C2 /* squeak3.wav */,
-				79167C2513B3E7E8000662C2 /* squeek.wav */,
+				79167C2513B3E7E8000662C2 /* squeak.wav */,
 				79A78E8613A9EA0E009829EC /* Pop1.mp3 */,
 				79A49E5613A0806800430071 /* CoinReward.mp3 */,
 				79A49E5713A0806800430071 /* Grenade.mp3 */,
@@ -1562,7 +1562,7 @@
 				79A78E8713A9EA0E009829EC /* Pop1.mp3 in Resources */,
 				79167C2613B3E7E8000662C2 /* squeak2.wav in Resources */,
 				79167C2713B3E7E8000662C2 /* squeak3.wav in Resources */,
-				79167C2813B3E7E8000662C2 /* squeek.wav in Resources */,
+				79167C2813B3E7E8000662C2 /* squeak.wav in Resources */,
 				79167C2B13B3ED50000662C2 /* errorSound1.wav in Resources */,
 				79167C2C13B3ED50000662C2 /* errorSound2.wav in Resources */,
 			);

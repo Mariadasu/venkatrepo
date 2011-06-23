@@ -17,10 +17,7 @@
 @synthesize value;
 @synthesize selected;
 
-+(id)matchObjectWithPosition:(CGPoint)p value:(int)v
-{
-	return [[[MatchObject alloc]	initWithPosition:p value:(int)v] autorelease];
-}
+
 
 -(int)getVal
 {
@@ -165,7 +162,10 @@
 	}
 	return self;
 }
-
++(id)matchObjectWithPosition:(CGPoint)p value:(int)v
+{
+	return [[[MatchObject alloc]	initWithPosition:p value:(int)v] autorelease];
+}
 -(bool)isActive
 {
 	return glowScale > 0.1f;

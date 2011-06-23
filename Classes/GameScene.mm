@@ -258,7 +258,9 @@ static GameScene *sharedScene = nil;
 -(void)newLevel
 {
     [selectedObjects removeAllObjects];
+    [ [self getChildByTag:kTagMatchObjectNode] removeAllChildrenWithCleanup:YES];
     
+     
     int nums[maxMatchObjects]; // Holds all the numbers for the current Scene
   
     int makeMatch = minMatches-1; // Assumes minMatches is less than half of maxMatchObjects
