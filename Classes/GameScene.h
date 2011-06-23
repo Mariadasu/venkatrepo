@@ -84,6 +84,8 @@ enum operators
 -(int)numMatchObjects;
 -(MatchObject*)getMatchObject:(int)i;
 -(int)getMatchObjectValue:(int)i;
+-(void)removeAllMatchObjects;
+-(void)removeMatchObject:(MatchObject*)m;
 
 +(int)genNum;
 +(int)getVal:(int)i;

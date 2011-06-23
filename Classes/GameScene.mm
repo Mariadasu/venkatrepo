@@ -58,6 +58,15 @@ static GameScene *sharedScene = nil;
 {
 	return [[self getChildByTag:kTagMatchObjectNode] children];
 }
+-(void)removeAllMatchObjects
+{
+    [[self getChildByTag:kTagMatchObjectNode] removeAllChildrenWithCleanup:YES];
+}
+-(void)removeMatchObject:(MatchObject*)mo
+{
+    [[self getChildByTag:kTagMatchObjectNode] removeChild:mo cleanup:YES];
+}
+
 -(void)addRippleAt:(CGPoint)p radius:(int)r value:(int)v
 {
     [waves addRippleAt:p radius:r val:v];
@@ -248,6 +257,8 @@ static GameScene *sharedScene = nil;
 /*add maxMaxbjects to the level in a grid like patterns*/
 -(void)newLevel
 {
+    [selectedObjects removeAllObjects];
+    
     int nums[maxMatchObjects]; // Holds all the numbers for the current Scene
   
     int makeMatch = minMatches-1; // Assumes minMatches is less than half of maxMatchObjects
@@ -375,7 +386,7 @@ static GameScene *sharedScene = nil;
     }
     
     
-    [scoreLabel setString:[NSString stringWithFormat:@"Score:%d",score]];
+    [scoreLabel setString:[NSString stringWithFormat:@"Score:%d matchObjects:%d",score,[self numMatchObjects]]];
     
 }
 -(void) update: (ccTime) dt
@@ -433,7 +444,18 @@ static GameScene *sharedScene = nil;
             //[[GameScene scene] addChild:[BlockExplosion explosionAtPosition:[anObject position]]];
             [sound playSound:POP_SOUND];
             
+            if ([selectedObjects containsObject:anObject]) 
+            {
+                [selectedObjects removeObject:anObject];
+            }
+           
             [anObject destroy];
+            [self removeMatchObject:anObject];
+            
+           // [anObject removeFromParentAndCleanup:YES];
+            
+            anObject = 0;
+           
         }
         else
         {
@@ -460,6 +482,11 @@ static GameScene *sharedScene = nil;
         if ([GameScene getVal:[m value]] != [GameScene getVal:[obj value]]) 
         {
             //there is a mismatch so play bad sound and unselect all objects
+            if(CCRANDOM_MINUS1_1()>0)
+                [sound playSound:ERROR_SOUND];
+            else 
+                [sound playSound:ERROR2_SOUND];
+            
             [selectedObjects removeAllObjects];
             return;
             
@@ -482,10 +509,12 @@ static GameScene *sharedScene = nil;
             }
         }
         
+        
         for(MatchObject* m in selectedObjects)
         {
             [m setAlive:NO];
         }
+        [selectedObjects removeAllObjects];
         
     }
 }

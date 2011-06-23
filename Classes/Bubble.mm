@@ -16,6 +16,7 @@
 
 -(void)dealloc
 {
+    
      [[GameScene scene] world]->DestroyBody(b);
     
     [super dealloc];

@@ -8,7 +8,7 @@
 
 #import "MatchObject.h"
 #import "GameScene.h"
-
+#import "SoundLayer.h"
 #import "Bubble.h"
 
 @implementation MatchObject
@@ -46,7 +46,6 @@
     
     [[GameScene scene] addBonusLabelAt:[self position] value:[GameScene getVal:value]];
     
-    
     if(hit)
     {
         
@@ -60,6 +59,7 @@
     intNode = 0;
     
     glowSprite=0;
+    
     
     [self removeFromParentAndCleanup:YES];
     
@@ -270,10 +270,13 @@
     {
         if(ccpDistance([b position] , p ) < [b radius]*2 ) 
         { 
+            
+            [[ [GameScene scene ] sound] playSound: SQUEAK_SOUND + (int)(CCRANDOM_0_1()*2.99)]; //try one of the three squeak sounds
             hit = YES;
             touchStart = p;
             //alive = NO;
             selected = YES;
+            
             [[GameScene scene] objectPressed:self];
         }
         
