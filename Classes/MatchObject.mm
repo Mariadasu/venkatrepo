@@ -56,18 +56,21 @@
     intNode = 0;
     
     glowSprite=0;
-    
-    
+   
+    [self  setIsTouchEnabled:NO priority:0];
+   
     [self removeFromParentAndCleanup:YES];
     
-    
+   
+   
 	
 }
 -(id)initWithPosition:(CGPoint)p value:(int)v
 {
 	if( (self=[super init]))
     {
-		
+        
+      
         alive = YES;
         hit = NO;
         // intNode = [[IntegerNode alloc] initNode:nil startVal:v];
@@ -97,6 +100,8 @@
         [glowSprite setVisible:NO];
         [glowSprite setOpacity:180];
 
+       
+        
         operators op;
         NSString *temp;
         
@@ -129,10 +134,13 @@
             outMode = 3;
         }
         
+       
+        
         NSString *str = [GameScene getExpr:v mode:outMode];
         int size = 2+outMode;
         
 
+       
         
         printf("Starting Node %d with numBubbles %d and %s\n", v, numBubbles, [str UTF8String]);
        
@@ -156,9 +164,14 @@
         
         printf("Ending Node %d\n", v);
         
+       
+        
         [self schedule: @selector(update:)];
 		
+        
+        
 		[self setIsTouchEnabled:YES priority:1];
+        
 	}
 	return self;
 }

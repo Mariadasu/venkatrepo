@@ -64,7 +64,8 @@ static GameScene *sharedScene = nil;
 }
 -(void)removeMatchObject:(MatchObject*)mo
 {
-    [[self getChildByTag:kTagMatchObjectNode] removeChild:mo cleanup:YES];
+    CCNode* n = [self getChildByTag:kTagMatchObjectNode];
+    [n removeChild:mo cleanup:YES];
 }
 
 -(void)addRippleAt:(CGPoint)p radius:(int)r value:(int)v
@@ -87,6 +88,7 @@ static GameScene *sharedScene = nil;
 {
 	
 	[[self getChildByTag:kTagMatchObjectNode] addChild:[MatchObject matchObjectWithPosition:p value:v]];
+    
     
 }
 
@@ -260,6 +262,7 @@ static GameScene *sharedScene = nil;
     [selectedObjects removeAllObjects];
     [ [self getChildByTag:kTagMatchObjectNode] removeAllChildrenWithCleanup:YES];
     
+    
      
     int nums[maxMatchObjects]; // Holds all the numbers for the current Scene
   
@@ -280,11 +283,18 @@ static GameScene *sharedScene = nil;
         for(int j=0;j<3;j++)
         {
             if([self numMatchObjects] >= maxMatchObjects)
-                return;
+            {
+               
+               
+               return;
+                
+            }
+            
             // Kelvin: this logic needs to change the bubbles are being created outside the grid so changed i*256 to i*128
             [self addMatchObjectAtPosition:ccp(256 + j*256 + CCRANDOM_MINUS1_1()*64, 256+i*128 + CCRANDOM_MINUS1_1()*64 ) value:nums[n++]];
         }
     }
+    
 	
 }
 /*enable this to draw any level graphics with pure opengl commands.. everything else is handled by the rendering engine*/
@@ -399,6 +409,9 @@ static GameScene *sharedScene = nil;
 		first = NO;
 		[self newLevel];
 	}
+    
+   
+    
 //    printf("%d %d %d %d %d %d\n",addition,subtraction,multiplication,division,remainder,symbols);
 #ifdef CONTINUOUS_PLAY
     /*keep maxMatchObject number of objects on screen*/
@@ -451,11 +464,10 @@ static GameScene *sharedScene = nil;
                 [selectedObjects removeObject:anObject];
             }
            
+            
+            //[self removeMatchObject:anObject];
             [anObject destroy];
-            [self removeMatchObject:anObject];
-            
-           // [anObject removeFromParentAndCleanup:YES];
-            
+           
             anObject = 0;
            
         }
@@ -472,6 +484,7 @@ static GameScene *sharedScene = nil;
                 }
             }
         }
+        
     }                  
     
 	
