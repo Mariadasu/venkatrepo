@@ -193,7 +193,6 @@ static GameScene *sharedScene = nil;
 		
         [self setLevel:0];
         [self setDifficulty:0];
-        
         levelUp = NO;
         levelUpScale = 1.0f;
         score = 0;
@@ -349,12 +348,12 @@ static GameScene *sharedScene = nil;
      
     int nums[maxMatchObjects]; // Holds all the numbers for the current Scene
   
-    int makeMatch = minMatches-1; // Assumes minMatches is less than half of maxMatchObjects
+    int makeMatch = minMatches; // Assumes minMatches is less than half of maxMatchObjects
     int n = 0;
     for (n = 0; n < maxMatchObjects; n++)
     {
         if (n == (maxMatchObjects - makeMatch))
-            nums[n] = [GameScene getVal:nums[makeMatch--]]; // Copy the effective value from beginning index
+            nums[n] = [GameScene getVal:nums[--makeMatch]]; // Copy the effective value from beginning index
         else
             nums[n] = [GameScene genNum];
     }
@@ -371,6 +370,7 @@ static GameScene *sharedScene = nil;
             }
             
             // Kelvin: this logic needs to change the bubbles are being created outside the grid so changed i*256 to i*128
+            printf("index %d has value %d\n", n, nums[n]);
             [self addMatchObjectAtPosition:ccp(256 + j*256 + CCRANDOM_MINUS1_1()*64, 256+i*128 + CCRANDOM_MINUS1_1()*64 ) value:nums[n++]];
         }
     }
