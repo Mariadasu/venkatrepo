@@ -40,12 +40,13 @@
 }
 -(void)update
 {
-	radius += 5;
+	radius += 12;
 	if (radius>maxRadius) 
     {
 		alive = NO;
 	}
-	height *= decayRate;
+	height -= decayRate;
+    waveWidth++;
 }
 -(float)heightAt:(CGPoint)p
 {
@@ -90,7 +91,7 @@
 }
 -(void)addRippleAt:(CGPoint)p radius:(int)r val:(int)v
 {
-	[waves addObject:[Wave waveWithPosition:p waveHeight:20 decay:1.0f width:50 radius:r value:v]];
+	[waves addObject:[Wave waveWithPosition:p waveHeight:40 decay:0.00f width:16 radius:r value:v]];
 
 }
 -(void)update:(ccTime)time

@@ -20,7 +20,7 @@
 #define kGameAutorotationUIViewController 2
 
 #define SOUND_ACTIVE
-//#define BACKGROUND_MUSIC_ACTIVE
+#define BACKGROUND_MUSIC_ACTIVE
 //#define CONTINUOUS_PLAY
 
 //

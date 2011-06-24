@@ -181,8 +181,8 @@ static GameScene *sharedScene = nil;
     }
     
    
-    maxMatchObjects = 4 + difficulty;
-    minMatches = 2 + 2*difficulty;
+    maxMatchObjects = 4 + (int)(difficulty*0.3f);
+    minMatches = 2 + (int)(difficulty*0.5f);
 }
 
 -(id) init
@@ -476,7 +476,7 @@ static GameScene *sharedScene = nil;
     }
     
     
-    [scoreLabel setString:[NSString stringWithFormat:@"Score:%d matchObjects:%d",score,[self numMatchObjects]]];
+    [scoreLabel setString:[NSString stringWithFormat:@"Score:%d",score]];
     
 }
 -(void) update: (ccTime) dt
@@ -566,11 +566,16 @@ static GameScene *sharedScene = nil;
             /*check if any waves are hitting this object and then pop them without considering a bonus or making a new wave*/
             for(Wave* w in  [waves waves])
             {
-                float h = [w heightAt:[anObject position]] ;
-                
-                if (h > 0 )
+                if ([w value] == [anObject getVal]) 
                 {
-                    [anObject setAlive:NO];
+                
+                    float h = [w heightAt:[anObject position]] ;
+                
+                
+                    if (h > 0 )
+                    {
+                        [anObject setAlive:NO];
+                    }
                 }
             }
         }

@@ -43,11 +43,7 @@
     
     [[GameScene scene] addBonusLabelAt:[self position] value:[GameScene getVal:value]];
     
-    if(hit)
-    {
-        
-        [[GameScene scene] addRippleAt:[self position] radius:256 value:[GameScene getVal:value]];
-    }
+   
     
     [intNode release];
 	[bubbles removeAllChildrenWithCleanup:YES];
@@ -283,6 +279,11 @@
     {
         if(ccpDistance([b position] , p ) < [b radius]*2 ) 
         { 
+            
+           
+                
+            [[GameScene scene] addRippleAt:[self position] radius:2048 value:[GameScene getVal:value]];
+            
             
             [[ [GameScene scene ] sound] playSound: SQUISH_1_SOUND + (int)(CCRANDOM_0_1()*2.99)]; //try one of the three squish sounds
             hit = YES;
