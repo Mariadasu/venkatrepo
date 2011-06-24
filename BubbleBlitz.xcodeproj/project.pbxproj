@@ -145,6 +145,7 @@
 		79167C3213B463A3000662C2 /* squish1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79167C2E13B463A3000662C2 /* squish1.wav */; };
 		79167C3313B463A3000662C2 /* squish2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79167C2F13B463A3000662C2 /* squish2.wav */; };
 		79167C3413B463A3000662C2 /* squish3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79167C3013B463A3000662C2 /* squish3.wav */; };
+		79167C3713B47B50000662C2 /* SettingScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 79167C3613B47B50000662C2 /* SettingScene.mm */; };
 		791F1FB212ED3B6E0018F651 /* WavePool.mm in Sources */ = {isa = PBXBuildFile; fileRef = 791F1FB112ED3B6E0018F651 /* WavePool.mm */; };
 		792A06F312F2E504007EC878 /* menuBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 792A06F212F2E504007EC878 /* menuBackground.jpg */; };
 		792A07A212F2EB7D007EC878 /* resume.png in Resources */ = {isa = PBXBuildFile; fileRef = 792A07A112F2EB7D007EC878 /* resume.png */; };
@@ -485,6 +486,8 @@
 		79167C2E13B463A3000662C2 /* squish1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = squish1.wav; sourceTree = "<group>"; };
 		79167C2F13B463A3000662C2 /* squish2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = squish2.wav; sourceTree = "<group>"; };
 		79167C3013B463A3000662C2 /* squish3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = squish3.wav; sourceTree = "<group>"; };
+		79167C3513B47B4F000662C2 /* SettingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingScene.h; sourceTree = "<group>"; };
+		79167C3613B47B50000662C2 /* SettingScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SettingScene.mm; sourceTree = "<group>"; };
 		791F1FB012ED3B6E0018F651 /* WavePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WavePool.h; sourceTree = "<group>"; };
 		791F1FB112ED3B6E0018F651 /* WavePool.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WavePool.mm; sourceTree = "<group>"; };
 		792A06F212F2E504007EC878 /* menuBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = menuBackground.jpg; sourceTree = "<group>"; };
@@ -1044,6 +1047,8 @@
 		79E5DABE13A1FD8800C3C4E1 /* Layers */ = {
 			isa = PBXGroup;
 			children = (
+				79167C3513B47B4F000662C2 /* SettingScene.h */,
+				79167C3613B47B50000662C2 /* SettingScene.mm */,
 				506EDC2F102F528A00A389B3 /* GameScene.h */,
 				506EDC30102F528A00A389B3 /* GameScene.mm */,
 				7977E4C712F2DF470069071C /* MenuScene.h */,
@@ -1594,6 +1599,7 @@
 				79A49E5413A0804100430071 /* Bubble.mm in Sources */,
 				79A49E5513A0804100430071 /* SoundLayer.mm in Sources */,
 				79E5DAC713A30B1600C3C4E1 /* BonusLabel.m in Sources */,
+				79167C3713B47B50000662C2 /* SettingScene.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

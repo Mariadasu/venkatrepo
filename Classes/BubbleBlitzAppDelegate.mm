@@ -10,7 +10,7 @@
 
 #import "BubbleBlitzAppDelegate.h"
 #import "GameConfig.h"
-#import "GameScene.h"
+#import "MenuScene.h"
 #import "RootViewController.h"
 
 @implementation BubbleBlitzAppDelegate
@@ -82,7 +82,7 @@
 	
 	
 	// Run the intro Scene
-	[[CCDirector sharedDirector] runWithScene: [GameScene scene]];		
+	[[CCDirector sharedDirector] runWithScene: [MenuScene scene]];		
 }
 
 

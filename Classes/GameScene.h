@@ -98,7 +98,7 @@ enum operators
 @property (nonatomic,readonly) SoundLayer* sound;
 @property (nonatomic,readonly) b2World* world;
 
-
+@property(nonatomic,readwrite)int score;
 @property (nonatomic,readonly)int difficulty;
 @property (nonatomic,readwrite)bool addition;
 @property (nonatomic,readwrite)bool subtraction;

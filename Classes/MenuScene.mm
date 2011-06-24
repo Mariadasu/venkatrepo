@@ -9,6 +9,7 @@
 #import "MenuScene.h"
 #import "GameScene.h"
 #import "ToggleMenu.h"
+#import "SettingScene.h"
 
 // enums that will be used as tags
 enum {
@@ -22,73 +23,35 @@ enum {
 @implementation MenuScene
 
 
-//static MenuScene *sharedMenuScene = nil;
+static MenuScene *sharedMenuScene = nil;
 
 +(id)scene
 {
-	/*if (sharedMenuScene == nil) 
+	if (sharedMenuScene == nil) 
 	{
 		sharedMenuScene = [[[MenuScene alloc] init] autorelease];
 	}
 	return sharedMenuScene;	
-	*/
-	return [[[MenuScene alloc] init] autorelease];
+
 }
 
 -(void) resumeGame: (id) sender
 {
-	[[CCDirector sharedDirector] popScene];
-}
--(void)makeHarder: (id) sender
-{
-	[[GameScene scene] setDifficulty:[[GameScene scene] difficulty]+1];
-	
-	CCLabelTTF *difficultyLabel = (CCLabelTTF*)[self getChildByTag:kTagDiffLabel];
-	[difficultyLabel setString:[NSString stringWithFormat:@"Difficulty %d",[[GameScene scene] difficulty]]];
-	
+    [[CCDirector sharedDirector] pushScene:[CCTransitionFlipY transitionWithDuration:2 scene:[GameScene scene]] ];
 	
 }
--(void)divToggle: (id) sender
+-(void) settings: (id) sender
 {
-	[[GameScene scene] setDivision:[(ToggleMenu*)sender toggleOn]];	
-}
--(void)remToggle: (id) sender
-{
-	[[GameScene scene] setRemainder:[(ToggleMenu*)sender toggleOn]];	
-}
--(void)subToggle: (id) sender
-{
-	[[GameScene scene] setSubtraction:[(ToggleMenu*)sender toggleOn]];	
-}
--(void)addToggle: (id) sender
-{
-	[[GameScene scene] setAddition:[(ToggleMenu*)sender toggleOn]];	
-}
--(void)multToggle: (id) sender
-{
-	[[GameScene scene] setMultiplication:[(ToggleMenu*)sender toggleOn]];	
-}
+	[[CCDirector sharedDirector] pushScene:[CCTransitionMoveInR transitionWithDuration:2 scene:[SettingScene scene]] ];
 
--(void)symToggle: (id) sender
-{
-	[[GameScene scene] setSymbols:[(ToggleMenu*)sender toggleOn]];	
 }
-
--(void)fracToggle: (id) sender
+-(void)newGame: (id) sender
 {
-	[[GameScene scene] setFraction:[(ToggleMenu*)sender toggleOn]];	
-}
-
--(void)makeEasier: (id) sender
-{
-	int diff = [[GameScene scene] difficulty];
-	if (diff>1) {
-		[[GameScene scene] setDifficulty:[[GameScene scene] difficulty]-1];
-		
-		CCLabelTTF *difficultyLabel = (CCLabelTTF*)[self getChildByTag:kTagDiffLabel];
-		[difficultyLabel setString:[NSString stringWithFormat:@"Difficulty %d",[[GameScene scene] difficulty]]];
-		
-	}
+    [[CCDirector sharedDirector] pushScene:[CCTransitionMoveInL transitionWithDuration:2 scene:[GameScene scene]] ];
+	[[GameScene scene] setLevel:0];	
+    [[GameScene scene] setDifficulty:0];	
+    [[GameScene scene] setScore:0];
+	
 }
 
 -(id) init
@@ -110,39 +73,19 @@ enum {
 		CCMenuItemImage *resumeButton = [CCMenuItemImage itemFromNormalImage:@"resume.png" selectedImage:@"resume.png" target:self selector:@selector(resumeGame:)];
 		[resumeButton setScale:3];
 		
-		
-		//to change the difficulty
-		//there are two buttons harder and easier and a lable which displays the gamescane difficulty
-		//we may want to make a slider or maybe derive a menu button which has all these elements
-		
-		int diff = [[GameScene scene] difficulty];
-		CCLabelTTF *difficultyLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Difficulty %d",diff] fontName:@"Marker Felt" fontSize:32];
-		[self addChild:difficultyLabel z:0 tag:kTagDiffLabel];
-		difficultyLabel.position = ccp( 100,320);
-	
-		
-		CCMenuItem *harder = [CCMenuItemFont itemFromString: @"Harder" target: self selector:@selector(makeHarder:) ];
-		harder.position = ccp(0,-64);
-		CCMenuItem *easier = [CCMenuItemFont itemFromString: @"Easier" target: self selector:@selector(makeEasier:)];
-		easier.position	= ccp(0,-128);
-		
-        ToggleMenu* symT = [ToggleMenu toggleMenuWithString:@"Symbols" target: self selector:@selector(symToggle:) value:[[GameScene scene] symbols]];
-		symT.position = ccp(0,-192); // 
-		ToggleMenu* addT = [ToggleMenu toggleMenuWithString:@"Addition" target: self selector:@selector(addToggle:) value:[[GameScene scene] addition]];
-		addT.position = ccp(0,-256); // 320
-		ToggleMenu* subT = [ToggleMenu toggleMenuWithString:@"Subtraction" target: self selector:@selector(subToggle:) value:[[GameScene scene] subtraction]];
-		subT.position = ccp(0,-320); // 384
-		ToggleMenu* divT = [ToggleMenu toggleMenuWithString:@"Division" target: self selector:@selector(divToggle:) value:[[GameScene scene] division]];
-		divT.position = ccp(0,-384); // 192
-		ToggleMenu* multT = [ToggleMenu toggleMenuWithString:@"Multiplication" target: self selector:@selector(multToggle:) value:[[GameScene scene] multiplication]];
-		multT.position = ccp(0,-448); // 256
-		ToggleMenu* remT = [ToggleMenu toggleMenuWithString:@"Remainder" target: self selector:@selector(remToggle:) value:[[GameScene scene] remainder]];
-		remT.position = ccp(0,-512);
-		ToggleMenu* fracT = [ToggleMenu toggleMenuWithString:@"Fraction" target: self selector:@selector(fracToggle:) value:[[GameScene scene] fraction]];
-		fracT.position = ccp(0,-576);
+        CCMenuItemFont *newGameButton = [CCMenuItemFont itemFromString:@"NEW GAME" target:self selector:@selector(newGame:)];
+        CCMenuItemFont *resumeGameButton = [CCMenuItemFont itemFromString:@"RESUME" target:self selector:@selector(resumeGame:)];
+        CCMenuItemFont *settings = [CCMenuItemFont itemFromString:@"SETTINGS" target:self selector:@selector(settings:)];
         
 		
-		CCMenu *menu = [CCMenu menuWithItems:resumeButton,harder,easier,symT,addT,subT,divT,multT,remT, fracT, nil];
+		
+		newGameButton.position = ccp(0,-192); // 
+		resumeGameButton.position = ccp(0,-256); // 320
+		
+		settings.position = ccp(0,-320); // 384
+		 
+		
+		CCMenu *menu = [CCMenu menuWithItems:newGameButton,resumeGameButton,settings, nil];
 		
 		menu.position = ccp(512,screenSize.height-32);
 		
@@ -159,12 +102,7 @@ enum {
 		
 	
 		
-		CCLabelTTF *label = [CCLabelTTF labelWithString:@"Tap screen" fontName:@"Marker Felt" fontSize:32];
-		[self addChild:label z:0];
-		[label setColor:ccc3(0,0,255)];
-		label.position = ccp( screenSize.width/2, screenSize.height-50);
-		
-		//[self schedule: @selector(tick:)];
+				
 		
 		first = YES;
 	}

@@ -30,6 +30,7 @@ int MAXNUM = 10000;
 // HelloWorld implementation
 @implementation GameScene
 
+@synthesize score;
 @synthesize world;
 @synthesize difficulty;
 @synthesize sound;
@@ -94,7 +95,8 @@ static GameScene *sharedScene = nil;
 
 -(void) pauseScene: (id) sender
 {
-	[[CCDirector sharedDirector] pushScene:[CCTransitionFlipY transitionWithDuration:2 scene:[MenuScene scene] orientation:kOrientationLeftOver]] ;
+	[[CCDirector sharedDirector] pushScene:[CCTransitionMoveInR transitionWithDuration:2 scene:[MenuScene scene]] ];
+
 }
 
 -(void)setLevel:(int)lev
