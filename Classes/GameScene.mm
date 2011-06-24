@@ -97,20 +97,101 @@ static GameScene *sharedScene = nil;
 	[[CCDirector sharedDirector] pushScene:[CCTransitionFlipY transitionWithDuration:2 scene:[MenuScene scene] orientation:kOrientationLeftOver]] ;
 }
 
+-(void)setLevel:(int)lev
+{
+    
+    level = lev;
+    
+    switch (level) 
+    {
+        case 0:
+        {
+            symbols = YES;
+            addition = NO;
+            multiplication = NO;
+            division = NO;
+            remainder = NO;
+            subtraction = NO;
+            fraction = NO;
+            
+        }break;
+        case 1:
+        {
+            symbols = YES;
+            addition = YES;
+            multiplication = NO;
+            division = NO;
+            remainder = NO;
+            subtraction = NO;
+            fraction = NO;
+            
+        }break;
+        case 2:
+        {
+            symbols = YES;
+            addition = YES;
+            multiplication = NO;
+            division = NO;
+            remainder = NO;
+            subtraction = YES;
+            fraction = NO;
+        }break;
+        case 3:
+        {
+            symbols = YES;
+            addition = YES;
+            multiplication = NO;
+            division = NO;
+            remainder = NO;
+            subtraction = YES;
+            fraction = YES;
+        }break;
+        case 4:
+        {
+            symbols = NO;
+            addition = NO;
+            multiplication = NO;
+            division = YES;
+            remainder = NO;
+            subtraction = NO;
+            fraction = YES;
+        }break;
+        case 5:
+        {
+            symbols = YES;
+            addition = YES;
+            multiplication = YES;
+            division = YES;
+            remainder = YES;
+            subtraction = YES;
+            fraction = YES;
+        }break;
+        default:
+            break;
+    }
+}
+
+-(void)setDifficulty:(int)df 
+{
+     difficulty = df;
+    if(difficulty>4)
+    {
+        difficulty = 0;
+        [ self setLevel:level+1];
+    }
+    
+   
+    maxMatchObjects = 4 + difficulty;
+    minMatches = 2 + 2*difficulty;
+}
+
 -(id) init
 {
 	if( (self=[super init])) {
-		difficulty = 1;
-		maxMatchObjects = 10;
-        minMatches = 2;
+		
+        [self setLevel:0];
+        [self setDifficulty:0];
         
-        symbols = YES;
-		addition = NO;
-		multiplication = NO;
-		division = NO;
-		remainder = NO;
-		subtraction = NO;
-        fraction = YES;
         levelUp = NO;
         levelUpScale = 1.0f;
         score = 0;
@@ -284,10 +365,7 @@ static GameScene *sharedScene = nil;
         {
             if([self numMatchObjects] >= maxMatchObjects)
             {
-               
-               
                return;
-                
             }
             
             // Kelvin: this logic needs to change the bubbles are being created outside the grid so changed i*256 to i*128
@@ -421,18 +499,30 @@ static GameScene *sharedScene = nil;
     /*once the objects are clear make a new level*/
     if([self numMatchObjects]==0 && !levelUp)
     {
-        levelUpScale = 1.0f;
+        levelUpScale = 0.1f;
         levelUp = YES;
+        [self setDifficulty:difficulty+1];
+       
+        if (difficulty == 0) 
+        {
+            [levelUpLabel setString:[NSString stringWithFormat:@"LEVEL: %d",level]];
+        }
+        else
+        {
+            [levelUpLabel setString:[NSString stringWithFormat:@"STAGE: %d",difficulty]];
+        }
+        
         [levelUpLabel setVisible:YES];
         //[levelUpLabel setOpacity:1];
         
     }
     if(levelUp)
     {
-        levelUpScale *= 0.9f;
+         
+        levelUpScale *= 1.05f;
         [levelUpLabel setScale:levelUpScale];
         // [levelUpLabel setOpacity:levelUpScale];
-        if (levelUpScale<=0.1f) 
+        if (levelUpScale>=0.75) 
         {
             levelUp = NO;
             [levelUpLabel setVisible:NO];

@@ -37,7 +37,7 @@ enum operators
 @interface GameScene : CCLayer
 {
     SoundLayer* sound;
-    
+    int level;
 	int difficulty;
 	bool first;
 	CCSprite* background;
@@ -86,6 +86,8 @@ enum operators
 -(int)getMatchObjectValue:(int)i;
 -(void)removeAllMatchObjects;
 -(void)removeMatchObject:(MatchObject*)m;
+-(void)setDifficulty:(int)dif;
+-(void)setLevel:(int)lev;
 
 +(int)genNum;
 +(int)getVal:(int)i;
@@ -95,7 +97,9 @@ enum operators
 
 @property (nonatomic,readonly) SoundLayer* sound;
 @property (nonatomic,readonly) b2World* world;
-@property (nonatomic,readwrite)int difficulty;
+
+
+@property (nonatomic,readonly)int difficulty;
 @property (nonatomic,readwrite)bool addition;
 @property (nonatomic,readwrite)bool subtraction;
 @property (nonatomic,readwrite)bool multiplication;

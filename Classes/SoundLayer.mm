@@ -158,9 +158,11 @@
     [loadRequests addObject:[[[CDBufferLoadRequest alloc] init:REWARD_SOUND filePath:@"CoinReward.mp3"] autorelease]];
    
     [loadRequests addObject:[[[CDBufferLoadRequest alloc] init:SQUEAK_SOUND filePath:@"squeak.wav"] autorelease]];
-    [loadRequests addObject:[[[CDBufferLoadRequest alloc] init:SQUEAK_BIG_SOUND filePath:@"squeak2.wav"] autorelease]];
-    [loadRequests addObject:[[[CDBufferLoadRequest alloc] init:SQUEAK_SMALL_SOUND filePath:@"squeak3.wav"] autorelease]];
-   
+    [loadRequests addObject:[[[CDBufferLoadRequest alloc] init:SQUISH_1_SOUND filePath:@"squish1.wav"] autorelease]];
+    [loadRequests addObject:[[[CDBufferLoadRequest alloc] init:SQUISH_2_SOUND filePath:@"squish2.wav"] autorelease]];
+    [loadRequests addObject:[[[CDBufferLoadRequest alloc] init:SQUISH_3_SOUND filePath:@"squish3.wav"] autorelease]];
+  
+    
     [loadRequests addObject:[[[CDBufferLoadRequest alloc] init:ERROR_SOUND filePath:@"errorSound1.wav"] autorelease]];
     [loadRequests addObject:[[[CDBufferLoadRequest alloc] init:ERROR2_SOUND filePath:@"errorSound2.wav"] autorelease]];
     

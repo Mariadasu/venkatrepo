@@ -284,11 +284,14 @@
         if(ccpDistance([b position] , p ) < [b radius]*2 ) 
         { 
             
-            [[ [GameScene scene ] sound] playSound: SQUEAK_SOUND + (int)(CCRANDOM_0_1()*2.99)]; //try one of the three squeak sounds
+            [[ [GameScene scene ] sound] playSound: SQUISH_1_SOUND + (int)(CCRANDOM_0_1()*2.99)]; //try one of the three squish sounds
             hit = YES;
             touchStart = p;
             //alive = NO;
             selected = YES;
+            
+            [glowSprite setScale:[[b sprite] scale]];
+            [self activate];
             
             [[GameScene scene] objectPressed:self];
         }
@@ -301,8 +304,14 @@
 
 - (void)ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    //CGPoint p = [[CCDirector sharedDirector] convertToGL: [touch locationInView:[touch view]] ];
+    CGPoint p = [[CCDirector sharedDirector] convertToGL: [touch locationInView:[touch view]] ];
 	
+    p = ccpSub(p, centroid);
+    glowSprite.position = p;
+    
+    [self addForce:p];
+    
+    [self activate];
 	
 }
 - (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
@@ -314,6 +323,7 @@
      if(ccpDistance([b position] , p ) < [b radius]*2 ) 
      { */
     
+ 
     selected = NO;
     [[GameScene scene] objectReleased:self];
     //  }
