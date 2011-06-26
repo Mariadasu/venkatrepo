@@ -8,6 +8,7 @@
 
 #import "MatchObject.h"
 #import "GameScene.h"
+#import "GameLogic.h"
 #import "SoundLayer.h"
 #import "Bubble.h"
 
@@ -21,7 +22,7 @@
 
 -(int)getVal
 {
-	return [GameScene getVal:value];	
+	return [GameLogic getVal:value];	
 }
 
 -(void)addForce:(CGPoint)f
@@ -41,7 +42,7 @@
 {
 	
     
-    [[GameScene scene] addBonusLabelAt:[self position] value:[GameScene getVal:value]];
+    [[GameScene scene] addBonusLabelAt:[self position] value:[GameLogic getVal:value]];
     
    
     
@@ -101,7 +102,7 @@
         operators op;
         NSString *temp;
         
-        int numBubbles = [GameScene getValExprOp:v expr:&temp op:&op];
+        int numBubbles = [GameLogic getValExprOp:v expr:&temp op:&op];
         bubble_colors col = (numBubbles < 0)?RED_BUBBLE:BLUE_BUBBLE;
         numBubbles = (numBubbles < 0)?-numBubbles:numBubbles;
         
@@ -132,7 +133,7 @@
         
        
         
-        NSString *str = [GameScene getExpr:v mode:outMode];
+        NSString *str = [GameLogic getExpr:v mode:outMode];
         int size = 2+outMode;
         
 
@@ -282,7 +283,7 @@
             
            
                 
-            [[GameScene scene] addRippleAt:[self position] radius:2048 value:[GameScene getVal:value]];
+            [[GameScene scene] addRippleAt:[self position] radius:2048 value:[GameLogic getVal:value]];
             
             
             [[ [GameScene scene ] sound] playSound: SQUISH_1_SOUND + (int)(CCRANDOM_0_1()*2.99)]; //try one of the three squish sounds

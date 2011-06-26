@@ -12,6 +12,8 @@
 #import "Box2D.h"
 #import "GLES-Render.h"
 #import "GameConfig.h"
+#import "GameLogic.h"
+
 //Pixel to metres ratio. Box2D uses metres as the unit for measurement.
 //This ratio defines how many pixels correspond to 1 Box2D "metre"
 //Box2D is optimized for objects of 1x1 metre therefore it makes sense
@@ -20,15 +22,6 @@
 
 //static int OUTMASK = 0xFF;
 
-enum operators
-{
-    ADDITION,
-    SUBTRACTION,
-    MULTIPlICATION,
-    DIVISION,
-    REMAINDER,
-    FRACTION
-};
 
 @class MatchObject;
 @class WavePool;
@@ -89,11 +82,13 @@ enum operators
 -(void)setDifficulty:(int)dif;
 -(void)setLevel:(int)lev;
 
+/*
 +(int)genNum;
 +(int)getVal:(int)i;
 +(int)getValExprOp:(int)i expr:(NSString**)str op:(operators*)op;
 +(NSString*)getExpr:(int)i mode:(int)m;
-+(operators)getOp:(int)i;
++(operators)getOp:(int)i; 
+*/
 
 @property (nonatomic,readonly) SoundLayer* sound;
 @property (nonatomic,readonly) b2World* world;

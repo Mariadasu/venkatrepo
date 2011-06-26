@@ -334,6 +334,7 @@
 		E0505109122D44E8005B74CB /* ZipUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = E0505067122D44E8005B74CB /* ZipUtils.h */; };
 		E050510A122D44E8005B74CB /* ZipUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = E0505068122D44E8005B74CB /* ZipUtils.m */; };
 		E0F81064120A17DF005866B8 /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E0F81063120A17DF005866B8 /* RootViewController.mm */; };
+		E745B63513B6DB3F006680D0 /* GameLogic.mm in Sources */ = {isa = PBXBuildFile; fileRef = E745B63413B6DB3F006680D0 /* GameLogic.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -689,6 +690,8 @@
 		E0F81061120A17DF005866B8 /* GameConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameConfig.h; sourceTree = "<group>"; };
 		E0F81062120A17DF005866B8 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		E0F81063120A17DF005866B8 /* RootViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RootViewController.mm; sourceTree = "<group>"; };
+		E745B63413B6DB3F006680D0 /* GameLogic.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameLogic.mm; sourceTree = "<group>"; };
+		E76C3EAD13B68682009A5BA1 /* GameLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLogic.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1055,6 +1058,8 @@
 				7977E4C812F2DF470069071C /* MenuScene.mm */,
 				79A49E5213A0804100430071 /* SoundLayer.h */,
 				79A49E5313A0804100430071 /* SoundLayer.mm */,
+				E76C3EAD13B68682009A5BA1 /* GameLogic.h */,
+				E745B63413B6DB3F006680D0 /* GameLogic.mm */,
 			);
 			name = Layers;
 			sourceTree = "<group>";
@@ -1600,6 +1605,7 @@
 				79A49E5513A0804100430071 /* SoundLayer.mm in Sources */,
 				79E5DAC713A30B1600C3C4E1 /* BonusLabel.m in Sources */,
 				79167C3713B47B50000662C2 /* SettingScene.mm in Sources */,
+				E745B63513B6DB3F006680D0 /* GameLogic.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1807,6 +1813,7 @@
 				HEADER_SEARCH_PATHS = libs;
 				PREBINDING = NO;
 				PRODUCT_NAME = "cocos2d libraries";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -1822,6 +1829,7 @@
 				OTHER_CFLAGS = "-fvisibility=hidden";
 				PREBINDING = NO;
 				PRODUCT_NAME = "cocos2d libraries";
+				SKIP_INSTALL = YES;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -1844,7 +1852,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fvisibility=hidden";
 				PREBINDING = NO;
@@ -1868,7 +1876,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-fvisibility=hidden";
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "42FFE0E7-FCB7-45CC-8FEF-C702BEF8A2C9";
